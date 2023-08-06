@@ -10,4 +10,8 @@
     <Folder Include="Attributes\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnMed.DataAccess\OnMed.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

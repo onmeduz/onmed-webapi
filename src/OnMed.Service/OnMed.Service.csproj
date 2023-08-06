@@ -10,4 +10,8 @@
     <Folder Include="Common\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnMed.Persistance\OnMed.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>

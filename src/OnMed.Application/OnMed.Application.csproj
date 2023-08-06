@@ -10,4 +10,8 @@
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\OnMed.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -15,4 +15,8 @@
     <Folder Include="Accessors\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnMed.Service\OnMed.Service.csproj" />
+  </ItemGroup>
+
 </Project>

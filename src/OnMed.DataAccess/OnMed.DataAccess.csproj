@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnMed.Application\OnMed.Application.csproj" />
+  </ItemGroup>
+
 </Project>
