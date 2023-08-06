@@ -20,7 +20,7 @@ public class Hospital : Auditable
 
     public string Description { get; set; } = string.Empty;
 
-    public string Emile { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     public string Website { get; set; } = string.Empty;
 

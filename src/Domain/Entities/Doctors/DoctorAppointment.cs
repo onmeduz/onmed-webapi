@@ -14,7 +14,7 @@ public class DoctorAppointment : Auditable
     
     public TimeOnly StartTime { get; set; }
     
-    public int duration_minutes { get; set; }
+    public int DurationMinutes { get; set; }
     
     public string PaymentType { get; set; } = string.Empty;
     

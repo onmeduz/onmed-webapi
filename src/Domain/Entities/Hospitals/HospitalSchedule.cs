@@ -12,5 +12,5 @@ public class HospitalSchedule : Auditable
     
     public TimeOnly End_Time { get; set; }
     
-    public string description { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

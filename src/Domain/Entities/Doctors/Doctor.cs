@@ -2,5 +2,4 @@
 
 public class Doctor : Human
 {
-    public bool PhoneNumberConfirmed { get; set; }
 }
