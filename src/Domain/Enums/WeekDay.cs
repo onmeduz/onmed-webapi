@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Onmed.Domain.Enums
+namespace OnMed.Domain.Enums
 {
-    internal class Class1
+    public enum WeekDay
     {
+        Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
     }
 }

@@ -10,4 +10,18 @@
     <ProjectReference Include="..\OnMed.Application\OnMed.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Doctors\" />
+    <Folder Include="Interfaces\Heads\" />
+    <Folder Include="Interfaces\Administrators\" />
+    <Folder Include="Interfaces\Categories\" />
+    <Folder Include="Interfaces\Hospitals\" />
+    <Folder Include="Interfaces\Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.143" />
+    <PackageReference Include="Npgsql" Version="7.0.4" />
+  </ItemGroup>
+
 </Project>
