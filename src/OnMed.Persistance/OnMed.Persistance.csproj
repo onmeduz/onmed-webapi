@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
     <Folder Include="Attributes\" />
-    <Folder Include="Filters\" />
-    <Folder Include="Validations\" />
   </ItemGroup>
 
 </Project>

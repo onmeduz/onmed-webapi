@@ -5,17 +5,21 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{07F065CB-1372-4FF0-9EF8-CE0CCE13C87B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMed.WebApi", "src\OnMed.WebApi\OnMed.WebApi.csproj", "{8CBAB1C4-8748-4A94-99DA-20DC66129CE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.WebApi", "src\OnMed.WebApi\OnMed.WebApi.csproj", "{8CBAB1C4-8748-4A94-99DA-20DC66129CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onmed.Domain", "src\Domain\Onmed.Domain.csproj", "{F7FC51A7-95EF-43B0-8957-AF2BFC205783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onmed.Domain", "src\Domain\Onmed.Domain.csproj", "{F7FC51A7-95EF-43B0-8957-AF2BFC205783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMed.Application", "src\OnMed.Application\OnMed.Application.csproj", "{9D47F3FE-ADFF-4079-AD58-857B2B562240}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.Application", "src\OnMed.Application\OnMed.Application.csproj", "{9D47F3FE-ADFF-4079-AD58-857B2B562240}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMed.DataAccess", "src\OnMed.DataAccess\OnMed.DataAccess.csproj", "{D41CCAC2-891D-4AE4-A6A2-2607F16025BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.DataAccess", "src\OnMed.DataAccess\OnMed.DataAccess.csproj", "{D41CCAC2-891D-4AE4-A6A2-2607F16025BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMed.Persistance", "src\OnMed.Persistance\OnMed.Persistance.csproj", "{87C7A413-A9AD-4F79-9131-EF882D97A8D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.Persistance", "src\OnMed.Persistance\OnMed.Persistance.csproj", "{87C7A413-A9AD-4F79-9131-EF882D97A8D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMed.Service", "src\OnMed.Service\OnMed.Service.csproj", "{E488FCFF-A42E-4926-86F4-CC62A978147E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.Service", "src\OnMed.Service\OnMed.Service.csproj", "{E488FCFF-A42E-4926-86F4-CC62A978147E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8BCB36C9-5BFA-47A0-A15B-230E8446AEDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMed.UnitTest", "test\OnMed.UnitTest\OnMed.UnitTest.csproj", "{F59DCF57-445F-4DC9-86E1-C9F501771485}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{E488FCFF-A42E-4926-86F4-CC62A978147E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E488FCFF-A42E-4926-86F4-CC62A978147E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E488FCFF-A42E-4926-86F4-CC62A978147E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F59DCF57-445F-4DC9-86E1-C9F501771485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F59DCF57-445F-4DC9-86E1-C9F501771485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F59DCF57-445F-4DC9-86E1-C9F501771485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F59DCF57-445F-4DC9-86E1-C9F501771485}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +66,7 @@ Global
 		{D41CCAC2-891D-4AE4-A6A2-2607F16025BE} = {07F065CB-1372-4FF0-9EF8-CE0CCE13C87B}
 		{87C7A413-A9AD-4F79-9131-EF882D97A8D1} = {07F065CB-1372-4FF0-9EF8-CE0CCE13C87B}
 		{E488FCFF-A42E-4926-86F4-CC62A978147E} = {07F065CB-1372-4FF0-9EF8-CE0CCE13C87B}
+		{F59DCF57-445F-4DC9-86E1-C9F501771485} = {8BCB36C9-5BFA-47A0-A15B-230E8446AEDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {673160B9-0D6E-48A0-940F-3845814F0867}

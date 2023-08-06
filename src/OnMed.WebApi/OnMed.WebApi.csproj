@@ -12,9 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Middlewares\" />
-    <Folder Include="Configurations\" />
     <Folder Include="Accessors\" />
   </ItemGroup>
 

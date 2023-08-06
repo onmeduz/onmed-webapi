@@ -8,10 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Hubs\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

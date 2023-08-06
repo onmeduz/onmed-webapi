@@ -6,11 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
