@@ -1,0 +1,8 @@
+/.github/*                 @ahadulla
+/test/*                    @ahadulla
+/src/OnMed.Application/*   @rustamkulov
+/src/OnMed.DataAccess/*    @rustamkulov
+/src/OnMed.Domain/*        @rustamkulov
+/src/OnMed.Persistance/*   @rustamkulov
+/src/OnMed.Service/*       @rustamkulov
+/src/OnMed.WebApi/*        @ahadulla
