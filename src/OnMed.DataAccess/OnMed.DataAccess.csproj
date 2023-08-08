@@ -12,10 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Doctors\" />
-    <Folder Include="Interfaces\Heads\" />
     <Folder Include="Interfaces\Administrators\" />
     <Folder Include="Interfaces\Categories\" />
-    <Folder Include="Interfaces\Hospitals\" />
     <Folder Include="Interfaces\Users\" />
   </ItemGroup>
 
