@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace OnMed.DataAccess.ViewModels.Administrators;
 
-namespace OnMed.DataAccess.ViewModels.Administrators
+public class AdministratorViewModel : HumanViewModel
 {
-    internal class AdministratorViewModel
-    {
-    }
 }
