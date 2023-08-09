@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Users;
+using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Users;
 
 namespace OnMed.DataAccess.Repositories.Users;
@@ -79,6 +80,26 @@ public class UserRepository : BaseRepository, IUserRepository
             var result = await _connection.QuerySingleAsync<User>(query, new { Id = id });
 
             return result;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<User?> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT * FROM users WHERE phone_number = @PhoneNumber";
+            var data = await _connection.QuerySingleAsync<User>(query, new { PhoneNumber = phoneNumber });
+
+            return data;
         }
         catch
         {

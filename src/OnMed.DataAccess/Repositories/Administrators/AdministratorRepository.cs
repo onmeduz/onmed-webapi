@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.Domain.Entities.Administrators;
+using OnMed.Domain.Entities.Users;
+using System.Numerics;
 
 namespace OnMed.DataAccess.Repositories.Administrators;
 
@@ -79,6 +81,26 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
             var result = await _connection.QuerySingleAsync<Administrator>(query, new { Id = id });
 
             return result;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<Administrator?> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT * FROM administrators WHERE phone_number = @PhoneNumber";
+            var data = await _connection.QuerySingleAsync<Administrator>(query, new { PhoneNumber = phoneNumber });
+
+            return data;
         }
         catch
         {

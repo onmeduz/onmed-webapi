@@ -2,6 +2,7 @@
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Heads;
 using OnMed.DataAccess.ViewModels.Heads;
+using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Heads;
 
@@ -63,6 +64,26 @@ public class HeadRepository : BaseRepository, IHeadRepository
             var result = await _connection.QuerySingleAsync<Head>(query);
 
             return result;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<Head?> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT * FROM heads WHERE phone_number = @PhoneNumber";
+            var data = await _connection.QuerySingleAsync<Head>(query, new { PhoneNumber = phoneNumber });
+
+            return data;
         }
         catch
         {

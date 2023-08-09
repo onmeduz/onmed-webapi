@@ -1,6 +1,8 @@
-﻿using OnMed.Domain.Entities.Administrators;
+﻿using OnMed.DataAccess.Common.Interfaces;
+using OnMed.Domain.Entities.Administrators;
 
 namespace OnMed.DataAccess.Interfaces.Administrators;
 
-public interface IAdministratorRepository : IRepository<Administrator>
+public interface IAdministratorRepository : IRepository<Administrator>, 
+    IGetByPhoneNumber<Administrator?>
 {}
