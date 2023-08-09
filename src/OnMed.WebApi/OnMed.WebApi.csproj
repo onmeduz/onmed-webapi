@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <Folder Include="Accessors\" />
+    <Folder Include="Controllers\Admin\NewFolder\" />
+    <Folder Include="Controllers\Head\" />
   </ItemGroup>
 
   <ItemGroup>
