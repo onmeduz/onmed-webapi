@@ -2,8 +2,8 @@
 
 namespace OnMed.DataAccess.Common.Interfaces;
 
-public interface IGetAll<TModel>
+public interface IGetAll<TViewModel>
 {
-    public Task<IList<TModel>> GetAllAsync(PaginationParams @params);
+    public Task<IList<TViewModel>> GetAllAsync(PaginationParams @params);
 }
 
