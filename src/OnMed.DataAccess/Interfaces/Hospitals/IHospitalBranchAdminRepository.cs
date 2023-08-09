@@ -2,5 +2,5 @@
 
 namespace OnMed.DataAccess.Interfaces.Hospitals;
 
-public interface IHospitalBranchAdminRepository : IRepository<HospitalBranchAdmins>
+public interface IHospitalBranchAdminRepository : IRepository<HospitalBranchAdmin>
 { }
