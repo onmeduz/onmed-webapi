@@ -1,8 +1,11 @@
-﻿namespace OnMed.Domain.Entities.Doctors;
-
-public class DoctorCategories : Auditable
+﻿
+namespace DemoConsole
 {
-    public long DoctorId { get; set; }
-
-    public long CategoryId { get; set; }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
 }
