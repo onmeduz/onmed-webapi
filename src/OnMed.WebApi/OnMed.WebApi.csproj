@@ -14,7 +14,7 @@
   <ItemGroup>
     <Folder Include="Accessors\" />
     <Folder Include="Controllers\Admin\NewFolder\" />
-    <Folder Include="Controllers\Head\" />
+    <Folder Include="wwwroot\media\images\" />
   </ItemGroup>
 
   <ItemGroup>

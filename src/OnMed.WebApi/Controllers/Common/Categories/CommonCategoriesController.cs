@@ -7,7 +7,6 @@ namespace OnMed.WebApi.Controllers.Common.Categories
     [ApiController]
     public class CommonCategoriesController : CommonBaseController
     {
-
         [HttpGet]
         public IActionResult Get() => Ok();
 
