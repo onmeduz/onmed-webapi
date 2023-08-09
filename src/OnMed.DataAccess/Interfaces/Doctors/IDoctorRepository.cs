@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OnMed.Domain.Entities.Doctors;
 
-namespace OnMed.DataAccess.Interfaces.Doctors
-{
-    internal class IDoctorRepository
-    {
-    }
-}
+namespace OnMed.DataAccess.Interfaces.Doctors;
+
+public interface IDoctorRepository : IRepository<Doctor>
+{}
