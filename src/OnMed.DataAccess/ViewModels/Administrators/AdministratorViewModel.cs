@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnMed.DataAccess.ViewModels
+namespace OnMed.DataAccess.ViewModels.Administrators
 {
-    internal class Class1
+    internal class AdministratorViewModel
     {
     }
 }

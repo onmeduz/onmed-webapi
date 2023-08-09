@@ -1,5 +1,5 @@
 ﻿namespace OnMed.DataAccess.ViewModels.Users;
 
-public class UserViewModel
+public class UserViewModel : HumanViewModel
 {
 }
