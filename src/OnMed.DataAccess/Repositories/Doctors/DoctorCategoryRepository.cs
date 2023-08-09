@@ -1,17 +1,18 @@
 ﻿using Dapper;
-using OnMed.DataAccess.Interfaces.Categories;
-using OnMed.Domain.Entities.Categories;
+using Onmed.Domain.Entities.Doctors;
+using OnMed.DataAccess.Interfaces.Doctors;
+using OnMed.Domain.Entities.Doctors;
 
-namespace OnMed.DataAccess.Repositories.Categories;
+namespace OnMed.DataAccess.Repositories.Doctors;
 
-public class CategoryRepository : BaseRepository, ICategoryRepository
+public class DoctorCategoryRepository : BaseRepository, IDoctorCategoryRepository
 {
     public async Task<long> CountAsync()
     {
         try
         {
             await _connection.OpenAsync();
-            string query = $"SELECT COUNT(*) FROM categories";
+            string query = $"SELECT count(*) FROM doctor_categories ;";
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
@@ -26,15 +27,13 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         }
     }
 
-    public async Task<int> CreateAsync(Category entity)
+    public async Task<int> CreateAsync(DoctorCategory entity)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "INSERT INTO categories(image_path, professionality, " +
-                "professionality_hint, professional, professional_hint, created_at, updated_at) " +
-                    "VALUES (@ImagePath, @Professionality, @ProfessionalityHint, @Professional, " +
-                        "@ProfessionalHint, @CreatedAt, @Updatedat);";
+            string query = "INSERT INTO doctor_categories (doctor_id, category_id, created_at, updated_at) " +
+                "VALUES (@DoctorId, @CategoryId, @CreatedAt, @UpdatedAt);";
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
@@ -54,7 +53,7 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM categories WHERE id=@Id";
+            string query = $"DELETE FROM doctor_categories WHERE id=@Id";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -69,13 +68,13 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         }
     }
 
-    public async Task<Category?> GetByIdAsync(long id)
+    public async Task<DoctorCategory?> GetByIdAsync(long id)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = $"SELECT * FROM categories WHERE id=@Id";
-            var result = await _connection.QuerySingleAsync<Category>(query, new { Id = id });
+            string query = $"SELECT * FROM doctor_categories WHERE id = {id} ;";
+            var result = await _connection.QuerySingleAsync<DoctorCategory>(query);
 
             return result;
         }
@@ -89,15 +88,14 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         }
     }
 
-    public async Task<int> UpdateAsync(long id, Category entity)
+    public async Task<int> UpdateAsync(long id, DoctorCategory entity)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "UPDATE categories SET image_path=@ImagePath, professionality=@Professionality, " +
-                "professionality_hint=@ProfessionalityHint, professional=@Professional, " +
-                    "professional_hint=@ProfessionalHint, updated_at=@UpdatedAt " +
-                        $"WHERE id = {id};";
+            string query = "UPDATE doctor_categories SET doctor_id=@DoctorId, " +
+                "category_id=@CategoryId, updated_at=@UpdatedAt " +
+                    $"WHERE id = {id};";
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
