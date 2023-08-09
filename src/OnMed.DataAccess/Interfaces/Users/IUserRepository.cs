@@ -4,7 +4,7 @@ using OnMed.Domain.Entities.Users;
 
 namespace OnMed.DataAccess.Interfaces.Users;
 
-public interface IUserRepository : IRepository<User, UserViewModel>, IGetAll<UserViewModel>,
-    ISearchable<UserViewModel>
+public interface IUserRepository : IRepository<User>
 {
+
 }

@@ -38,22 +38,7 @@ public class HeadRepository : BaseRepository, IHeadRepository
         throw new NotImplementedException();
     }
 
-    public Task<IList<HeadViewModel>> GetAllAsync(PaginationParams @params)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<Head?> GetByIdAsync(long id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<HeadViewModel?> GetByIdViewModelAsync(long id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<(int ItemsCount, IList<HeadViewModel>)> SearchAsync(string search, PaginationParams @params)
     {
         throw new NotImplementedException();
     }
