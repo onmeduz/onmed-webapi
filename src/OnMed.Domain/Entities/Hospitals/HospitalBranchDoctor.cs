@@ -1,6 +1,6 @@
 ﻿namespace OnMed.Domain.Entities.Hospitals;
 
-public class HospitalBranchDoctors : Auditable
+public class HospitalBranchDoctor : Auditable
 {
     public long HospitalBranchId { get; set; }
     public long DoctorId { get; set; }
