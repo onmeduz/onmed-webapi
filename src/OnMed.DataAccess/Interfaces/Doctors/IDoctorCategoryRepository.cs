@@ -3,4 +3,4 @@
 namespace OnMed.DataAccess.Interfaces.Doctors;
 
 public interface IDoctorCategoryRepository : IRepository<DoctorCategory>
-{ }
+{}
