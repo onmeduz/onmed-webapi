@@ -46,5 +46,16 @@ namespace OnMed.WebApi.Controllers.Common.Users
             var serviceResult = await _authService.VerifyRegisterAsync(verifyRegisterDto.PhoneNumber, verifyRegisterDto.Code);
             return Ok(new { serviceResult.Result, serviceResult.Token });
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
+        {
+            var validator = new LoginValidator();
+            var valResult = validator.Validate(loginDto);
+            if (valResult.IsValid == false) return BadRequest(valResult.Errors);
+
+            var serviceResult = await _authService.LoginAsync(loginDto);
+            return Ok(new { serviceResult.Result, serviceResult.Token });
+        }
     }
 }

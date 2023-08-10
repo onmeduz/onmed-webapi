@@ -27,7 +27,8 @@ public class AuthService : IAuthService
     private const int VERIFICATION_MAXIMUM_ATTEMPTS = 3;
 
     public AuthService(IMemoryCache memoryCache,
-        IUserRepository userRepository, ISmsSender smsSender,
+        IUserRepository userRepository,
+        ISmsSender smsSender,
         ITokenService tokenService)
     {
         this._memoryCache = memoryCache;
@@ -35,9 +36,16 @@ public class AuthService : IAuthService
         this._smsSender = smsSender;
         this._tokenService = tokenService;
     }
-    public Task<(bool Result, string Token)> LoginAsync(LoginDto loginDto)
+    public async Task<(bool Result, string Token)> LoginAsync(LoginDto loginDto)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByPhoneNumberAsync(loginDto.PhoneNumber);
+        if (user is null) throw new UserNotFoundException();
+
+        var hasherResult = PasswordHasher.Verify(loginDto.Password, user.PasswordHash, user.Salt);
+        if (hasherResult == false) throw new PasswordNotMatchException();
+
+        string token = _tokenService.GenerateToken(user);
+        return (Result: true, Token: token);
     }
 
 #pragma warning disable
