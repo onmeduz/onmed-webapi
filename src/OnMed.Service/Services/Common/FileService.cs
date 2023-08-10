@@ -8,7 +8,10 @@ namespace OnMed.Service.Services.Common;
 public class FileService : IFileService
 {
     private readonly string MEDIA = "media";
+    private readonly string STORAGE = "storage";
     private readonly string IMAGES = "images";
+    private readonly string PHOTONAME = "categories";
+
     private readonly string ROOTPATH;
 
     public FileService(IWebHostEnvironment env)
@@ -43,7 +46,7 @@ public class FileService : IFileService
     public async Task<string> UploadImageAsync(IFormFile image)
     {
         string newImageName = MediaHelper.MakeImageName(image.FileName);
-        string subpath = Path.Combine(MEDIA, IMAGES, newImageName);
+        string subpath = Path.Combine(STORAGE, IMAGES, PHOTONAME, newImageName);
         string path = Path.Combine(ROOTPATH, subpath);
 
         var stream = new FileStream(path, FileMode.Create);
