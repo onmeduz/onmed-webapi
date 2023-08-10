@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using OnMed.Service.Common.Helpers;
+using OnMed.Persistance.Common.Helpers;
 using OnMed.Service.Interfaces.Common;
 
 namespace OnMed.Service.Services.Common;

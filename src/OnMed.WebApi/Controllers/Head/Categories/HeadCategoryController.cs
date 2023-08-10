@@ -24,5 +24,15 @@ namespace OnMed.WebApi.Controllers.Head.Categories
             if (result.IsValid) return Ok(await _categoryService.CreateAsync(dto));
             else return BadRequest(result.Errors);
         }
+
+        [HttpPut("{categoryId}")]
+        public async Task<IActionResult> UpdateAsync(long categoryId, [FromForm] CategoryUpdateDto dto)
+        {
+            var updateValidator = new CategoryUpdateValidator();
+            var validationResult = updateValidator.Validate(dto);
+            if (validationResult.IsValid) return Ok(await _categoryService.UpdateAsync(categoryId, dto));
+            else return BadRequest(validationResult.Errors);
+        }
+
     }
 }
