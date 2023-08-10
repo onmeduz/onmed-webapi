@@ -8,7 +8,6 @@ namespace OnMed.WebApi.Controllers.Common.Doctors;
 [ApiController]
 public class CommonDoctorsController : CommonBaseController
 {
-
     [HttpGet]
     public IActionResult Get() => Ok();
 
