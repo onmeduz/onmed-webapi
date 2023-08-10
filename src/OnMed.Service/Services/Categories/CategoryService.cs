@@ -1,10 +1,13 @@
-﻿using OnMed.DataAccess.Interfaces;
+﻿using OnMed.Application.Exceptions.Categories;
+using OnMed.Application.Exceptions.Files;
+using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Categories;
 using OnMed.Domain.Entities.Categories;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Categories;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
+using System.Net.WebSockets;
 
 namespace OnMed.Service.Services.Categories;
 
@@ -36,12 +39,26 @@ public class CategoryService : ICategoryService
         return result > 0;
     }
 
+    public async Task<bool> DeleteAsync(long categoryId)
+    {
+        var category = await _categoryRepository.GetByIdAsync(categoryId);
+        if (category is null) throw new CategoryNotFoundException();
+
+        var result = await _fileService.DeleteImageAsync(category.ImagePath);
+        if (result == false) throw new ImageNotFoundException();
+
+        var dbResult = await _categoryRepository.DeleteAsync(categoryId);
+
+        return dbResult > 0;
+    }
+
     public async Task<bool> UpdateAsync(long categoryId, CategoryUpdateDto dto)
     {
-        /*var category = await _categoryRepository.GetByIdAsync(categoryId);
+        var category = await _categoryRepository.GetByIdAsync(categoryId);
         if (category is null) throw new CategoryNotFoundException();
 
         category.Professionality = dto.Professionality;
+        category.Professional = dto.Professional;
 
         if (dto.Image is not null)
         {
@@ -54,9 +71,8 @@ public class CategoryService : ICategoryService
         }
 
         category.UpdatedAt = TimeHelper.GetDateTime();
+        var dbResult = await _categoryRepository.UpdateAsync(categoryId, category);
 
-        var dbResult = await _repository.UpdateAsync(categoryId, category);
-        return dbResult > 0;*/
-        throw new NotImplementedException();
+        return dbResult > 0;
     }
 }

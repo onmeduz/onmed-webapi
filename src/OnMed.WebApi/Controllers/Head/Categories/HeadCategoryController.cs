@@ -34,5 +34,8 @@ namespace OnMed.WebApi.Controllers.Head.Categories
             else return BadRequest(validationResult.Errors);
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(long categoryId)
+            => Ok(await _categoryService.DeleteAsync(categoryId));
     }
 }

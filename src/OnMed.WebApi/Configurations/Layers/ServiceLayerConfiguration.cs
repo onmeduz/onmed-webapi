@@ -16,6 +16,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<ISmsSender, SmsSender>();
         }
     }

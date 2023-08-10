@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace OnMed.DataAccess.ViewModels;
+﻿namespace OnMed.DataAccess.ViewModels;
 
 public class HumanViewModel
 {
