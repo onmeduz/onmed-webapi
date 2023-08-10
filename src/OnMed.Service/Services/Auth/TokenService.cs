@@ -4,7 +4,7 @@ using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Heads;
 using OnMed.Domain.Entities.Users;
-using OnMed.Service.Common.Helpers;
+using OnMed.Persistance.Common.Helpers;
 using OnMed.Service.Interfaces.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
