@@ -15,10 +15,12 @@ namespace OnMed.Service.Services.Auth;
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _config;
+
     public TokenService(IConfiguration configuration)
     {
         _config = configuration.GetSection("Jwt");
     }
+
     public string GenerateToken(User user)
     {
         var identityClaims = new Claim[]
@@ -32,7 +34,6 @@ public class TokenService : ITokenService
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecurityKey"]!));
         var keyCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
         int expiresHours = int.Parse(_config["Lifetime"]!);
         var token = new JwtSecurityToken(
             issuer: _config["Issuer"],

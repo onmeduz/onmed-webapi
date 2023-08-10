@@ -6,6 +6,7 @@ public class PasswordHasher
     {
         string salt = Guid.NewGuid().ToString();
         string hash = BCrypt.Net.BCrypt.HashPassword(password + salt);
+
         return (Hash: hash, Salt: salt);
     }
 

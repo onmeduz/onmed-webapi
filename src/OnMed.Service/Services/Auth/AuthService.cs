@@ -108,13 +108,18 @@ public class AuthService : IAuthService
                 else if (verificationDto.Code == code)
                 {
                     var dbResult = await RegisterToDatabaseAsync(registerDto);
+
                     if (dbResult is true)
                     {
                         var user = await _userRepository.GetByPhoneNumberAsync(phone);
                         string token = _tokenService.GenerateToken(user);
+
                         return (Result: true, Token: token);
                     }
-                    else return (Result: false, Token: "");
+                    else 
+                    { 
+                        return (Result: false, Token: "");
+                    }
                 }
                 else
                 {
@@ -122,6 +127,7 @@ public class AuthService : IAuthService
                     verificationDto.Attempt++;
                     _memoryCache.Set(VERIFY_REGISTER_CACHE_KEY + phone, verificationDto,
                         TimeSpan.FromMinutes(CACHED_MINUTES_FOR_VERIFICATION));
+
                     return (Result: false, Token: "");
                 }
             }
@@ -137,14 +143,12 @@ public class AuthService : IAuthService
         user.LastName = registerDto.LastName;
         user.PhoneNumber = registerDto.PhoneNumber;
         user.PhoneNumberConfirmed = true;
-
         var hasherResult = PasswordHasher.Hash(registerDto.Password);
         user.PasswordHash = hasherResult.Hash;
         user.Salt = hasherResult.Salt;
-
         user.CreatedAt = user.UpdatedAt = TimeHelper.GetDateTime();
-
         var dbResult = await _userRepository.CreateAsync(user);
+
         return dbResult > 0;
     }
 }
