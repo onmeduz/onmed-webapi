@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnMed.Service.Services
+namespace OnMed.Persistance.Validators.Dtos.Categories
 {
-    internal class Class1
+    internal class CategoryUpdateValidator
     {
     }
 }
