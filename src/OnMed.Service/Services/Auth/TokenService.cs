@@ -52,7 +52,26 @@ public class TokenService : ITokenService
 
     public string GenerateToken(Doctor doctor)
     {
-        throw new NotImplementedException();
+        var identityClaims = new Claim[]
+        {
+            new Claim("Id", doctor.Id.ToString()),
+            new Claim("FirstName", doctor.FirstName),
+            new Claim("Lastname", doctor.LastName),
+            new Claim(ClaimTypes.MobilePhone, doctor.PhoneNumber),
+            new Claim(ClaimTypes.Role, "Doctor")
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecurityKey"]!));
+        var keyCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        int expiresHours = int.Parse(_config["Lifetime"]!);
+        var token = new JwtSecurityToken(
+            issuer: _config["Issuer"],
+            audience: _config["Audience"],
+            claims: identityClaims,
+            expires: TimeHelper.GetDateTime().AddHours(expiresHours),
+            signingCredentials: keyCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     public string GenerateToken(Head head)

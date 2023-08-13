@@ -1,6 +1,8 @@
 ﻿using OnMed.DataAccess.Interfaces.Categories;
+using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Users;
 using OnMed.DataAccess.Repositories.Categories;
+using OnMed.DataAccess.Repositories.Doctors;
 using OnMed.DataAccess.Repositories.Users;
 
 namespace OnMed.WebApi.Configurations.Layers
@@ -11,6 +13,7 @@ namespace OnMed.WebApi.Configurations.Layers
         {
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
         }
     }
 }
