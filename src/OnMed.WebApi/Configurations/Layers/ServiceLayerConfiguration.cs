@@ -1,10 +1,12 @@
 ﻿using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
+using OnMed.Service.Interfaces.Doctors;
 using OnMed.Service.Interfaces.Notifications;
 using OnMed.Service.Services.Auth;
 using OnMed.Service.Services.Categories;
 using OnMed.Service.Services.Common;
+using OnMed.Service.Services.Doctors;
 using OnMed.Service.Services.Notifications;
 
 namespace OnMed.WebApi.Configurations.Layers
@@ -18,6 +20,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<ISmsSender, SmsSender>();
+            builder.Services.AddScoped<IDoctorService, DoctorService>();
         }
     }
 }
