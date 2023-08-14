@@ -98,6 +98,7 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
                 "professionality_hint=@ProfessionalityHint, professional=@Professional, " +
                     "professional_hint=@ProfessionalHint, updated_at=@UpdatedAt " +
                         $"WHERE id = {id};";
+
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;

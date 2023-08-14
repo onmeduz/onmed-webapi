@@ -10,6 +10,7 @@ public class DateOnlyTypeHandler : SqlMapper.TypeHandler<DateOnly>
         if (value is not null)
         {
             var datetime = DateTime.Parse(value.ToString()!);
+
             return DateOnly.FromDateTime(datetime);
         }
         else return new DateOnly();

@@ -23,6 +23,12 @@ public class CategoryService : ICategoryService
         this._categoryRepository = categoryRepository;
     }
 
+    public Task<long> CountAsync()
+    {
+        var categoryCount = _categoryRepository.CountAsync();
+        return categoryCount;
+    }
+
     public async Task<bool> CreateAsync(CategoryCreateDto dto)
     {
         string imagepath = await _fileService.UploadImageAsync(dto.Image);
