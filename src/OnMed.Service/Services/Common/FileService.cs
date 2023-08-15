@@ -10,7 +10,6 @@ public class FileService : IFileService
     private readonly string MEDIA = "media";
     private readonly string STORAGE = "storage";
     private readonly string IMAGES = "images";
-    private readonly string PHOTONAME = "categories";
 
     private readonly string ROOTPATH;
 
@@ -38,15 +37,15 @@ public class FileService : IFileService
         else return false;
     }
 
-    public Task<string> UploadAvatarAsync(IFormFile avatar)
+    public Task<string> UploadAvatarAsync(IFormFile avatar, string folderName)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<string> UploadImageAsync(IFormFile image)
+    public async Task<string> UploadImageAsync(IFormFile image, string folderName)
     {
         string newImageName = MediaHelper.MakeImageName(image.FileName);
-        string subpath = Path.Combine(STORAGE, IMAGES, PHOTONAME, newImageName);
+        string subpath = Path.Combine(STORAGE, IMAGES, folderName, newImageName);
         string path = Path.Combine(ROOTPATH, subpath);
 
         var stream = new FileStream(path, FileMode.Create);

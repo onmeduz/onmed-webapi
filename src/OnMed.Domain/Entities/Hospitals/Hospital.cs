@@ -7,6 +7,7 @@ public class Hospital : Auditable
     public string Name { get; set; } = string.Empty;
     public string LegalName { get; set; } = string.Empty;
     public string BrandImagePath { get; set; } = string.Empty;
+    public string AdministratorPhoneNumber { get; set; } = string.Empty;
     public string FaxPhoneNumber { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

@@ -31,7 +31,7 @@ public class CategoryService : ICategoryService
 
     public async Task<bool> CreateAsync(CategoryCreateDto dto)
     {
-        string imagepath = await _fileService.UploadImageAsync(dto.Image);
+        string imagepath = await _fileService.UploadImageAsync(dto.Image, "categories");
         Category category = new Category();
         category.ImagePath = imagepath;
         category.Professionality = dto.Professionality;
@@ -71,7 +71,7 @@ public class CategoryService : ICategoryService
             var deleteResult = await _fileService.DeleteImageAsync(category.ImagePath);
             if (deleteResult is false) throw new ImageNotFoundException();
 
-            string newImagePath = await _fileService.UploadImageAsync(dto.Image);
+            string newImagePath = await _fileService.UploadImageAsync(dto.Image,"categories");
 
             category.ImagePath = newImagePath;
         }
