@@ -1,4 +1,5 @@
 ﻿using OnMed.Persistance.Dtos.Categories;
+using OnMed.Persistance.Dtos.Hospitals;
 
 namespace OnMed.Service.Interfaces.Categories;
 

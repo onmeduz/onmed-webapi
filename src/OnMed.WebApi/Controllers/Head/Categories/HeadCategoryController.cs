@@ -41,4 +41,6 @@ public class HeadCategoryController : HeadBaseController
     [HttpGet("count")]
     public async Task<IActionResult> CountAsync()
     => Ok(await _categoryService.CountAsync());
+
+    // Get All Common controllerdan olinadi.
 }
