@@ -47,7 +47,26 @@ public class TokenService : ITokenService
 
     public string GenerateToken(Administrator admin)
     {
-        throw new NotImplementedException();
+        var identityClaims = new Claim[]
+        {
+            new Claim("Id", admin.Id.ToString()),
+            new Claim("FirstName", admin.FirstName),
+            new Claim("Lastname", admin.LastName),
+            new Claim(ClaimTypes.MobilePhone, admin.PhoneNumber),
+            new Claim(ClaimTypes.Role, "Admin")
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecurityKey"]!));
+        var keyCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        int expiresHours = int.Parse(_config["Lifetime"]!);
+        var token = new JwtSecurityToken(
+            issuer: _config["Issuer"],
+            audience: _config["Audience"],
+            claims: identityClaims,
+            expires: TimeHelper.GetDateTime().AddHours(expiresHours),
+            signingCredentials: keyCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     public string GenerateToken(Doctor doctor)
@@ -76,6 +95,25 @@ public class TokenService : ITokenService
 
     public string GenerateToken(Head head)
     {
-        throw new NotImplementedException();
+        var identityClaims = new Claim[]
+                {
+            new Claim("Id", head.Id.ToString()),
+            new Claim("FirstName", head.FirstName),
+            new Claim("Lastname", head.LastName),
+            new Claim(ClaimTypes.MobilePhone, head.PhoneNumber),
+            new Claim(ClaimTypes.Role, "Head")
+                };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecurityKey"]!));
+        var keyCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        int expiresHours = int.Parse(_config["Lifetime"]!);
+        var token = new JwtSecurityToken(
+            issuer: _config["Issuer"],
+            audience: _config["Audience"],
+            claims: identityClaims,
+            expires: TimeHelper.GetDateTime().AddHours(expiresHours),
+            signingCredentials: keyCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

@@ -7,16 +7,16 @@ public class DateOnlyTypeHandler : SqlMapper.TypeHandler<DateOnly>
 {
     public override DateOnly Parse(object value)
     {
-        if (value is not null)
-        {
-            var datetime = DateTime.Parse(value.ToString()!);
-            return DateOnly.FromDateTime(datetime);
-        }
-        else return new DateOnly();
+        var stringVal = value.ToString();
+        if(stringVal is null) return new DateOnly();
+        var dateTime = DateTime.Parse(stringVal);
+
+        return DateOnly.FromDateTime(dateTime);
     }
 
     public override void SetValue(IDbDataParameter parameter, DateOnly value)
     {
-        parameter.Value = (object)("" + value.Year + "-" + value.Month + "-" + value.Day);
+        parameter.Value = new DateTime(value.Year, value.Month, value.Day);
     }
+
 }
