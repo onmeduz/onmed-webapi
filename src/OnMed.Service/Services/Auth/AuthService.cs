@@ -24,6 +24,7 @@ public class AuthService : IAuthService
     private const int CACHED_MINUTES_FOR_VERIFICATION = 5;
     private const string REGISTER_CACHE_KEY = "register_";
     private const string VERIFY_REGISTER_CACHE_KEY = "verify_register_";
+    private const string VERIFY_RESET_CACHE_KEY = "verify_register_";
     private const int VERIFICATION_MAXIMUM_ATTEMPTS = 3;
 
     public AuthService(IMemoryCache memoryCache,
@@ -73,7 +74,6 @@ public class AuthService : IAuthService
             verificationDto.Attempt = 0;
             verificationDto.CreatedAt = TimeHelper.GetDateTime();
 
-            // make confirm code as random
             //verificationDto.Code = CodeGenerator.GenerateRandomNumber();
             verificationDto.Code = 11111;
 
@@ -90,7 +90,7 @@ public class AuthService : IAuthService
             smsMessage.Content = "Sizning tasdiqlash kodingiz : " + verificationDto.Code;
             smsMessage.Recipent = phone.Substring(1);
 
-            var smsResult = await _smsSender.SendAsync(smsMessage);
+            var smsResult = true; //await _smsSender.SendAsync(smsMessage);
             if (smsResult is true) return (Result: true, CachedVerificationMinutes: CACHED_MINUTES_FOR_VERIFICATION);
             else return (Result: false, CachedVerificationMinutes: 0);
         }
@@ -150,5 +150,72 @@ public class AuthService : IAuthService
         var dbResult = await _userRepository.CreateAsync(user);
 
         return dbResult > 0;
+    }
+
+    public async Task<(bool Result, int CachedVerificationMinutes)> SendCodeForResetPasswordAsync(string phone)
+    {
+            
+        VerificationDto verificationDto = new VerificationDto();
+        verificationDto.Attempt = 0;
+        verificationDto.CreatedAt = TimeHelper.GetDateTime();
+        //verificationDto.Code = CodeGenerator.GenerateRandomNumber();
+        verificationDto.Code = 11111;
+
+        if (_memoryCache.TryGetValue(VERIFY_RESET_CACHE_KEY + phone, out VerificationDto oldVerifcationDto))
+        {
+            _memoryCache.Remove(VERIFY_RESET_CACHE_KEY + phone);
+        }
+
+        _memoryCache.Set(VERIFY_RESET_CACHE_KEY + phone, verificationDto,
+            TimeSpan.FromMinutes(CACHED_MINUTES_FOR_VERIFICATION));
+
+        SmsMessage smsMessage = new SmsMessage();
+        smsMessage.Title = "On Med";
+        smsMessage.Content = "Sizning tasdiqlash kodingiz : " + verificationDto.Code;
+        smsMessage.Recipent = phone.Substring(1);
+
+
+        var smsResult = true; //await _smsSender.SendAsync(smsMessage);
+        if (smsResult is true) return (Result: true, CachedVerificationMinutes: CACHED_MINUTES_FOR_VERIFICATION);
+        else return (Result: false, CachedVerificationMinutes: 0);
+    }
+
+    public async Task<(bool Result, string Token)> VerifyResetPasswordAsync(string phone, int code)
+    {
+        if (_memoryCache.TryGetValue(VERIFY_RESET_CACHE_KEY + phone, out VerificationDto verificationDto))
+        {
+            if (verificationDto.Attempt >= VERIFICATION_MAXIMUM_ATTEMPTS)
+                throw new VerificationTooManyRequestsException();
+            else if (verificationDto.Code == code)
+            {
+                var user = await _userRepository.GetByPhoneNumberAsync(phone);
+                string token = _tokenService.GenerateToken(user);
+
+                return (Result: true, Token: token);
+            }
+            else
+            {
+                _memoryCache.Remove(VERIFY_REGISTER_CACHE_KEY + phone);
+                verificationDto.Attempt++;
+                _memoryCache.Set(VERIFY_REGISTER_CACHE_KEY + phone, verificationDto,
+                    TimeSpan.FromMinutes(CACHED_MINUTES_FOR_VERIFICATION));
+
+                return (Result: false, Token: "");
+            }
+        }
+        else throw new VerificationCodeExpiredException();
+    }
+
+    public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
+    {
+        var user = await _userRepository.GetByPhoneNumberAsync(dto.PhoneNumber);
+        if (user is null) throw new UserNotFoundException();
+        var hasherResult = PasswordHasher.Hash(dto.Password);
+        user.PasswordHash = hasherResult.Hash;
+        user.Salt = hasherResult.Salt;
+        user.UpdatedAt = TimeHelper.GetDateTime();
+        var result = await _userRepository.UpdateAsync(user.Id, user);
+
+        return result > 0;
     }
 }

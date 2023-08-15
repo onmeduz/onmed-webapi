@@ -61,5 +61,35 @@ namespace OnMed.WebApi.Controllers.Common.Users
 
             return Ok(new { serviceResult.Result, serviceResult.Token });
         }
+
+        [HttpPost("reset/send-code")]
+        public async Task<IActionResult> SentCodeResetPasswordAsync(string phone)
+        {
+            var result = PhoneNumberValidator.IsValid(phone);
+            if (result == false) return BadRequest("Phone number is invalid!");
+            var serviceResult = await _authService.SendCodeForResetPasswordAsync(phone);
+
+            return Ok(new { serviceResult.Result, serviceResult.CachedVerificationMinutes });
+        }
+
+        [HttpPost("reset/verify")]
+        public async Task<IActionResult> VerifyResetPasswordAsync([FromBody] VerifyRegisterDto verifyRegisterDto)
+        {
+            var serviceResult = await _authService.VerifyResetPasswordAsync(verifyRegisterDto.PhoneNumber, verifyRegisterDto.Code);
+
+            return Ok(new { serviceResult.Result, serviceResult.Token });
+        }
+
+        [HttpPut("reset/update")]
+        //[Authorize(Roles = "User")]
+        public async Task<IActionResult> ResetPasswordAsync([FromForm] ResetPasswordDto dto)
+        {
+            var validator = new ResetPasswordValidator();
+            var valResult = validator.Validate(dto);
+            if (valResult.IsValid == false) return BadRequest(valResult.Errors);
+            await _authService.ResetPasswordAsync(dto);
+
+            return Ok(await _authService.ResetPasswordAsync(dto));
+        }
     }
 }
