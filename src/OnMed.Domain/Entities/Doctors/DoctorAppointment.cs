@@ -15,5 +15,5 @@ public class DoctorAppointment : Auditable
     public string Description { get; set; } = string.Empty;
     public double PaidMoney { get; set; }
     public string PaymentDescription { get; set; } = string.Empty;
-    public byte Stars { get; set; }
+    public short Stars { get; set; }
 }

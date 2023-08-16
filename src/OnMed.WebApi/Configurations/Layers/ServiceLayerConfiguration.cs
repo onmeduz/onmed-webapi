@@ -21,9 +21,10 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
-            builder.Services.AddScoped<ISmsSender, SmsSender>();
+            builder.Services.AddSingleton<ISmsSender, SmsSender>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
             builder.Services.AddScoped<IHospitalService, HospitalService>();
+            builder.Services.AddScoped<IPaginator, Paginator>();
         }
     }
 }
