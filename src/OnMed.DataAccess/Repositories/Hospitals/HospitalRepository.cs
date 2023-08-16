@@ -1,5 +1,7 @@
 ﻿using Dapper;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.Domain.Entities.Categories;
 using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Hospitals;
@@ -37,7 +39,7 @@ public class HospitalRepository : BaseRepository, IHospitalRepository
                         "created_at, updated_at) " +
                             "VALUES ( @Name,@LegalName, @BrandImagePath, @AdministratorPhoneNumber, @FaxPhoneNumber, " +
                                 "@Description, @Email, @Website, @LicenseNumber," +
-                                    "@LicenseGivenDate, @LegalRegisterNumber, @LegalRegisterNumberGiveDate, @CreatedAt, @UpdatedAt);";
+                                    "@LicenseGivenDate, @LegalRegisterNumber, @LegalRegisterNumberGivenDate, @CreatedAt, @UpdatedAt);";
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
@@ -65,6 +67,27 @@ public class HospitalRepository : BaseRepository, IHospitalRepository
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<Hospital>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * FROM hospitals order by id desc " +
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<Hospital>(query)).ToList();
+            return result;
+        }
+        catch
+        {
+            return new List<Hospital>();
         }
         finally
         {
