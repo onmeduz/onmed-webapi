@@ -6,7 +6,7 @@ using OnMed.Service.Interfaces.Auth;
 
 namespace OnMed.WebApi.Controllers.Common.Doctors;
 
-[Route("api/doctor-auth")]
+[Route("api/doctor/auth")]
 [ApiController]
 public class DoctorAuthController : ControllerBase
 {
