@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using OnMed.Application.Exceptions.Auth;
 using OnMed.Application.Exceptions.Users;
 using OnMed.DataAccess.Interfaces.Users;
@@ -24,7 +23,7 @@ public class AuthService : IAuthService
     private const int CACHED_MINUTES_FOR_VERIFICATION = 5;
     private const string REGISTER_CACHE_KEY = "register_";
     private const string VERIFY_REGISTER_CACHE_KEY = "verify_register_";
-    private const string VERIFY_RESET_CACHE_KEY = "verify_register_";
+    private const string VERIFY_RESET_CACHE_KEY = "verify_reset_";
     private const int VERIFICATION_MAXIMUM_ATTEMPTS = 3;
 
     public AuthService(IMemoryCache memoryCache,

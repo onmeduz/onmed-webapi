@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Validators;
 using OnMed.Persistance.Validators.Dtos.Auth;
@@ -7,13 +6,13 @@ using OnMed.Service.Interfaces.Auth;
 
 namespace OnMed.WebApi.Controllers.Common.Users
 {
-    [Route("api/common/auth")]
+    [Route("api/user/auth")]
     [ApiController]
-    public class AuthController : CommonBaseController
+    public class UserAuthController : CommonBaseController
     { 
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService)
+        public UserAuthController(IAuthService authService)
         {
             this._authService = authService;
         }
@@ -87,6 +86,7 @@ namespace OnMed.WebApi.Controllers.Common.Users
             var validator = new ResetPasswordValidator();
             var valResult = validator.Validate(dto);
             if (valResult.IsValid == false) return BadRequest(valResult.Errors);
+            await _authService.ResetPasswordAsync(dto);
 
             return Ok(await _authService.ResetPasswordAsync(dto));
         }
