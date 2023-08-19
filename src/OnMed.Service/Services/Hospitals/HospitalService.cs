@@ -1,16 +1,12 @@
-﻿using OnMed.Application.Exceptions.Categories;
-using OnMed.Application.Exceptions.Files;
+﻿using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Hospitals;
 using OnMed.Application.Utils;
-using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.Domain.Entities.Categories;
 using OnMed.Domain.Entities.Hospitals;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Hospitals;
-using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Hospitals;
 
@@ -70,10 +66,10 @@ public class HospitalService : IHospitalService
 
     public async Task<IList<Hospital>> GetAllAsync(PaginationParams @params)
     {
-        var categories = await _hospitalRepository.GetAllAsync(@params);
+        var hospitals = await _hospitalRepository.GetAllAsync(@params);
         var count = await _hospitalRepository.CountAsync();
         _paginator.Paginate(count, @params);
-        return categories;
+        return hospitals;
     }
 
     public async Task<bool> UpdateAsync(long hospitalId, HospitalUpdateDto dto)

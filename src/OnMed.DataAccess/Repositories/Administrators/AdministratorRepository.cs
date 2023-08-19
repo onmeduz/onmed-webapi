@@ -1,8 +1,11 @@
 ﻿using Dapper;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
+using OnMed.DataAccess.ViewModels.Administrators;
 using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Users;
 using System.Numerics;
+using static Dapper.SqlMapper;
 
 namespace OnMed.DataAccess.Repositories.Administrators;
 
@@ -28,6 +31,31 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
         }
     }
 
+    public async Task<long> CreateAndReturnIdAsync(Administrator administrartor)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "INSERT INTO administrators(first_name, last_name, middle_name, " +
+                "birth_day, phone_number, phone_number_confirmed, is_male, image_path, region, " +
+                    "password_hash, salt, created_at, updated_at) " +
+                        "VALUES (@FirstName, @LastName, @MiddleName, @BirthDay, @PhoneNumber, " +
+                            "@PhoneNumberConfirmed, @IsMale, @ImagePath, @Region, @PasswordHash, @Salt, " +
+                                "@CreatedAt, @UpdatedAt) returning id ";
+            var result = await _connection.ExecuteScalarAsync<long>(query, administrartor);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<int> CreateAsync(Administrator entity)
     {
         try
@@ -38,9 +66,10 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
                     "password_hash, salt, created_at, updated_at) " +
                         "VALUES (@FirstName, @LastName, @MiddleName, @BirthDay, @PhoneNumber, " +
                             "@PhoneNumberConfirmed, @IsMale, @ImagePath, @Region, @PasswordHash, @Salt, " +
-                                "@CreatedAt, @UpdatedAt); ";
-
-            return await _connection.ExecuteAsync(query, entity);
+                                "@CreatedAt, @UpdatedAt) returning id ";
+            var result = await _connection.ExecuteAsync(query, entity);
+            
+            return result;
         }
         catch
         {
@@ -65,6 +94,27 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<AdministratorViewModel>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from administrator_view order by first_name " +
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+            var result = (await _connection.QueryAsync<AdministratorViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<AdministratorViewModel>();
         }
         finally
         {

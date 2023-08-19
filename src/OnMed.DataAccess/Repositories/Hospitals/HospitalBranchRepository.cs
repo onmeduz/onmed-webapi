@@ -1,5 +1,7 @@
 ﻿using Dapper;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.ViewModels.Hospitals;
 using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Hospitals;
@@ -62,6 +64,27 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<HospitalBranchViewModel>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * FROM hospitals_branch_view " +
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<HospitalBranchViewModel>(query)).ToList();
+            return result;
+        }
+        catch
+        {
+            return new List<HospitalBranchViewModel>();
         }
         finally
         {
