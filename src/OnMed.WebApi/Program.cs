@@ -1,3 +1,4 @@
+using OnMed.WebApi.Configurations;
 using OnMed.WebApi.Configurations.Layers;
 using OnMed.WebApi.Middlewares;
 
@@ -9,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
+builder.ConfigureCORSPolicy();
 builder.ConfigureServiceLayer();
 builder.ConfigureDataAccess();
 
@@ -21,6 +23,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseAuthorization();

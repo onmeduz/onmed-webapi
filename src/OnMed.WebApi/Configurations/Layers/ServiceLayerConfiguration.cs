@@ -26,6 +26,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IHospitalService, HospitalService>();
             builder.Services.AddScoped<IPaginator, Paginator>();
             builder.Services.AddScoped<IDoctorAuthService, DoctorAuthService>();
+            builder.Services.AddScoped<IDoctorService, DoctorService>();
         }
     }
 }
