@@ -22,15 +22,6 @@ public class CommonDoctorsController : CommonBaseController
     [HttpGet("{id}")]
     public IActionResult Get(long id) => Ok(id);
 
-    [HttpPost("login")]
-    public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
-    {
-        var validator = new LoginValidator();
-        var valResult = validator.Validate(loginDto);
-        if (valResult.IsValid == false) return BadRequest(valResult.Errors);
-
-        var serviceResult = await _doctorService.LoginAsync(loginDto);
-        return Ok(new { serviceResult.Result, serviceResult.Token });
-    }
+    
 
 }
