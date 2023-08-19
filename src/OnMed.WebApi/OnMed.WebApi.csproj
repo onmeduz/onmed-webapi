@@ -13,9 +13,12 @@
 
   <ItemGroup>
     <Folder Include="Accessors\" />
+    <Folder Include="Controllers\Admin\NewFolder\" />
+    <Folder Include="Controllers\User\Auth\" />
     <Folder Include="Controllers\Common\Users\" />
     <Folder Include="wwwroot\storage\images\categories\" />
     <Folder Include="wwwroot\storage\images\hospitals\" />
+    <Folder Include="wwwroot\storage\images\administrators\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnMed.Application.Utils;
 using OnMed.Persistance.Dtos.Hospitals;
 using OnMed.Persistance.Validators.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Hospitals;
-using System.Data;
 
 namespace OnMed.WebApi.Controllers.Head.Hospitals;
 
@@ -46,8 +44,8 @@ public class HeadHospitalController : HeadBaseController
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
         => Ok(await _hospitalService.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
-    [HttpDelete("{categoryId}")]
-    public async Task<IActionResult> DeleteAsync(long categoryId)
-        => Ok(await _hospitalService.DeleteAsync(categoryId));
+    [HttpDelete("{hospitalId}")]
+    public async Task<IActionResult> DeleteAsync(long hospitalId)
+        => Ok(await _hospitalService.DeleteAsync(hospitalId));
 
 }

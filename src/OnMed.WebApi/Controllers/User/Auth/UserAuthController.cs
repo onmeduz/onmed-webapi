@@ -90,5 +90,6 @@ namespace OnMed.WebApi.Controllers.Common.Users
 
             return Ok(await _authService.ResetPasswordAsync(dto));
         }
+
     }
 }
