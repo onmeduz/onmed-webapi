@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using OnMed.Application.Exceptions.Auth;
+using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Exceptions.Users;
 using OnMed.DataAccess.Interfaces.Users;
 using OnMed.Domain.Entities.Users;
@@ -153,7 +154,8 @@ public class AuthService : IAuthService
 
     public async Task<(bool Result, int CachedVerificationMinutes)> SendCodeForResetPasswordAsync(string phone)
     {
-            
+        var user = await _userRepository.GetByPhoneNumberAsync(phone);
+        if (user is null) throw new UserNotFoundException();
         VerificationDto verificationDto = new VerificationDto();
         verificationDto.Attempt = 0;
         verificationDto.CreatedAt = TimeHelper.GetDateTime();

@@ -26,12 +26,32 @@ public class HospitalBranchDoctorRepository : BaseRepository, IHospitalBranchDoc
         }
     }
 
+    public async Task<long> CountByHospitalAsync(long hospitalId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select count(*) from hospital_branch_doctors WHERE hospital_branch_id = @Id";
+            var result = await _connection.QuerySingleAsync<long>(query, new {ID = hospitalId});
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<int> CreateAsync(HospitalBranchDoctor entity)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "INSERT INTO public.hospital_branch_doctors(hospital_branch_id, doctor_id, is_active, " +
+            string query = "INSERT INTO hospital_branch_doctors(hospital_branch_id, doctor_id, is_active, " +
                 "registered_at, stopped_at, created_at, updated_at) " +
                     "VALUES (@HospitalBranchId, @DoctorId, @IsActive, @RegisteredAt, " +
                         "@StoppedAt, @CreatedAt, @UpdatedAt);";

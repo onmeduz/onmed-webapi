@@ -47,6 +47,8 @@ public class DoctorAuthService : IDoctorAuthService
 #pragma warning disable
     public async Task<(bool Result, int CachedVerificationMinutes)> SendCodeForResetPasswordAsync(string phone)
     {
+        var doctor = await _doctorRepository.GetByPhoneNumberAsync(phone);
+        if (doctor is null) throw new DoctorNotFoundException();
         VerificationDto verificationDto = new VerificationDto();
         verificationDto.Attempt = 0;
         verificationDto.CreatedAt = TimeHelper.GetDateTime();
