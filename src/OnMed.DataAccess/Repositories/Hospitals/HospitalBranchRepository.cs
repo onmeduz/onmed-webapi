@@ -3,6 +3,7 @@ using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Hospitals;
 using OnMed.Domain.Entities.Hospitals;
+using static Dapper.SqlMapper;
 
 namespace OnMed.DataAccess.Repositories.Hospitals;
 
@@ -15,6 +16,29 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
             await _connection.OpenAsync();
             string query = $"select count(*) from hospital_branches";
             var result = await _connection.QuerySingleAsync<long>(query);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<long> CreateAndReturnIdAsync(HospitalBranch hospitalBranch)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "INSERT INTO public.hospital_branches(name, hospital_id, image_path, region, district, " +
+                "address, destination, adress_latitude, adress_longitude, contact_phone_number, created_at, updated_at) " +
+                    "VALUES( @Name, @HospitalId, @ImagePath, @Region, @District, @Address, @Destination, " +
+                        "@AdressLatitude, @AdressLongitude, @ContactPhoneNumber, @CreatedAt, @UpdatedAt) returning id ; ";
+            var result = await _connection.ExecuteScalarAsync<long>(query, hospitalBranch);
 
             return result;
         }

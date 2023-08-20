@@ -1,4 +1,6 @@
-﻿using OnMed.Application.Exceptions.Hospitals;
+﻿using OnMed.Application.Exceptions.Administrators;
+using OnMed.Application.Exceptions.Files;
+using OnMed.Application.Exceptions.Hospitals;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.Interfaces.Hospitals;
@@ -40,6 +42,9 @@ public class AdministratorService : IAdministratorsService
 
     public async Task<bool> CreateAsync(AdministratorCreateDto dto)
     {
+        var isThere = await _hospitalBranchRepository.GetByIdAsync(dto.HospitalId);
+        if (isThere is null) throw new HospitalBranchNotFoundException();
+
         var administrator = new Administrator();
         administrator.FirstName = dto.FirstName;
         administrator.LastName = dto.LastName;
@@ -50,6 +55,7 @@ public class AdministratorService : IAdministratorsService
         administrator.PasswordHash = security.Hash;
         administrator.Salt = security.Salt;
         administrator.IsMale = dto.IsMale;
+        administrator.PhoneNumberConfirmed = true;
 
         if (dto.Image is not null)
         {
@@ -59,8 +65,6 @@ public class AdministratorService : IAdministratorsService
         administrator.Region = dto.Region;
         administrator.CreatedAt = administrator.UpdatedAt = TimeHelper.GetDateTime();
 
-        var isThere = await _hospitalBranchRepository.GetByIdAsync(dto.HospitalId);
-        if (isThere is null) throw new HospitalBranchNotFoundException();
         var lastAdminId = await _administratorRepository.CreateAndReturnIdAsync(administrator);
         if (lastAdminId > 0)
         {
@@ -74,9 +78,15 @@ public class AdministratorService : IAdministratorsService
         else return false;
     }
 
-    public Task<bool> DeleteAsync(long adminId)
+    public async Task<bool> DeleteAsync(long adminId)
     {
-        throw new NotImplementedException();
+        var administrator = await _administratorRepository.GetByIdAsync(adminId);
+        if (administrator is null) throw new AdminNotFoundException();
+
+        var result = await _fileService.DeleteImageAsync(administrator.ImagePath);
+
+        var dbResult = await _administratorRepository.DeleteAsync(adminId);
+        return dbResult > 0;
     }
 
     public async Task<IList<AdministratorViewModel>> GetAllAsync(PaginationParams @params)
@@ -87,8 +97,25 @@ public class AdministratorService : IAdministratorsService
         return hospitals;
     }
 
-    public Task<bool> UpdateAsync(long adminId, AdministratorUpdateDto dto)
+    public async Task<bool> UpdateAsync(long adminId, AdministratorUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var administrator = await _administratorRepository.GetByIdAsync(adminId);
+        if (administrator == null) throw new AdminNotFoundException();
+        administrator.FirstName = dto.FirstName;
+        administrator.LastName = dto.LastName;
+        administrator.MiddleName = dto.MiddleName;
+
+        if (dto.Image is not null)
+        {
+            var deleteResult = await _fileService.DeleteImageAsync(administrator.ImagePath);
+            string newImagePath = await _fileService.UploadImageAsync(dto.Image, "administrators");
+            administrator.ImagePath = newImagePath;
+        }
+
+        administrator.Region = dto.Region;
+        administrator.UpdatedAt = TimeHelper.GetDateTime();
+        var dbResult = await _administratorRepository.UpdateAsync(adminId, administrator);
+
+        return dbResult > 0;
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Dapper;
-using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Heads;
-using OnMed.DataAccess.ViewModels.Heads;
-using OnMed.Domain.Entities.Administrators;
-using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Heads;
 
 namespace OnMed.DataAccess.Repositories.Heads;

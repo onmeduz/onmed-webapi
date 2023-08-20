@@ -14,4 +14,5 @@ public class HospitalBranchCreateDto
     public double AdressLatitude { get; set; }
     public double AdressLongitude { get; set; }
     public string ContactPhoneNumber { get; set; } = string.Empty;
+    public List<long> CategoryIds { get; set; } = new List<long>();
 }

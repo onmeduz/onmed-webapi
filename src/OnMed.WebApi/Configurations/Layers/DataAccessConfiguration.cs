@@ -23,6 +23,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IHospitalBranchRepository, HospitalBranchRepository>();
             builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
             builder.Services.AddScoped<IHospitalBranchAdminRepository, HospitalBranchAdminRepository>();
+            builder.Services.AddScoped<IHospitalBranchCategoryRepository, HospitalBranchCategoryRepository>();
         }
     }
 }

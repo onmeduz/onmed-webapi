@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Npgsql.Internal.TypeHandlers.FullTextSearchHandlers;
 using OnMed.Application.Utils;
+using OnMed.Domain.Entities.Hospitals;
 using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Administrators;
+using OnMed.Persistance.Validators.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Administrators;
 
 namespace OnMed.WebApi.Controllers.Head.Administrators;
@@ -30,4 +33,17 @@ public class HeadAdministratorController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
         => Ok(await _administratorService.GetAllAsync(new PaginationParams(page, maxPageSize)));
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateAsync(long administratorId ,[FromForm] AdministratorUpdateDto dto)
+    {
+        var updateValidator = new AdministratorUpdateValidator();
+        var validationResult = updateValidator.Validate(dto);
+        if (validationResult.IsValid) return Ok(await _administratorService.UpdateAsync(administratorId, dto));
+        else return BadRequest(validationResult.Errors);
+    }
+
+    [HttpDelete("{administratorId}")]
+    public async Task<IActionResult> DeleteAsync(long administratorId )
+        => Ok(await _administratorService.DeleteAsync(administratorId));
 }
