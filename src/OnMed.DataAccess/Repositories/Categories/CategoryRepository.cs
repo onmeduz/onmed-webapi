@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
 using OnMed.Domain.Entities.Categories;
+using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Categories;
 
@@ -62,6 +64,27 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<Category>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * FROM categories order by id desc " +
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<Category>(query)).ToList();
+            return result;
+        }
+        catch
+        {
+            return new List<Category>();
         }
         finally
         {
