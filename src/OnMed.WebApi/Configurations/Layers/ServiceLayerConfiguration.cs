@@ -5,6 +5,7 @@ using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Doctors;
 using OnMed.Service.Interfaces.Hospitals;
 using OnMed.Service.Interfaces.Notifications;
+using OnMed.Service.Interfaces.Users;
 using OnMed.Service.Services.Administrators;
 using OnMed.Service.Services.Auth;
 using OnMed.Service.Services.Categories;
@@ -12,6 +13,7 @@ using OnMed.Service.Services.Common;
 using OnMed.Service.Services.Doctors;
 using OnMed.Service.Services.Hospitals;
 using OnMed.Service.Services.Notifications;
+using OnMed.Service.Services.Users;
 
 namespace OnMed.WebApi.Configurations.Layers
 {
@@ -32,6 +34,8 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IDoctorAuthService, DoctorAuthService>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
             builder.Services.AddScoped<IHospitalService, HospitalService>();
+            builder.Services.AddScoped<IIdentityService, IdentityService>();
+            builder.Services.AddScoped<IUserProfileService, UserProfileService>();
         }
     }
 }

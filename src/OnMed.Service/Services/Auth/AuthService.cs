@@ -207,16 +207,5 @@ public class AuthService : IAuthService
         else throw new VerificationCodeExpiredException();
     }
 
-    public async Task<bool> ResetPasswordAsync(ResetPasswordDto dto)
-    {
-        var user = await _userRepository.GetByPhoneNumberAsync(dto.PhoneNumber);
-        if (user is null) throw new UserNotFoundException();
-        var hasherResult = PasswordHasher.Hash(dto.Password);
-        user.PasswordHash = hasherResult.Hash;
-        user.Salt = hasherResult.Salt;
-        user.UpdatedAt = TimeHelper.GetDateTime();
-        var result = await _userRepository.UpdateAsync(user.Id, user);
-
-        return result > 0;
-    }
+    
 }
