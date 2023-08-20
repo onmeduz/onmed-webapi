@@ -20,9 +20,8 @@ public class DoctorCreateValidator : AbstractValidator<DoctorCreateDto>
             .MinimumLength(2).WithMessage("MiddleName must be more than 2 characters")
             .MaximumLength(20).WithMessage("MiddleName must be less than 20 characters");
 
-        RuleFor(dto => dto.BirthDay).NotNull().NotEmpty().WithMessage("Birth day field is required!")
-            .Must(date => DataOnlyValidator.IsValid(date.ToString())).WithMessage("Birth day is incorrect!");
-
+        RuleFor(dto => dto.BirthDay).NotNull().NotEmpty().WithMessage("Birth day field is required!");
+            
         RuleFor(dto => dto.PhoneNumber).NotNull().NotEmpty().WithMessage("Phone number is required!")
             .Must(phone => PhoneNumberValidator.IsValid(phone)).WithMessage("Phone number is incorrect!");
 

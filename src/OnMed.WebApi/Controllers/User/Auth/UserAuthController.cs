@@ -18,7 +18,7 @@ namespace OnMed.WebApi.Controllers.Common.Users
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromForm] RegisterDto registerDto)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerDto)
         {
             var validator = new RegisterValidator();
             var result = validator.Validate(registerDto);
@@ -78,18 +78,5 @@ namespace OnMed.WebApi.Controllers.Common.Users
 
             return Ok(new { serviceResult.Result, serviceResult.Token });
         }
-
-        [HttpPut("reset/update")]
-        //[Authorize(Roles = "User")]
-        public async Task<IActionResult> ResetPasswordAsync([FromForm] ResetPasswordDto dto)
-        {
-            var validator = new ResetPasswordValidator();
-            var valResult = validator.Validate(dto);
-            if (valResult.IsValid == false) return BadRequest(valResult.Errors);
-            await _authService.ResetPasswordAsync(dto);
-
-            return Ok(await _authService.ResetPasswordAsync(dto));
-        }
-
     }
 }
