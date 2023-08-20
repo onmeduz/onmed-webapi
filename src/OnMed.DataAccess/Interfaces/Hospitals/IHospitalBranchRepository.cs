@@ -6,4 +6,6 @@ namespace OnMed.DataAccess.Interfaces.Hospitals;
 
 public interface IHospitalBranchRepository : IRepository<HospitalBranch>,
     IGetAll<HospitalBranchViewModel>
-{ }
+{ 
+    public Task<long> CreateAndReturnIdAsync(HospitalBranch hospitalBranch);
+}

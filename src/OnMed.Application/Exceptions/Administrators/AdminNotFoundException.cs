@@ -4,6 +4,6 @@ public class AdminNotFoundException : NotFoundException
 {
     public AdminNotFoundException()
     {
-        this.TitleMessage = "Admin not found";
+        this.TitleMessage = "Administrator not found!";
     }
 }

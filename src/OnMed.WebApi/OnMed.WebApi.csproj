@@ -7,17 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Admin\NewFolder\**" />
+    <Content Remove="Controllers\Admin\NewFolder\**" />
+    <EmbeddedResource Remove="Controllers\Admin\NewFolder\**" />
+    <None Remove="Controllers\Admin\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Accessors\" />
-    <Folder Include="Controllers\Admin\NewFolder\" />
     <Folder Include="Controllers\User\Auth\" />
     <Folder Include="Controllers\Common\Users\" />
     <Folder Include="wwwroot\storage\images\categories\" />
-    <Folder Include="wwwroot\storage\images\hospitals\" />
     <Folder Include="wwwroot\storage\images\doctors\" />
     <Folder Include="wwwroot\storage\images\administrators\" />
   </ItemGroup>

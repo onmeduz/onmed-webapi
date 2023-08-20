@@ -17,16 +17,19 @@ public class HospitalBranchService : IHospitalBranchService
     private readonly IFileService _fileService;
     private readonly IHospitalRepository _hospitalRepository;
     private readonly IHospitalBranchRepository _hospitalBranchRepository;
+    private readonly IHospitalBranchCategoryRepository _hospitaBranchCategoryRepository;
     private readonly IPaginator _paginator;
 
     public HospitalBranchService(IFileService fileService,
         IHospitalRepository hospitalRepository,
         IHospitalBranchRepository hospitalBranchRepository,
+        IHospitalBranchCategoryRepository hospitalBranchCategoryRepository,
         IPaginator paginator)
     {
         this._fileService = fileService;
         this._hospitalRepository = hospitalRepository;
         this._hospitalBranchRepository = hospitalBranchRepository;
+        this._hospitaBranchCategoryRepository = hospitalBranchCategoryRepository;
         this._paginator = paginator;
     }
 
@@ -54,8 +57,25 @@ public class HospitalBranchService : IHospitalBranchService
         hospitalBranch.AdressLongitude = dto.AdressLongitude;
         hospitalBranch.ContactPhoneNumber = dto.ContactPhoneNumber;
         hospitalBranch.CreatedAt = hospitalBranch.UpdatedAt = TimeHelper.GetDateTime();
-        var result = await _hospitalBranchRepository.CreateAsync(hospitalBranch);
-        return result > 0;
+        var hospitalBranchId = await _hospitalBranchRepository.CreateAndReturnIdAsync(hospitalBranch);
+        if (hospitalBranchId > 0)
+        {
+            int count = 0;
+            foreach(var categoryid in dto.CategoryIds)
+            {
+                var hospitalBranchCategory = new HospitalBranchCategory();
+                hospitalBranchCategory.HospitalBranchId = hospitalBranchId;
+                hospitalBranchCategory.CategoryId = categoryid;
+                hospitalBranchCategory.CreatedAt = hospitalBranchCategory.UpdatedAt = TimeHelper.GetDateTime();
+
+                var result = await _hospitaBranchCategoryRepository.CreateAsync(hospitalBranchCategory);
+                count += result;
+            }
+
+            if (count == dto.CategoryIds.Count) return true;
+            return false;
+        }
+        else return false;
     }
 
     public async Task<bool> DeleteAsync(long hospitalBranchId)
