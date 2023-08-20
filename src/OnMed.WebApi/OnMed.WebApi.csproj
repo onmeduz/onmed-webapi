@@ -21,6 +21,7 @@
     <Folder Include="wwwroot\storage\images\hospitals\" />
     <Folder Include="wwwroot\storage\images\doctors\" />
     <Folder Include="wwwroot\storage\images\administrators\" />
+    <Folder Include="wwwroot\storage\images\users\" />
   </ItemGroup>
 
   <ItemGroup>
