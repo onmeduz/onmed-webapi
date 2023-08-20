@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
@@ -25,6 +26,7 @@
     <Folder Include="wwwroot\storage\images\categories\" />
     <Folder Include="wwwroot\storage\images\doctors\" />
     <Folder Include="wwwroot\storage\images\administrators\" />
+    <Folder Include="wwwroot\storage\images\users\" />
   </ItemGroup>
 
   <ItemGroup>
