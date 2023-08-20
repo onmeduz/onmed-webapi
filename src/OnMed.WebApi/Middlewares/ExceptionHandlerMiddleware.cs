@@ -21,8 +21,8 @@ namespace OnMed.WebApi.Middlewares
             {
                 var obj = new
                 {
-                    StatusCode = (int)exception.StatusCode,
-                    ErrorMessage = exception.TitleMessage
+                    statusCode = (int)exception.StatusCode,
+                    errorMessage = exception.TitleMessage
                 };
                 httpContext.Response.StatusCode = (int)exception.StatusCode;
                 httpContext.Response.Headers.ContentType = "application/json";
