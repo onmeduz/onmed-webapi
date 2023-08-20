@@ -11,7 +11,7 @@ public class AdministratorCreateDto
     public string PhoneNumber { get; set; } = String.Empty;
     public string Password { get; set; } = String.Empty;
     public bool IsMale { get; set; }
-    public IFormFile Image { get; set; } = default!;
+    public IFormFile? Image { get; set; }
     public string Region { get; set; } = String.Empty;
     public long HospitalId { get; set; }
 }
