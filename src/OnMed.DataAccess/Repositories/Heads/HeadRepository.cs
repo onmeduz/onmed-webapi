@@ -6,6 +6,7 @@ namespace OnMed.DataAccess.Repositories.Heads;
 
 public class HeadRepository : BaseRepository, IHeadRepository
 {
+
     public async Task<long> CountAsync()
     {
         try
@@ -70,7 +71,6 @@ public class HeadRepository : BaseRepository, IHeadRepository
             await _connection.CloseAsync();
         }
     }
-
     public async Task<Head?> GetByPhoneNumberAsync(string phoneNumber)
     {
         try

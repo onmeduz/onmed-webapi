@@ -1,7 +1,8 @@
 ﻿using Dapper;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Users;
+using OnMed.DataAccess.ViewModels.Administrators;
 using OnMed.DataAccess.ViewModels.Users;
-using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Users;
 
 namespace OnMed.DataAccess.Repositories.Users;
@@ -65,6 +66,27 @@ public class UserRepository : BaseRepository, IUserRepository
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<UserViewModel>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from users order by first_name " +
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+            var result = (await _connection.QueryAsync<UserViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<UserViewModel>();
         }
         finally
         {

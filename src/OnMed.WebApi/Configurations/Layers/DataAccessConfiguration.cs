@@ -1,11 +1,13 @@
 ﻿using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.Interfaces.Categories;
 using OnMed.DataAccess.Interfaces.Doctors;
+using OnMed.DataAccess.Interfaces.Heads;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.Interfaces.Users;
 using OnMed.DataAccess.Repositories.Administrators;
 using OnMed.DataAccess.Repositories.Categories;
 using OnMed.DataAccess.Repositories.Doctors;
+using OnMed.DataAccess.Repositories.Heads;
 using OnMed.DataAccess.Repositories.Hospitals;
 using OnMed.DataAccess.Repositories.Users;
 
@@ -24,6 +26,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
             builder.Services.AddScoped<IHospitalBranchAdminRepository, HospitalBranchAdminRepository>();
             builder.Services.AddScoped<IHospitalBranchCategoryRepository, HospitalBranchCategoryRepository>();
+            builder.Services.AddScoped<IHeadRepository, HeadRepository>();
         }
     }
 }
