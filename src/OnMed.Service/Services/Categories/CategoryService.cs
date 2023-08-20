@@ -1,5 +1,6 @@
 ﻿using OnMed.Application.Exceptions.Categories;
 using OnMed.Application.Exceptions.Files;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Categories;
 using OnMed.Domain.Entities.Categories;
@@ -7,6 +8,7 @@ using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Categories;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
+using OnMed.Service.Services.Common;
 using System.Net.WebSockets;
 
 namespace OnMed.Service.Services.Categories;
@@ -15,12 +17,15 @@ public class CategoryService : ICategoryService
 {
     private readonly IFileService _fileService;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IPaginator _paginator;
 
     public CategoryService(ICategoryRepository categoryRepository,
-        IFileService fileService)
+        IFileService fileService,
+        IPaginator paginator)
     {
         this._fileService = fileService;
         this._categoryRepository = categoryRepository;
+        this._paginator = paginator;
     }
 
     public Task<long> CountAsync()
@@ -56,6 +61,14 @@ public class CategoryService : ICategoryService
         var dbResult = await _categoryRepository.DeleteAsync(categoryId);
 
         return dbResult > 0;
+    }
+
+    public async Task<IList<Category>> GetAllAsync(PaginationParams @params)
+    {
+        var categories = await _categoryRepository.GetAllAsync(@params);
+        var count = await _categoryRepository.CountAsync();
+        _paginator.Paginate(count, @params);
+        return categories;
     }
 
     public async Task<bool> UpdateAsync(long categoryId, CategoryUpdateDto dto)
