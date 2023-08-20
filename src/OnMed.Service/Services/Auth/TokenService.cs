@@ -28,6 +28,7 @@ public class TokenService : ITokenService
             new Claim("Id", user.Id.ToString()),
             new Claim("FirstName", user.FirstName),
             new Claim("Lastname", user.LastName),
+            new Claim("MiddleName", user.MiddleName),
             new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
             new Claim(ClaimTypes.Role, "User")
         };

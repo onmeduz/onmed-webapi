@@ -105,6 +105,7 @@ public class DoctorAuthService : IDoctorAuthService
         if (doctor is null) throw new DoctorNotFoundException();
         var hasherResult = PasswordHasher.Hash(dto.Password);
         doctor.PasswordHash = hasherResult.Hash;
+
         doctor.Salt = hasherResult.Salt;
         doctor.UpdatedAt = TimeHelper.GetDateTime();
         var result = await _doctorRepository.UpdateAsync(doctor.Id, doctor);
