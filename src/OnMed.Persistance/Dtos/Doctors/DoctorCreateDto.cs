@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using OnMed.Domain.Enums;
 
 namespace OnMed.Persistance.Dtos.Doctors;
 
@@ -15,7 +16,9 @@ public class DoctorCreateDto
     public string Password { get; set; } = String.Empty;
     public double AppointmentMoney { get; set; }
     public string Degree { get; set; } = string.Empty;
-    public long HospitalId { get; set; }
+    public long HospitalBranchId { get; set; }
     public bool IsActive { get; set; }
-    public DateTime RegisteredAt { get; set; }
+    public WeekDay WeekDay { get; set; } 
+    public TimeOnly StartTime { get; set; }
+    public TimeOnly EndTime { get; set; }
 }
