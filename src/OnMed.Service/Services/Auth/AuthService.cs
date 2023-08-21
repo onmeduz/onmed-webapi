@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using OnMed.Application.Exceptions.Auth;
-using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Exceptions.Users;
 using OnMed.DataAccess.Interfaces.Users;
 using OnMed.Domain.Entities.Users;

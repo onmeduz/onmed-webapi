@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Npgsql.Internal.TypeHandlers.FullTextSearchHandlers;
 using OnMed.Application.Utils;
-using OnMed.Domain.Entities.Hospitals;
 using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Administrators;
-using OnMed.Persistance.Validators.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Administrators;
 
 namespace OnMed.WebApi.Controllers.Head.Administrators;
 
 [Route("api/head/administrator")]
 [ApiController]
-public class HeadAdministratorController : ControllerBase
+public class HeadAdministratorController : HeadBaseController
 {
     private readonly IAdministratorsService _administratorService;
     private readonly int maxPageSize = 30;
