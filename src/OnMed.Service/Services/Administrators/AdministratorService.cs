@@ -104,14 +104,6 @@ public class AdministratorService : IAdministratorsService
         administrator.FirstName = dto.FirstName;
         administrator.LastName = dto.LastName;
         administrator.MiddleName = dto.MiddleName;
-
-        if (dto.Image is not null)
-        {
-            var deleteResult = await _fileService.DeleteImageAsync(administrator.ImagePath);
-            string newImagePath = await _fileService.UploadImageAsync(dto.Image, "administrators");
-            administrator.ImagePath = newImagePath;
-        }
-
         administrator.Region = dto.Region;
         administrator.UpdatedAt = TimeHelper.GetDateTime();
         var dbResult = await _administratorRepository.UpdateAsync(adminId, administrator);
