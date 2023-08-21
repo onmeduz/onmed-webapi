@@ -1,10 +1,8 @@
 ﻿using OnMed.Application.Exceptions.Administrators;
-using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Hospitals;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.DataAccess.Repositories.Hospitals;
 using OnMed.DataAccess.ViewModels.Administrators;
 using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Hospitals;
