@@ -11,9 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
 
-builder.ConfigureJwtAuth();
-builder.ConfigureSwaggerAuth(); 
-builder.ConfigureCORSPolicy();
+builder.ConfigureWeb();
 builder.ConfigureServiceLayer();
 builder.ConfigureDataAccess();
 
