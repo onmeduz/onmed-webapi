@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnMed.Application.Utils;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Persistance.Validators.Dtos.Doctors;
@@ -19,10 +18,6 @@ public class AdminDoctorsController : AdminBaseController
         this._service = doctorService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync(long hospitalId, [FromQuery] int page = 1)
-    => Ok(await _service.GetAllByHospitalAsync(hospitalId, new PaginationParams(page, maxPageSize)));
-
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] DoctorCreateDto dto)
     {
@@ -31,10 +26,4 @@ public class AdminDoctorsController : AdminBaseController
         if (result.IsValid) return Ok(await _service.CreateAsync(dto));
         else return BadRequest(result.Errors);
     }
-
-    [HttpGet("count")]
-    [AllowAnonymous]
-    public async Task<IActionResult> CountAsync([FromQuery] long hospitalId)
-        => Ok(await _service.CountByHospitalAsync(hospitalId));
-
 }

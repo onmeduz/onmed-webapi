@@ -1,6 +1,9 @@
 ﻿using Dapper;
+using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
+using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Doctors;
 
@@ -85,6 +88,84 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<DoctorViewModel>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, doctors.birth_day, " +
+                "doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, doctors.region, " +
+                    "doctors.appointment_money, doctors.created_at, doctors.updated_at, " +
+                        "(select Avg(doctor_appointment.stars) as star_count from doctor_appointment " +
+                            "where doctor_appointment.doctor_id = doctors.id) FROM doctors ORDER BY id DESC " +
+                                $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+            var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<DoctorViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<DoctorViewModel>> GetAllHospitalIdAsync(long hospitalId, PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, doctors.birth_day, " +
+                "doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, doctors.region, " +
+                    "doctors.appointment_money, doctors.created_at, doctors.updated_at, " +
+                        "(select Avg(doctor_appointment.stars) as star_count from doctor_appointment " +
+                            "where doctor_appointment.doctor_id = doctors.id) FROM doctors " +
+                                "join hospital_branch_doctors on hospital_branch_doctors.doctor_id = doctors.id " +
+                                    "join doctor_appointment on doctor_appointment.doctor_id = doctors.id " +
+                                        $"WHERE hospital_branch_doctors.hospital_branch_id = {hospitalId} ORDER BY id DESC " +
+                                            $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+            var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<DoctorViewModel>();
+        }
+        finally 
+        { 
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<DoctorViewModel> GetByIdViewAsync(long doctorId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, doctors.birth_day, " +
+                "doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, doctors.region, " +
+                    "doctors.appointment_money, doctors.created_at, doctors.updated_at, " +
+                        "(select Avg(doctor_appointment.stars) as star_count from doctor_appointment " +
+                            "where doctor_appointment.doctor_id = doctors.id) FROM doctors " +
+                                $"WHERE doctors.id = {doctorId}";
+            var result = await _connection.QuerySingleAsync<DoctorViewModel>(query);
+
+            return result;
+        }
+        catch
+        {
+            return new DoctorViewModel();
         }
         finally
         {

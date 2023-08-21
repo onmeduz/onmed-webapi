@@ -4,6 +4,7 @@ using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
@@ -15,6 +16,7 @@ using OnMed.Service.Common.Security;
 using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Doctors;
+using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Doctors;
 
@@ -23,14 +25,17 @@ public class DoctorService : IDoctorService
     private readonly IFileService _fileService;
     private readonly IDoctorRepository _doctorRepository;
     private readonly IHospitalBranchDoctorRepository _branchDoctorRepository;
+    private readonly IPaginator _paginator;
 
     public DoctorService(IFileService fileService,
         IDoctorRepository doctorRepository,
-        IHospitalBranchDoctorRepository branchDoctorRepository)
+        IHospitalBranchDoctorRepository branchDoctorRepository,
+        IPaginator paginator)
     {
         this._fileService = fileService;
         this._doctorRepository = doctorRepository;
         this._branchDoctorRepository = branchDoctorRepository;
+        this._paginator = paginator;
     }
     public async Task<long> CountByHospitalAsync(long hospitalId)
     {
@@ -38,6 +43,9 @@ public class DoctorService : IDoctorService
 
         return result;
     }
+
+    public async Task<long> CountAsync() => await _doctorRepository.CountAsync();
+
 
     public async Task<bool> CreateAsync(DoctorCreateDto dto)
     {
@@ -84,14 +92,27 @@ public class DoctorService : IDoctorService
         throw new NotImplementedException();
     }
 
-    public Task<IList<Category>> GetAllByHospitalAsync(long hospitalId, PaginationParams @params)
+    public async Task<IList<DoctorViewModel>> GetAllAsync(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var doctors = await _doctorRepository.GetAllAsync(@params);
+        var count = await _doctorRepository.CountAsync();
+        _paginator.Paginate(count, @params);
+        return doctors;
     }
 
-    public Task<Category> GetByIdAsync(long doctorId)
+    public async Task<IList<DoctorViewModel>> GetAllByHospitalAsync(long hospitalId, PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var doctors = await _doctorRepository.GetAllHospitalIdAsync(hospitalId, @params);
+        var count = await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
+        _paginator.Paginate(count, @params);
+        return doctors;
+    }
+
+    public async Task<DoctorViewModel> GetByIdAsync(long doctorId)
+    {
+        var doctor = await _doctorRepository.GetByIdViewAsync(doctorId);
+        if (doctor is null) throw new DoctorNotFoundException();
+        else return doctor;
     }
 
     public Task<bool> UpdateAsync(long doctorId, DoctorUpdateDto dto)
