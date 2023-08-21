@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Users;
-using OnMed.DataAccess.ViewModels.Administrators;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Users;
 
