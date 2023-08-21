@@ -11,7 +11,6 @@ namespace OnMed.WebApi.Controllers.Common.Categories
     public class CommonCategoriesController : CommonBaseController
     {
         private readonly ICategoryService _categoryService;
-        private int maxPageSize = 30;
 
         public CommonCategoriesController(ICategoryService categoryService)
         {

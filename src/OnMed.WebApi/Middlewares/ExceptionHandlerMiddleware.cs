@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OnMed.Application.Exceptions;
+using Serilog;
 
 namespace OnMed.WebApi.Middlewares
 {
@@ -42,7 +43,7 @@ namespace OnMed.WebApi.Middlewares
                     await httpContext.Response.WriteAsync(exception.Message);
                     await httpContext.Response.WriteAsync("There is unknown error!");
                 }
-                // write to logs
+                Log.Error(exception, exception.Message);
             }
         }
     }
