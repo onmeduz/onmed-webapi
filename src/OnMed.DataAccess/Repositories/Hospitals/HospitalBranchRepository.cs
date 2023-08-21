@@ -1,8 +1,10 @@
-﻿using Dapper;
+﻿using Aspose.Pdf.Operators;
+using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Hospitals;
 using OnMed.Domain.Entities.Hospitals;
+using Serilog;
 using static Dapper.SqlMapper;
 
 namespace OnMed.DataAccess.Repositories.Hospitals;
@@ -19,8 +21,10 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch
+        catch(Exception ex) 
         {
+            Log.Error(ex, ex.Message);
+
             return 0;
         }
         finally
@@ -42,8 +46,10 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch
+        catch(Exception ex)
         {
+            Log.Error(ex, ex.Message);
+
             return 0;
         }
         finally
@@ -65,8 +71,10 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch
+        catch(Exception ex) 
         {
+            Log.Error(ex, ex.Message);
+
             return 0;
         }
         finally
@@ -85,8 +93,10 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch
+        catch(Exception ex)
         {
+            Log.Error(ex, ex.Message);
+
             return 0;
         }
         finally
@@ -106,9 +116,34 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
             var result = (await _connection.QueryAsync<HospitalBranchViewModel>(query)).ToList();
             return result;
         }
-        catch
+        catch(Exception ex)
         {
+            Log.Error(ex, ex.Message);
+
             return new List<HospitalBranchViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<HospitalBranchForCommonViewModel>> GetAllForCommonAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * FROM hospital_branches " +
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<HospitalBranchForCommonViewModel>(query)).ToList();
+            return result;
+        }
+        catch(Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+
+            return new List<HospitalBranchForCommonViewModel>();
         }
         finally
         {
@@ -126,8 +161,10 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch
+        catch(Exception ex)
         {
+            Log.Error(ex, ex.Message);
+
             return null;
         }
         finally
@@ -151,8 +188,10 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch
+        catch(Exception ex)
         {
+            Log.Error(ex, ex.Message);
+
             return 0;
         }
         finally

@@ -1,22 +1,16 @@
-﻿using OnMed.Application.Exceptions.Auth;
-using OnMed.Application.Exceptions.Doctors;
+﻿using OnMed.Application.Exceptions.Doctors;
+using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
-using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
-using OnMed.Domain.Entities.Categories;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
-using OnMed.Domain.Entities.Users;
 using OnMed.Persistance.Common.Helpers;
-using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
-using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Doctors;
-using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Doctors;
 
@@ -26,16 +20,19 @@ public class DoctorService : IDoctorService
     private readonly IDoctorRepository _doctorRepository;
     private readonly IHospitalBranchDoctorRepository _branchDoctorRepository;
     private readonly IPaginator _paginator;
+    private readonly IHospitalScheduleRepository _hospitalSchedule;
 
     public DoctorService(IFileService fileService,
         IDoctorRepository doctorRepository,
         IHospitalBranchDoctorRepository branchDoctorRepository,
-        IPaginator paginator)
+        IPaginator paginator,
+        IHospitalScheduleRepository hospitalSchedule)
     {
         this._fileService = fileService;
         this._doctorRepository = doctorRepository;
         this._branchDoctorRepository = branchDoctorRepository;
         this._paginator = paginator;
+        this._hospitalSchedule = hospitalSchedule;
     }
     public async Task<long> CountByHospitalAsync(long hospitalId)
     {
@@ -49,8 +46,10 @@ public class DoctorService : IDoctorService
 
     public async Task<bool> CreateAsync(DoctorCreateDto dto)
     {
-        string imagepath = await _fileService.UploadImageAsync(dto.Image, "doctors");
+        var doctorPhone = await _doctorRepository.GetByPhoneNumberAsync(dto.PhoneNumber);
+        if (doctorPhone is not null) throw new UserAlreadyExistsException(dto.PhoneNumber);
 
+        string imagepath = await _fileService.UploadImageAsync(dto.Image, "doctors");
         Doctor doctor = new Doctor()
         {
             FirstName = dto.FirstName,
@@ -70,21 +69,32 @@ public class DoctorService : IDoctorService
         var hasherResult = PasswordHasher.Hash(dto.Password);
         doctor.PasswordHash = hasherResult.Hash;
         doctor.Salt = hasherResult.Salt;
-        var result = await _doctorRepository.CreateReturnIdAsync(doctor);
+        var doctorId = await _doctorRepository.CreateReturnIdAsync(doctor);
+        bool res = false;
 
-        if (result > 0)
+        if (doctorId > 0)
         {
             HospitalBranchDoctor branchdoctor = new HospitalBranchDoctor();
-            branchdoctor.HospitalBranchId = dto.HospitalId;
-            branchdoctor.DoctorId = result;
+            branchdoctor.HospitalBranchId = dto.HospitalBranchId;
+            branchdoctor.DoctorId = doctorId;
             branchdoctor.IsActive = true;
-            branchdoctor.RegisteredAt = dto.RegisteredAt;
+            branchdoctor.RegisteredAt = TimeHelper.GetDateTime();
             branchdoctor.CreatedAt = branchdoctor.UpdatedAt = TimeHelper.GetDateTime();
             var dbResult = await _branchDoctorRepository.CreateAsync(branchdoctor);
-            result = dbResult;
+            res = dbResult>0;
+            if (res)
+            {
+                var hospitalSchedule = new HospitalSchedule();
+                hospitalSchedule.DoctorId = doctorId;
+                hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
+                hospitalSchedule.Weekday = dto.WeekDay.ToString();
+                hospitalSchedule.StartTime = dto.StartTime;
+                hospitalSchedule.EndTime = dto.EndTime;
+                res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
+            }
         }
 
-        return result > 0;
+        return res;
     }
 
     public Task<bool> DeleteAsync(long doctorId)
