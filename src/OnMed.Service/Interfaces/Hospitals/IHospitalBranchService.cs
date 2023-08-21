@@ -6,6 +6,7 @@ namespace OnMed.Service.Interfaces.Hospitals;
 
 public interface IHospitalBranchService
 {
+    public Task<IList<HospitalBranchForCommonViewModel>> GetAllForCommonAsync(PaginationParams @params);
     public Task<IList<HospitalBranchViewModel>> GetAllAsync(PaginationParams @params);
     public Task<bool> CreateAsync(HospitalBranchCreateDto dto);
     public Task<bool> UpdateAsync(long hospitalBranchId, HospitalBranchUpdateDto dto);

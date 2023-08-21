@@ -98,6 +98,14 @@ public class HospitalBranchService : IHospitalBranchService
         return hospitals;
     }
 
+    public async Task<IList<HospitalBranchForCommonViewModel>> GetAllForCommonAsync(PaginationParams @params)
+    {
+        var hospitals = await _hospitalBranchRepository.GetAllForCommonAsync(@params);
+        var count = await _hospitalBranchRepository.CountAsync();
+        _paginator.Paginate(count, @params);
+        return hospitals;
+    }
+
     public async Task<bool> UpdateAsync(long hospitalBranchId, HospitalBranchUpdateDto dto)
     {
         var hospitalBranch = await _hospitalBranchRepository.GetByIdAsync(hospitalBranchId);

@@ -1,5 +1,6 @@
 ﻿using OnMed.Application.Exceptions.Administrators;
 using OnMed.Application.Exceptions.Hospitals;
+using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.Interfaces.Hospitals;
@@ -42,6 +43,8 @@ public class AdministratorService : IAdministratorsService
     {
         var isThere = await _hospitalBranchRepository.GetByIdAsync(dto.HospitalId);
         if (isThere is null) throw new HospitalBranchNotFoundException();
+        var admin = await _administratorRepository.GetByPhoneNumberAsync(dto.PhoneNumber);
+        if (admin is not null) throw new UserAlreadyExistsException(dto.PhoneNumber);
 
         var administrator = new Administrator();
         administrator.FirstName = dto.FirstName;
