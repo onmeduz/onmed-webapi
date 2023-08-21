@@ -1,24 +1,16 @@
-﻿using OnMed.Application.Exceptions.Auth;
-using OnMed.Application.Exceptions.Doctors;
+﻿using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
-using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
-using OnMed.Domain.Entities.Categories;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
-using OnMed.Domain.Entities.Users;
-using OnMed.Domain.Enums;
 using OnMed.Persistance.Common.Helpers;
-using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
-using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Doctors;
-using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Doctors;
 
@@ -90,13 +82,16 @@ public class DoctorService : IDoctorService
             branchdoctor.CreatedAt = branchdoctor.UpdatedAt = TimeHelper.GetDateTime();
             var dbResult = await _branchDoctorRepository.CreateAsync(branchdoctor);
             res = dbResult>0;
-            var hospitalSchedule = new HospitalSchedule();
-            hospitalSchedule.DoctorId = doctorId;
-            hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
-            hospitalSchedule.Weekday = dto.WeekDay.ToString();
-            hospitalSchedule.StartTime = dto.StartTime;
-            hospitalSchedule.EndTime = dto.EndTime;
-            res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
+            if (res)
+            {
+                var hospitalSchedule = new HospitalSchedule();
+                hospitalSchedule.DoctorId = doctorId;
+                hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
+                hospitalSchedule.Weekday = dto.WeekDay.ToString();
+                hospitalSchedule.StartTime = dto.StartTime;
+                hospitalSchedule.EndTime = dto.EndTime;
+                res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
+            }
         }
 
         return res;
