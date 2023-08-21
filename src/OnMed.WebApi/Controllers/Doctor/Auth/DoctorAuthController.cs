@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Validators;
 using OnMed.Persistance.Validators.Dtos.Auth;
@@ -47,7 +48,7 @@ public class DoctorAuthController : ControllerBase
     }
 
     [HttpPut("reset/update")]
-    //[Authorize(Roles = "Doctor")]
+    [Authorize(Roles = "Doctor")]
     public async Task<IActionResult> ResetPasswordAsync([FromForm] ResetPasswordDto dto)
     {
         var validator = new ResetPasswordValidator();
