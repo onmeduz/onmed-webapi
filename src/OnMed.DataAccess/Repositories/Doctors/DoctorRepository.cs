@@ -100,12 +100,15 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, doctors.birth_day, " +
-                "doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, doctors.region, " +
-                    "doctors.appointment_money, doctors.created_at, doctors.updated_at, " +
-                        "(select Avg(doctor_appointment.stars) as star_count from doctor_appointment " +
-                            "where doctor_appointment.doctor_id = doctors.id) FROM doctors ORDER BY id DESC " +
-                                $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, " +
+                "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
+                    "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
+                        "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
+                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time " +
+                                "FROM doctors " +
+                                    "JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
+                                        $"ORDER BY id DESC OFFSET {@params.GetSkipCount()} " +
+                                            $"LIMIT {@params.PageSize}";
             var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
 
             return result;
@@ -125,15 +128,17 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, doctors.birth_day, " +
-                "doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, doctors.region, " +
-                    "doctors.appointment_money, doctors.created_at, doctors.updated_at, " +
-                        "(select Avg(doctor_appointment.stars) as star_count from doctor_appointment " +
-                            "where doctor_appointment.doctor_id = doctors.id) FROM doctors " +
-                                "join hospital_branch_doctors on hospital_branch_doctors.doctor_id = doctors.id " +
-                                    "join doctor_appointment on doctor_appointment.doctor_id = doctors.id " +
-                                        $"WHERE hospital_branch_doctors.hospital_branch_id = {hospitalId} ORDER BY id DESC " +
-                                            $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, " +
+                "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
+                    "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
+                        "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
+                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time " +
+                                "FROM doctors " +
+                                    "JOIN hospital_branch_doctors ON hospital_branch_doctors.doctor_id = doctors.id " +
+                                        "JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
+                                            $"WHERE hospital_branch_doctors.hospital_branch_id = {hospitalId} " +
+                                                $"ORDER BY id DESC " +
+                                                    $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
             var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
 
             return result;
@@ -153,12 +158,13 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, doctors.birth_day, " +
-                "doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, doctors.region, " +
-                    "doctors.appointment_money, doctors.created_at, doctors.updated_at, " +
-                        "(select Avg(doctor_appointment.stars) as star_count from doctor_appointment " +
-                            "where doctor_appointment.doctor_id = doctors.id) FROM doctors " +
-                                $"WHERE doctors.id = {doctorId}";
+            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, " +
+                "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
+                    "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
+                        "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
+                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time " +
+                                "FROM doctors JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
+                                    $"WHERE doctors.id = {doctorId}";
             var result = await _connection.QuerySingleAsync<DoctorViewModel>(query);
 
             return result;
