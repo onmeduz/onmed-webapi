@@ -20,18 +20,21 @@ public class AdministratorService : IAdministratorsService
 {
     private readonly IAdministratorRepository _administratorRepository;
     private readonly IFileService _fileService;
-    private readonly IHospitalBranchAdminRepository _hospitalBranchRepository;
+    private readonly IHospitalBranchRepository _hospitalBranchRepository;
     private readonly IPaginator _paginator;
+    private readonly IHospitalBranchAdminRepository _hospitalBranchAdminRepository;
 
     public AdministratorService(IAdministratorRepository administrator,
-        IHospitalBranchAdminRepository hospitalBranchAdmin,
+        IHospitalBranchRepository hospitalBranch,
+        IHospitalBranchAdminRepository hospitalAdminRepository,
         IFileService fileService,
         IPaginator paginator)
     {
         this._administratorRepository = administrator;
         this._fileService = fileService;
-        this._hospitalBranchRepository = hospitalBranchAdmin;
+        this._hospitalBranchRepository = hospitalBranch;
         this._paginator = paginator;
+        this._hospitalBranchAdminRepository = hospitalAdminRepository;
     }
 
     public Task<long> CountAsync()
@@ -71,9 +74,9 @@ public class AdministratorService : IAdministratorsService
         {
             var hospitalBranchAdmin = new HospitalBranchAdmin();
             hospitalBranchAdmin.HospitalBranchId = dto.HospitalId;
-            hospitalBranchAdmin.AdministratorId = lastAdminId;
+            hospitalBranchAdmin.AdministratorsId = lastAdminId;
             hospitalBranchAdmin.CreatedAt = hospitalBranchAdmin.UpdatedAt = TimeHelper.GetDateTime();
-            var result = await _hospitalBranchRepository.CreateAsync(hospitalBranchAdmin);
+            var result = await _hospitalBranchAdminRepository.CreateAsync(hospitalBranchAdmin);
             return result>0;
         }
         else return false;
