@@ -48,7 +48,35 @@ public class DoctorService : IDoctorService
     public async Task<bool> CreateAsync(DoctorCreateDto dto)
     {
         var doctorPhone = await _doctorRepository.GetByPhoneNumberAsync(dto.PhoneNumber);
-        if (doctorPhone is not null) throw new UserAlreadyExistsException(dto.PhoneNumber);
+        if (doctorPhone is not null)
+        {
+            var hospitalBranch = await _branchDoctorRepository.GetByIdAsync(doctorPhone.Id);
+            if (hospitalBranch is not null)
+                if(hospitalBranch.Id != dto.HospitalBranchId)
+                {
+                    HospitalBranchDoctor branchdoctor = new HospitalBranchDoctor();
+                    branchdoctor.HospitalBranchId = dto.HospitalBranchId;
+                    branchdoctor.DoctorId = doctorPhone.Id;
+                    branchdoctor.IsActive = true;
+                    branchdoctor.RegisteredAt = TimeHelper.GetDateTime();
+                    branchdoctor.CreatedAt = branchdoctor.UpdatedAt = TimeHelper.GetDateTime();
+                    var dbResult = await _branchDoctorRepository.CreateAsync(branchdoctor);
+                    if (dbResult>0)
+                    {
+                        var hospitalSchedule = new HospitalSchedule();
+                        hospitalSchedule.DoctorId = doctorPhone.Id; ;
+                        hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
+                        for (int i = 0; i < dto.WeekDay.Count; i++)
+                        {
+                            hospitalSchedule.Weekday[i] = dto.WeekDay[i].ToString();
+                        }
+                        hospitalSchedule.StartTime = dto.StartTime;
+                        hospitalSchedule.EndTime = dto.EndTime;
+                        hospitalSchedule.CreatedAt = hospitalSchedule.UpdatedAt = TimeHelper.GetDateTime();
+                        dbResult = await _hospitalSchedule.CreateAsync(hospitalSchedule);
+                    }
+                }
+        }
 
         string imagepath = await _fileService.UploadImageAsync(dto.Image, "doctors");
         Doctor doctor = new Doctor()
