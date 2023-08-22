@@ -6,6 +6,7 @@ using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
+using OnMed.Domain.Enums;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
