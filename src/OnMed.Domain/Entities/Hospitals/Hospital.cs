@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace OnMed.Domain.Entities.Hospitals;
+﻿namespace OnMed.Domain.Entities.Hospitals;
 
 public class Hospital : Auditable
 {
