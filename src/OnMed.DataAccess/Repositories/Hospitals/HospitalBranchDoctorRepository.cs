@@ -32,7 +32,7 @@ public class HospitalBranchDoctorRepository : BaseRepository, IHospitalBranchDoc
         {
             await _connection.OpenAsync();
             string query = $"select count(*) from hospital_branch_doctors WHERE hospital_branch_id = @Id";
-            var result = await _connection.QuerySingleAsync<long>(query, new {ID = hospitalId});
+            var result = await _connection.QuerySingleAsync<long>(query, new {Id = hospitalId});
 
             return result;
         }

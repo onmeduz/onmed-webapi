@@ -37,7 +37,7 @@ public class DoctorService : IDoctorService
     }
     public async Task<long> CountByHospitalAsync(long hospitalId)
     {
-        var result =  await _branchDoctorRepository.CountAsync();
+        var result =  await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
 
         return result;
     }

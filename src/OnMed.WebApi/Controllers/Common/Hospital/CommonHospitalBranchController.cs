@@ -32,6 +32,6 @@ public class CommonHospitalBranchController : CommonBaseController
 
     [HttpGet("doctors/count")]
     [AllowAnonymous]
-    public async Task<IActionResult> CountAsync([FromQuery] long hospitalId)
+    public async Task<IActionResult> CountDoctorAsync([FromQuery] long hospitalId)
         => Ok(await _service.CountByHospitalAsync(hospitalId));
 }
