@@ -6,6 +6,7 @@ using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
+using OnMed.Domain.Enums;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
@@ -87,9 +88,13 @@ public class DoctorService : IDoctorService
                 var hospitalSchedule = new HospitalSchedule();
                 hospitalSchedule.DoctorId = doctorId;
                 hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
-                hospitalSchedule.Weekday = dto.WeekDay.ToString();
+                for (int i = 0; i < dto.WeekDay.Count; i++)
+                {
+                    hospitalSchedule.Weekday[i] = dto.WeekDay[i].ToString();
+                }
                 hospitalSchedule.StartTime = dto.StartTime;
                 hospitalSchedule.EndTime = dto.EndTime;
+                hospitalSchedule.CreatedAt = hospitalSchedule.UpdatedAt = TimeHelper.GetDateTime();
                 res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
             }
         }
