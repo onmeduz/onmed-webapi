@@ -32,8 +32,8 @@ public class HospitalBranchAdminRepository : BaseRepository, IHospitalBranchAdmi
         {
             await _connection.OpenAsync();
             string query = "INSERT INTO public.hospital_branch_admins(hospital_branch_id, " +
-                "administrator_id, created_at, updated_at) " +
-                "VALUES (@HospitalBranchId, @AdministratorId, @CreatedAt, @UpdatedAt);";
+                "administrators_id, created_at, updated_at) " +
+                "VALUES (@HospitalBranchId, @AdministratorsId, @CreatedAt, @UpdatedAt);";
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
@@ -94,7 +94,7 @@ public class HospitalBranchAdminRepository : BaseRepository, IHospitalBranchAdmi
         {
             await _connection.OpenAsync();
             string query = "UPDATE public.hospital_branch_admins SET hospital_branch_id=@HospitalBranchId, " +
-                "administrator_id=@AdministratorId, created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                "administrators_id=@AdministratorsId, created_at=@CreatedAt, updated_at=@UpdatedAt " +
                     $"WHERE id = {id}; ";
             var result = await _connection.ExecuteAsync(query, entity);
 

@@ -3,5 +3,5 @@
 public class HospitalBranchAdmin : Auditable
 {
     public long HospitalBranchId { get; set; }
-    public long AdministratorId { get; set; }
+    public long AdministratorsId { get; set; }
 }
