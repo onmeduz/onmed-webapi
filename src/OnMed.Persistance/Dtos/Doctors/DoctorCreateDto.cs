@@ -18,7 +18,7 @@ public class DoctorCreateDto
     public string Degree { get; set; } = string.Empty;
     public long HospitalBranchId { get; set; }
     public bool IsActive { get; set; }
-    public WeekDay WeekDay { get; set; } 
+    public IList<WeekDay> WeekDay { get; set; } = new List<WeekDay>();
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
 }
