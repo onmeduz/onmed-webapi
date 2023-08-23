@@ -8,5 +8,7 @@ public class DoctorViewModel : HumanViewModel
     public string[] Weekday { get; set;} = {};
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
+    public long HospitalBranchId { get; set; }
+
 }
 

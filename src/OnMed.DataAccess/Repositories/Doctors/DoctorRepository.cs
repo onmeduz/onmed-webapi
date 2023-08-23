@@ -3,7 +3,6 @@ using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
-using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Doctors;
 
@@ -104,11 +103,12 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
                 "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
                     "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
                         "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
-                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time " +
-                                "FROM doctors " +
-                                    "JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
-                                        $"ORDER BY id DESC OFFSET {@params.GetSkipCount()} " +
-                                            $"LIMIT {@params.PageSize}";
+                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time, " +
+                                "hospital_schedule.hospital_branch_id " +
+                                    "FROM doctors " +
+                                        "JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
+                                            $"ORDER BY id DESC OFFSET {@params.GetSkipCount()} " +
+                                                $"LIMIT {@params.PageSize}";
             var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
 
             return result;
@@ -132,8 +132,8 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
                 "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
                     "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
                         "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
-                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time " +
-                                "FROM doctors " +
+                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time, " +
+                                  "hospital_schedule.hospital_branch_id FROM doctors " +
                                     "JOIN hospital_branch_doctors ON hospital_branch_doctors.doctor_id = doctors.id " +
                                         "JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
                                             $"WHERE hospital_branch_doctors.hospital_branch_id = {hospitalId} " +
@@ -162,9 +162,10 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
                 "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
                     "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
                         "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
-                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time " +
-                                "FROM doctors JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
-                                    $"WHERE doctors.id = {doctorId}";
+                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time," +
+                                 "hospital_schedule.hospital_branch_id " +
+                                    "FROM doctors JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
+                                        $"WHERE doctors.id = {doctorId}";
             var result = await _connection.QuerySingleAsync<DoctorViewModel>(query);
 
             return result;
@@ -242,4 +243,5 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
             await _connection.CloseAsync();
         }
     }
+
 }
