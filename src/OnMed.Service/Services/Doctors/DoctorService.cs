@@ -115,12 +115,20 @@ public class DoctorService : IDoctorService
         return doctors;
     }
 
-    public async Task<IList<DoctorViewModel>> GetAllByHospitalAsync(long hospitalId, PaginationParams @params)
+    public async Task<IList<DoctorViewModel>> GetAllByHospitalAsync(long hospitalId,long? categoryId, PaginationParams @params)
     {
-        var doctors = await _doctorRepository.GetAllHospitalIdAsync(hospitalId, @params);
-        var count = await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
-        _paginator.Paginate(count, @params);
-        return doctors;
+        if(categoryId == null)
+        {
+            var doctors = await _doctorRepository.GetAllHospitalIdAsync(hospitalId, @params);
+            var count = await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
+            _paginator.Paginate(count, @params);
+            return doctors;
+        }
+        else
+        {
+            return new List<DoctorViewModel>();
+        }
+        
     }
 
     public async Task<DoctorViewModel> GetByIdAsync(long doctorId)
