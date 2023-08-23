@@ -28,6 +28,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IHospitalBranchCategoryRepository, HospitalBranchCategoryRepository>();
             builder.Services.AddScoped<IHospitalScheduleRepository, HospitalScheduleRepository>();
             builder.Services.AddScoped<IHeadRepository, HeadRepository>();
+            builder.Services.AddScoped<IDoctorAppointmentRepository, DoctorAppointmentRepository>();
         }
     }
 }
