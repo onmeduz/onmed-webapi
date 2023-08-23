@@ -21,4 +21,5 @@ public class DoctorCreateDto
     public IList<WeekDay> WeekDay { get; set; } = new List<WeekDay>();
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
+    public List<long> CategoryIds { get; set; } = new List<long>();
 }

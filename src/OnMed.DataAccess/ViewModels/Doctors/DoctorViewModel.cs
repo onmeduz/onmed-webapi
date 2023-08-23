@@ -9,6 +9,6 @@ public class DoctorViewModel : HumanViewModel
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
     public long HospitalBranchId { get; set; }
-
+    public string[] CategoryName { get; set; } = { };
 }
 

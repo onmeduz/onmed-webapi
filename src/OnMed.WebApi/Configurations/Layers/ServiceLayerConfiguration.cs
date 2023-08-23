@@ -3,6 +3,7 @@ using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Doctors;
+using OnMed.Service.Interfaces.Heads;
 using OnMed.Service.Interfaces.Hospitals;
 using OnMed.Service.Interfaces.Notifications;
 using OnMed.Service.Interfaces.Users;
@@ -11,6 +12,7 @@ using OnMed.Service.Services.Auth;
 using OnMed.Service.Services.Categories;
 using OnMed.Service.Services.Common;
 using OnMed.Service.Services.Doctors;
+using OnMed.Service.Services.Heads;
 using OnMed.Service.Services.Hospitals;
 using OnMed.Service.Services.Notifications;
 using OnMed.Service.Services.Users;
@@ -39,6 +41,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IHeadAuthService, HeadAuthService>();
             builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
+            builder.Services.AddScoped<IHeadService, HeadService>();
             builder.Services.AddScoped<IUserAppointmentService , UserAppointmentService>();
         }
     }
