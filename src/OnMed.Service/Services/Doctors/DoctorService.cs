@@ -1,8 +1,10 @@
-﻿    using OnMed.Application.Exceptions.Doctors;
+﻿using Onmed.Domain.Entities.Doctors;
+using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.Repositories.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
@@ -22,18 +24,21 @@ public class DoctorService : IDoctorService
     private readonly IHospitalBranchDoctorRepository _branchDoctorRepository;
     private readonly IPaginator _paginator;
     private readonly IHospitalScheduleRepository _hospitalSchedule;
+    private readonly IDoctorCategoryRepository _doctorCategoryRepository;
 
     public DoctorService(IFileService fileService,
         IDoctorRepository doctorRepository,
         IHospitalBranchDoctorRepository branchDoctorRepository,
         IPaginator paginator,
-        IHospitalScheduleRepository hospitalSchedule)
+        IHospitalScheduleRepository hospitalSchedule,
+        IDoctorCategoryRepository doctorCategoryRepository)
     {
         this._fileService = fileService;
         this._doctorRepository = doctorRepository;
         this._branchDoctorRepository = branchDoctorRepository;
         this._paginator = paginator;
         this._hospitalSchedule = hospitalSchedule;
+        this._doctorCategoryRepository = doctorCategoryRepository;
     }
     public async Task<long> CountByHospitalAsync(long hospitalId)
     {
@@ -96,6 +101,23 @@ public class DoctorService : IDoctorService
                 hospitalSchedule.EndTime = dto.EndTime;
                 hospitalSchedule.CreatedAt = hospitalSchedule.UpdatedAt = TimeHelper.GetDateTime();
                 res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
+                if(res)
+                {
+                    int count = 0;
+                    foreach (var categoryid in dto.CategoryIds)
+                    {
+                        var doctorCategory = new DoctorCategory();
+                        doctorCategory.DoctorId = doctorId;
+                        doctorCategory.CategoryId = categoryid;
+                        doctorCategory.CreatedAt = doctorCategory.UpdatedAt = TimeHelper.GetDateTime();
+
+                        var result = await _doctorCategoryRepository.CreateAsync(doctorCategory);
+                        count += result;
+                    }
+
+                    if (count == dto.CategoryIds.Count) return true;
+                    return false;
+                }
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Heads;
+using OnMed.DataAccess.ViewModels.Heads;
+using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Heads;
 
 namespace OnMed.DataAccess.Repositories.Heads;
@@ -71,6 +73,27 @@ public class HeadRepository : BaseRepository, IHeadRepository
             await _connection.CloseAsync();
         }
     }
+
+    public async Task<HeadViewModel?> GetByIdViewAsync(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT * FROM heads WHERE id = @Id";
+            var data = await _connection.QuerySingleAsync<HeadViewModel>(query, new { Id = id });
+
+            return data;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<Head?> GetByPhoneNumberAsync(string phoneNumber)
     {
         try
