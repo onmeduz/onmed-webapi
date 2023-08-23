@@ -10,4 +10,8 @@
     <ProjectReference Include="..\OnMed.Domain\OnMed.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\Appointments\" />
+  </ItemGroup>
+
 </Project>

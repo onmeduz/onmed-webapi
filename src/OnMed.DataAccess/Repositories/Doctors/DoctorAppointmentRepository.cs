@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Doctors;
+using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
+using Serilog;
 
 namespace OnMed.DataAccess.Repositories.Doctors;
 
@@ -33,10 +35,10 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
             await _connection.OpenAsync();
             string query = "INSERT INTO doctor_appointment (user_id, doctor_id, status, hospital_branch_id, " +
                 "register_date, start_time, duration_minutes, payment_type, payment_provider, is_paid, " +
-                    "description, paid_money, payment_description, stars, created_at, updated_at) " +
+                    "description, paid_money, payment_description, created_at, updated_at) " +
                         "VALUES (@UserId, @DoctorId, @Status, @HospitalBranchId, @RegisterDate, @StartTime, " +
                             "@DurationMinutes, @PaymentType, @PaymentProvider, @IsPaid, @Description, @PaidMoney, " +
-                                "@PaymentDescription, @Stars, @CreatedAt, @UpdatedAt);";
+                                "@PaymentDescription, @CreatedAt, @UpdatedAt);";
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
@@ -71,6 +73,28 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         }
     }
 
+    public async Task<IList<UserAppointmentViewModel>> GetByDateAndDoctorIdAsync(long doctorId, DateOnly date)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM doctor_appointment WHERE doctor_id = {doctorId} " +
+                $"and register_date = '{date}' ";
+            var result = (await _connection.QueryAsync<UserAppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<UserAppointmentViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<DoctorAppointment?> GetByIdAsync(long id)
     {
         try
@@ -84,6 +108,33 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         catch
         {
             return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<int> GetEmptyAppointmentAsync(long doctorId, DateOnly registerDate, TimeOnly startTime)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM doctor_appointment WHERE doctor_id = {doctorId} " +
+                $"and register_date = '{registerDate}' and start_time = time '{startTime}'";
+            var result = await _connection.QuerySingleAsync<int>(query);
+
+            return result;
+        }
+        catch (InvalidOperationException ex)
+        {
+            Log.Error(ex, ex.Message);
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return -1;
         }
         finally
         {
