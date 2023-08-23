@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Doctors;
+using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
 using Serilog;
 
@@ -65,6 +66,28 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<UserAppointmentViewModel>> GetByDateAndDoctorIdAsync(long doctorId, DateOnly date)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM doctor_appointment WHERE doctor_id = {doctorId} " +
+                $"and register_date = '{date}' ";
+            var result = (await _connection.QueryAsync<UserAppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<UserAppointmentViewModel>();
         }
         finally
         {

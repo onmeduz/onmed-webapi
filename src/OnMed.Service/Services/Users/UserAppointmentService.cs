@@ -36,6 +36,11 @@ public class UserAppointmentService : IUserAppointmentService
         this._doctorRepository = doctorRepository;
     }
 
+    public Task<long> CountAsync()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<bool> CreateAsync(AppointmentCreateDto dto)
     {
         var date = dto.RegisterDate;
@@ -90,8 +95,11 @@ public class UserAppointmentService : IUserAppointmentService
         throw new NotImplementedException();
     }
 
-    public Task<UserAppointmentViewModel> GetByDateAsync(DateOnly date)
+    public async Task<IList<UserAppointmentViewModel>> GetByDateAndDoctorIdAsync(long doctorId, DateOnly date)
     {
-        throw new NotImplementedException();
+        if(date == null) date = DateOnly.FromDateTime(DateTime.Now);
+        var result = await _doctorAppointmentRepository.GetByDateAndDoctorIdAsync(doctorId, date);
+
+        return result;
     }
 }
