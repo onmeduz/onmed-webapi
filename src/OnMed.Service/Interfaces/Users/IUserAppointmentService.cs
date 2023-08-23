@@ -7,6 +7,7 @@ namespace OnMed.Service.Interfaces.Users;
 public interface IUserAppointmentService
 {
     public Task<IList<UserAppointmentViewModel>> GetAllAsync(PaginationParams @params);
-    public Task<UserAppointmentViewModel> GetByDateAsync(DateOnly date);
+    public Task<IList<UserAppointmentViewModel>> GetByDateAndDoctorIdAsync(long doctorId, DateOnly date);
     public Task<bool> CreateAsync(AppointmentCreateDto dto);
+    public Task<long> CountAsync();
 }
