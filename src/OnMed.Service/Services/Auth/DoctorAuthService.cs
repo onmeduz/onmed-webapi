@@ -1,13 +1,13 @@
-﻿using OnMed.Application.Exceptions.Auth;
+﻿using Microsoft.Extensions.Caching.Memory;
+using OnMed.Application.Exceptions.Auth;
 using OnMed.Application.Exceptions.Doctors;
 using OnMed.DataAccess.Interfaces.Doctors;
-using OnMed.Service.Common.Security;
-using OnMed.Persistance.Dtos.Auth;
-using OnMed.Service.Interfaces.Auth;
 using OnMed.Persistance.Common.Helpers;
+using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Dtos.Notifications;
 using OnMed.Persistance.Dtos.Security;
-using Microsoft.Extensions.Caching.Memory;
+using OnMed.Service.Common.Security;
+using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Notifications;
 
 namespace OnMed.Service.Services.Auth;

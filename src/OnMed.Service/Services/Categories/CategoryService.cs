@@ -1,15 +1,12 @@
 ﻿using OnMed.Application.Exceptions.Categories;
 using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Utils;
-using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Categories;
 using OnMed.Domain.Entities.Categories;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Categories;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
-using OnMed.Service.Services.Common;
-using System.Net.WebSockets;
 
 namespace OnMed.Service.Services.Categories;
 
@@ -42,7 +39,7 @@ public class CategoryService : ICategoryService
         category.Professionality = dto.Professionality;
         category.ProfessionalityHint = dto.ProfessionalityHint;
         category.Professional = dto.Professional;
-        category.ProfessionalHint= dto.ProfessionalHint;
+        category.ProfessionalHint = dto.ProfessionalHint;
         category.CreatedAt = TimeHelper.GetDateTime();
         category.UpdatedAt = TimeHelper.GetDateTime();
         var result = await _categoryRepository.CreateAsync(category);
@@ -84,7 +81,7 @@ public class CategoryService : ICategoryService
             var deleteResult = await _fileService.DeleteImageAsync(category.ImagePath);
             if (deleteResult is false) throw new ImageNotFoundException();
 
-            string newImagePath = await _fileService.UploadImageAsync(dto.Image,"categories");
+            string newImagePath = await _fileService.UploadImageAsync(dto.Image, "categories");
 
             category.ImagePath = newImagePath;
         }

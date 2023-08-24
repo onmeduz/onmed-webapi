@@ -1,11 +1,9 @@
-﻿using Onmed.Domain.Enums;
-
-namespace OnMed.Persistance.Dtos.Appointments;
+﻿namespace OnMed.Persistance.Dtos.Appointments;
 
 public class AppointmentCreateDto
 {
     public long DoctorId { get; set; }
     public long HospitalBranchId { get; set; }
-    public DateOnly RegisterDate { get; set; }
-    public TimeOnly StartTime { get; set; }
+    public string RegisterDate { get; set; } = string.Empty;
+    public string StartTime { get; set; } = string.Empty;
 }

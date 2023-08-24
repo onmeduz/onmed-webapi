@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnMed.Persistance.Dtos.Appointments;
-using OnMed.Persistance.Dtos.Categories;
 using OnMed.Persistance.Validators.Dtos.Appointments;
-using OnMed.Persistance.Validators.Dtos.Categories;
 using OnMed.Service.Interfaces.Users;
-using OnMed.WebApi.Controllers.Common;
 
 namespace OnMed.WebApi.Controllers.User.Appointments;
 
@@ -28,11 +25,11 @@ public class UserAppointmentsController : UserBaseController
         else return BadRequest(result.Errors);
     }
 
-   /* [HttpGet("{doctorId}/{bookingDate}")]
-    public async Task<IActionResult> GetByIdDateAsync(long doctorId, string bookingDate)
-    => Ok(await _bookingService.GetByIdDateAsync(doctorId, bookingDate));
+    /* [HttpGet("{doctorId}/{bookingDate}")]
+     public async Task<IActionResult> GetByIdDateAsync(long doctorId, string bookingDate)
+     => Ok(await _bookingService.GetByIdDateAsync(doctorId, bookingDate));
 
-    [HttpGet("{doctorId}/{time}/{date}")]
-    public async Task<IActionResult> GetUserViewByDoctorIdDateTime(long doctorId, string time, string date)
-        => Ok(await _bookingService.GetUserViewByDoctorIdDateTime(doctorId, time, date));*/
+     [HttpGet("{doctorId}/{time}/{date}")]
+     public async Task<IActionResult> GetUserViewByDoctorIdDateTime(long doctorId, string time, string date)
+         => Ok(await _bookingService.GetUserViewByDoctorIdDateTime(doctorId, time, date));*/
 }

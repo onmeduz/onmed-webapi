@@ -3,7 +3,6 @@ using OnMed.Application.Utils;
 using OnMed.Persistance.Dtos.Hospitals;
 using OnMed.Persistance.Validators.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Hospitals;
-using OnMed.Service.Services.Hospitals;
 
 namespace OnMed.WebApi.Controllers.Head.Hospitals;
 

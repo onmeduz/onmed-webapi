@@ -1,7 +1,5 @@
-﻿using OnMed.DataAccess.Interfaces;
-using OnMed.DataAccess.Interfaces.Heads;
+﻿using OnMed.DataAccess.Interfaces.Heads;
 using OnMed.DataAccess.ViewModels.Heads;
-using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Heads;
 

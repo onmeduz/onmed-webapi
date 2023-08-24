@@ -1,8 +1,6 @@
 ﻿using OnMed.Application.Utils;
 using OnMed.DataAccess.ViewModels.Administrators;
-using OnMed.Domain.Entities.Hospitals;
 using OnMed.Persistance.Dtos.Administrators;
-using OnMed.Persistance.Dtos.Hospitals;
 
 namespace OnMed.Service.Interfaces.Administrators;
 

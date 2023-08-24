@@ -3,8 +3,6 @@ using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.ViewModels.Administrators;
 using OnMed.Domain.Entities.Administrators;
-using OnMed.Domain.Entities.Users;
-using System.Numerics;
 using static Dapper.SqlMapper;
 
 namespace OnMed.DataAccess.Repositories.Administrators;
@@ -68,7 +66,7 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
                             "@PhoneNumberConfirmed, @IsMale, @ImagePath, @Region, @PasswordHash, @Salt, " +
                                 "@CreatedAt, @UpdatedAt) returning id ";
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch

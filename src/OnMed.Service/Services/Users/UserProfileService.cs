@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using OnMed.Application.Exceptions.Files;
+﻿using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Users;
 using OnMed.DataAccess.Interfaces.Users;
-using OnMed.DataAccess.Repositories.Users;
 using OnMed.DataAccess.ViewModels.Users;
-using OnMed.Domain.Entities.Categories;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Dtos.Users;
@@ -36,18 +33,22 @@ public class UserProfileService : IUserProfileService
         throw new NotImplementedException();
     }
 
-    public async Task<UserViewModel?> GetProfileInfoAsync()=>
+    public async Task<UserViewModel?> GetProfileInfoAsync() =>
         await _repository.GetByIdViewAsync(_identity.UserId);
 
     public async Task<bool> UpdateAsync(UserUpdateDto dto)
     {
+        var date = DateTime.Parse(dto.BirthDay);
+
+        DateOnly BirthDay = new DateOnly(date.Year, date.Month, date.Day);
+
         var user = await _repository.GetByIdAsync(_identity.UserId);
         if (user is null) throw new UserNotFoundException();
 
         user.FirstName = dto.FirstName;
         user.LastName = dto.LastName;
         user.MiddleName = dto.MiddleName;
-        user.BirthDay = dto.BirthDay;
+        user.BirthDay = BirthDay;
         user.IsMale = dto.IsMale;
         user.Region = dto.Region;
         user.UpdatedAt = TimeHelper.GetDateTime();

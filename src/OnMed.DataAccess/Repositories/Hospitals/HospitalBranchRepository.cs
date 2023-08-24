@@ -1,5 +1,4 @@
-﻿using Aspose.Pdf.Operators;
-using Dapper;
+﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Hospitals;
@@ -21,7 +20,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch(Exception ex) 
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -46,7 +45,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -71,7 +70,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch(Exception ex) 
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -93,7 +92,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -116,7 +115,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
             var result = (await _connection.QueryAsync<HospitalBranchViewModel>(query)).ToList();
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -139,7 +138,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
             var result = (await _connection.QueryAsync<HospitalBranchForCommonViewModel>(query)).ToList();
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -161,7 +160,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 
@@ -188,7 +187,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
 
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
 

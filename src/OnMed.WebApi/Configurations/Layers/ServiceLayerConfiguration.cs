@@ -42,7 +42,7 @@ namespace OnMed.WebApi.Configurations.Layers
             builder.Services.AddScoped<IHeadAuthService, HeadAuthService>();
             builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
             builder.Services.AddScoped<IHeadService, HeadService>();
-            builder.Services.AddScoped<IUserAppointmentService , UserAppointmentService>();
+            builder.Services.AddScoped<IUserAppointmentService, UserAppointmentService>();
         }
     }
 }

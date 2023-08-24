@@ -2,7 +2,6 @@
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
 using OnMed.Domain.Entities.Categories;
-using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Categories;
 

@@ -5,4 +5,4 @@ namespace OnMed.DataAccess.Interfaces.Hospitals;
 
 public interface IHospitalRepository : IRepository<Hospital>,
     IGetAll<Hospital>
-{}
+{ }

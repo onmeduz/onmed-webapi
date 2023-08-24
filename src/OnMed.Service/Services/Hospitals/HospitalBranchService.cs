@@ -8,7 +8,6 @@ using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Hospitals;
-using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Hospitals;
 
@@ -61,7 +60,7 @@ public class HospitalBranchService : IHospitalBranchService
         if (hospitalBranchId > 0)
         {
             int count = 0;
-            foreach(var categoryid in dto.CategoryIds)
+            foreach (var categoryid in dto.CategoryIds)
             {
                 var hospitalBranchCategory = new HospitalBranchCategory();
                 hospitalBranchCategory.HospitalBranchId = hospitalBranchId;
@@ -111,7 +110,7 @@ public class HospitalBranchService : IHospitalBranchService
         var hospitalBranch = await _hospitalBranchRepository.GetByIdAsync(hospitalBranchId);
         if (hospitalBranch == null) throw new HospitalBranchNotFoundException();
         hospitalBranch.Name = dto.Name;
-        
+
         if (dto.Image is not null)
         {
             var deleteResult = await _fileService.DeleteImageAsync(hospitalBranch.ImagePath);

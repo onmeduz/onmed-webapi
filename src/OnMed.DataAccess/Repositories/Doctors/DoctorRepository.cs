@@ -15,7 +15,7 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
             await _connection.OpenAsync();
             string query = $"SELECT count(*) FROM doctors ;";
             var result = await _connection.QuerySingleAsync<long>(query);
-            
+
             return result;
         }
         catch
@@ -38,7 +38,7 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
                     "VALUES (@FirstName, @LastName, @MiddleName, @BirthDay, @PhoneNumber, @Degree, @IsMale, @ImagePath, @Region," +
                         " @AppointmentMoney, @PasswordHash, @Salt, @CreatedAt, @UpdatedAt);";
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch
@@ -128,17 +128,9 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, " +
-                "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
-                    "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
-                        "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
-                            "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time, " +
-                                  "hospital_schedule.hospital_branch_id FROM doctors " +
-                                    "JOIN hospital_branch_doctors ON hospital_branch_doctors.doctor_id = doctors.id " +
-                                        "JOIN hospital_schedule ON hospital_schedule.doctor_id = doctors.id " +
-                                            $"WHERE hospital_branch_doctors.hospital_branch_id = {hospitalId} " +
-                                                $"ORDER BY id DESC " +
-                                                    $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+            string query = $"SELECT * from doctor_view where hospital_branch_id = {hospitalId} " +
+                $" OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+
             var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
 
             return result;
@@ -147,8 +139,8 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         {
             return new List<DoctorViewModel>();
         }
-        finally 
-        { 
+        finally
+        {
             await _connection.CloseAsync();
         }
     }
@@ -187,7 +179,7 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
             await _connection.OpenAsync();
             string query = $"SELECT * FROM doctors WHERE id = {id} ;";
             var result = await _connection.QuerySingleAsync<Doctor>(query);
-            
+
             return result;
         }
         catch
@@ -244,4 +236,26 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         }
     }
 
+    public async Task<IList<DoctorViewModel>> GetAllHospitalIdAndCategoryIdAsync(long hospitalId, long? categoryId, PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * from doctor_view " +
+                $"where hospital_branch_id = {hospitalId} and {categoryId} = any(category_ids) " +
+                $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<DoctorViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
 }

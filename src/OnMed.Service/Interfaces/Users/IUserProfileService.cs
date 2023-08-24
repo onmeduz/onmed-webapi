@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using OnMed.DataAccess.ViewModels.Users;
+﻿using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Dtos.Users;
 

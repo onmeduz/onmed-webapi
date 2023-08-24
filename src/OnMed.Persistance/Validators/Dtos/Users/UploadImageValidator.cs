@@ -10,7 +10,7 @@ public class UploadImageValidator : AbstractValidator<UploadImageDto>
     {
         int maxImageSizeMB = 5;
         RuleFor(dto => dto.Image).NotEmpty().NotNull().WithMessage("Image field is required");
-        RuleFor(dto => dto.Image.Length).LessThan(maxImageSizeMB * 1024 * 1024+1)
+        RuleFor(dto => dto.Image.Length).LessThan(maxImageSizeMB * 1024 * 1024 + 1)
             .WithMessage($"Image size must be less than {maxImageSizeMB} MB");
         RuleFor(dto => dto.Image.FileName).Must(predicate =>
         {

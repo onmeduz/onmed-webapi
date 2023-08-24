@@ -84,10 +84,10 @@ public class HospitalService : IHospitalService
         hospital.Email = dto.Email;
         hospital.Website = dto.Website;
 
-        if(dto.BrandImage is not null)
+        if (dto.BrandImage is not null)
         {
             var deleteResult = await _fileService.DeleteImageAsync(hospital.BrandImagePath);
-            if(deleteResult == false) throw new ImageNotFoundException();
+            if (deleteResult == false) throw new ImageNotFoundException();
             string newImagePath = await _fileService.UploadImageAsync(dto.BrandImage, "hospitals");
             hospital.BrandImagePath = newImagePath;
         }

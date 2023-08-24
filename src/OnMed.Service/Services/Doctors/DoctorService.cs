@@ -4,11 +4,9 @@ using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.DataAccess.Repositories.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
-using OnMed.Domain.Enums;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
@@ -42,7 +40,7 @@ public class DoctorService : IDoctorService
     }
     public async Task<long> CountByHospitalAsync(long hospitalId)
     {
-        var result =  await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
+        var result = await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
 
         return result;
     }
@@ -87,7 +85,7 @@ public class DoctorService : IDoctorService
             branchdoctor.RegisteredAt = TimeHelper.GetDateTime();
             branchdoctor.CreatedAt = branchdoctor.UpdatedAt = TimeHelper.GetDateTime();
             var dbResult = await _branchDoctorRepository.CreateAsync(branchdoctor);
-            res = dbResult>0;
+            res = dbResult > 0;
             if (res)
             {
                 var hospitalSchedule = new HospitalSchedule();
@@ -101,7 +99,7 @@ public class DoctorService : IDoctorService
                 hospitalSchedule.EndTime = dto.EndTime;
                 hospitalSchedule.CreatedAt = hospitalSchedule.UpdatedAt = TimeHelper.GetDateTime();
                 res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
-                if(res)
+                if (res)
                 {
                     int count = 0;
                     foreach (var categoryid in dto.CategoryIds)
@@ -137,9 +135,9 @@ public class DoctorService : IDoctorService
         return doctors;
     }
 
-    public async Task<IList<DoctorViewModel>> GetAllByHospitalAsync(long hospitalId,long? categoryId, PaginationParams @params)
+    public async Task<IList<DoctorViewModel>> GetAllByHospitalAsync(long hospitalId, long? categoryId, PaginationParams @params)
     {
-        if(categoryId == null)
+        if (categoryId == null)
         {
             var doctors = await _doctorRepository.GetAllHospitalIdAsync(hospitalId, @params);
             var count = await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
@@ -148,9 +146,12 @@ public class DoctorService : IDoctorService
         }
         else
         {
-            return new List<DoctorViewModel>();
+            var doctors = await _doctorRepository.GetAllHospitalIdAndCategoryIdAsync(hospitalId, categoryId, @params);
+            var count = await _branchDoctorRepository.CountByHospitalAsync(hospitalId);
+            _paginator.Paginate(count, @params);
+            return doctors;
         }
-        
+
     }
 
     public async Task<DoctorViewModel> GetByIdAsync(long doctorId)

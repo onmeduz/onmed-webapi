@@ -6,7 +6,7 @@ namespace OnMed.DataAccess.Repositories.Hospitals;
 
 public class HospitalBranchAdminRepository : BaseRepository, IHospitalBranchAdminRepository
 {
-    public async Task<long> CountAsync()    
+    public async Task<long> CountAsync()
     {
         try
         {

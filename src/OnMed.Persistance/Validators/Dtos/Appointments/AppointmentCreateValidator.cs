@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
-using OnMed.Domain.Entities.Hospitals;
-using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Appointments;
 
 namespace OnMed.Persistance.Validators.Dtos.Appointments;
 
-public class AppointmentCreateValidator: AbstractValidator<AppointmentCreateDto>
+public class AppointmentCreateValidator : AbstractValidator<AppointmentCreateDto>
 {
     public AppointmentCreateValidator()
     {
