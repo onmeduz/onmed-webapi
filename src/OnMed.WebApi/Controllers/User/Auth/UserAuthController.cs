@@ -9,7 +9,7 @@ namespace OnMed.WebApi.Controllers.Common.Users
     [Route("api/user/auth")]
     [ApiController]
     public class UserAuthController : CommonBaseController
-    { 
+    {
         private readonly IAuthService _authService;
 
         public UserAuthController(IAuthService authService)
@@ -46,7 +46,7 @@ namespace OnMed.WebApi.Controllers.Common.Users
         public async Task<IActionResult> VerifyRegisterAsync([FromBody] VerifyRegisterDto verifyRegisterDto)
         {
             var serviceResult = await _authService.VerifyRegisterAsync(verifyRegisterDto.PhoneNumber, verifyRegisterDto.Code);
-            
+
             return Ok(new { serviceResult.Result, serviceResult.Token });
         }
 

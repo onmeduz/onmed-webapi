@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.Domain.Entities.Categories;
 using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Hospitals;
@@ -44,7 +43,7 @@ public class HospitalRepository : BaseRepository, IHospitalRepository
 
             return result;
         }
-        catch 
+        catch
         {
             return 0;
         }
@@ -105,7 +104,7 @@ public class HospitalRepository : BaseRepository, IHospitalRepository
 
             return result;
         }
-        catch 
+        catch
         {
             return null;
         }

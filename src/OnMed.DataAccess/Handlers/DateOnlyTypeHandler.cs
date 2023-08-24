@@ -8,7 +8,7 @@ public class DateOnlyTypeHandler : SqlMapper.TypeHandler<DateOnly>
     public override DateOnly Parse(object value)
     {
         var stringVal = value.ToString();
-        if(stringVal is null) return new DateOnly();
+        if (stringVal is null) return new DateOnly();
         var dateTime = DateTime.Parse(stringVal);
 
         return DateOnly.FromDateTime(dateTime);

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace OnMed.Service.Interfaces.Auth;
+﻿namespace OnMed.Service.Interfaces.Auth;
 
 public interface IIdentityService
 {

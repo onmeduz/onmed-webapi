@@ -39,7 +39,7 @@ public class HospitalCreateValidator : AbstractValidator<HospitalCreateDto>
         RuleFor(dto => dto.LicenseNumber).NotNull().NotEmpty().WithMessage("LicenseNumber field is required!")
             .MinimumLength(3).WithMessage("LicenseNumber must be more than 3 characters")
             .MaximumLength(50).WithMessage("LicenseNumber must be less than 50 characters");
-       
+
 
     }
 }

@@ -32,7 +32,7 @@ public class HeadAdministratorController : HeadBaseController
         => Ok(await _administratorService.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
     [HttpPut]
-    public async Task<IActionResult> UpdateAsync(long administratorId ,[FromForm] AdministratorUpdateDto dto)
+    public async Task<IActionResult> UpdateAsync(long administratorId, [FromForm] AdministratorUpdateDto dto)
     {
         var updateValidator = new AdministratorUpdateValidator();
         var validationResult = updateValidator.Validate(dto);
@@ -41,6 +41,6 @@ public class HeadAdministratorController : HeadBaseController
     }
 
     [HttpDelete("{administratorId}")]
-    public async Task<IActionResult> DeleteAsync(long administratorId )
+    public async Task<IActionResult> DeleteAsync(long administratorId)
         => Ok(await _administratorService.DeleteAsync(administratorId));
 }

@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Onmed.Domain.Entities.Doctors;
 using OnMed.DataAccess.Interfaces.Doctors;
-using OnMed.Domain.Entities.Doctors;
 
 namespace OnMed.DataAccess.Repositories.Doctors;
 

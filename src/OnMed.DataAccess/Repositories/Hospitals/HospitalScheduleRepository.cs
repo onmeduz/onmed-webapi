@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
 using Serilog;
 
@@ -147,7 +146,7 @@ public class HospitalScheduleRepository : BaseRepository, IHospitalScheduleRepos
             Log.Error(ex, ex.Message);
             return 0;
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             Log.Error(ex, ex.Message);
             return -1;

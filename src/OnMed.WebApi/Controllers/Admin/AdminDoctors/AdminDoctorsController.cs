@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnMed.Application.Utils;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Persistance.Validators.Dtos.Doctors;
 using OnMed.Service.Interfaces.Doctors;

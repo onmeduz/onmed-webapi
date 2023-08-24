@@ -2,5 +2,5 @@
 
 public class UserAppointmentViewModel
 {
-    public TimeOnly StartTime { get; set; } 
+    public TimeOnly StartTime { get; set; }
 }

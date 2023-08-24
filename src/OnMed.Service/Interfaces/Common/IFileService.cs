@@ -8,7 +8,7 @@ public interface IFileService
 
     public Task<bool> DeleteImageAsync(string subpath);
 
-    public Task<string> UploadAvatarAsync(IFormFile avatar,string folderName);
+    public Task<string> UploadAvatarAsync(IFormFile avatar, string folderName);
 
     public Task<bool> DeleteAvatarAsync(string subpath);
 }

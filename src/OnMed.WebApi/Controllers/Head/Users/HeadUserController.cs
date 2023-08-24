@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnMed.Application.Utils;
-using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Persistance.Dtos.Users;
-using OnMed.Persistance.Validators.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Users;
 using OnMed.Service.Interfaces.Users;
 

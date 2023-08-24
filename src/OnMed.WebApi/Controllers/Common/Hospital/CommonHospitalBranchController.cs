@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnMed.Application.Utils;
 using OnMed.Service.Interfaces.Doctors;
@@ -26,9 +25,9 @@ public class CommonHospitalBranchController : CommonBaseController
     public async Task<IActionResult> GetAllForCommonAsync([FromQuery] int page = 1)
         => Ok(await _hospitalBranchService.GetAllForCommonAsync(new PaginationParams(page, maxPageSize)));
 
-    [HttpGet("doctors")]
-    public async Task<IActionResult> GetAllAsync(long hospitalId, [FromQuery] int page = 1)
-        => Ok(await _service.GetAllByHospitalAsync(hospitalId, new PaginationParams(page, maxPageSize)));
+    [HttpGet("doctors/{hospitalId}")]
+    public async Task<IActionResult> GetAllAsync(long hospitalId, [FromQuery] long? categoryId = null, [FromQuery] int page = 1)
+        => Ok(await _service.GetAllByHospitalAsync(hospitalId, categoryId, new PaginationParams(page, maxPageSize)));
 
     [HttpGet("doctors/count")]
     [AllowAnonymous]

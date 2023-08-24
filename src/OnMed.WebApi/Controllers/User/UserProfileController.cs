@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnMed.Persistance.Dtos.Auth;
 using OnMed.Persistance.Dtos.Users;
-using OnMed.Persistance.Validators;
 using OnMed.Persistance.Validators.Dtos.Auth;
 using OnMed.Persistance.Validators.Dtos.Users;
 using OnMed.Service.Interfaces.Users;
-using System.Data;
 
 namespace OnMed.WebApi.Controllers.User;
 

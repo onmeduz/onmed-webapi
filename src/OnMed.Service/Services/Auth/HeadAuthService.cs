@@ -1,5 +1,4 @@
 ﻿using OnMed.Application.Exceptions;
-using OnMed.Application.Exceptions.Administrators;
 using OnMed.Application.Exceptions.Auth;
 using OnMed.DataAccess.Interfaces.Heads;
 using OnMed.Persistance.Dtos.Auth;

@@ -115,8 +115,8 @@ public class AuthService : IAuthService
 
                         return (Result: true, Token: token);
                     }
-                    else 
-                    { 
+                    else
+                    {
                         return (Result: false, Token: "");
                     }
                 }
@@ -206,5 +206,5 @@ public class AuthService : IAuthService
         else throw new VerificationCodeExpiredException();
     }
 
-    
+
 }

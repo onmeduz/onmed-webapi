@@ -1,4 +1,3 @@
-using OnMed.WebApi.Configurations;
 using OnMed.WebApi.Configurations.Layers;
 using OnMed.WebApi.Middlewares;
 
@@ -31,4 +30,3 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-        

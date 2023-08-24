@@ -1,18 +1,12 @@
-﻿using OnMed.Application.Exceptions.Administrators;
-using OnMed.Application.Exceptions.Categories;
-using OnMed.Application.Exceptions.Files;
+﻿using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
-using OnMed.DataAccess.Interfaces.Heads;
 using OnMed.DataAccess.Interfaces.Users;
 using OnMed.DataAccess.ViewModels.Users;
-using OnMed.Domain.Entities.Categories;
-using OnMed.Domain.Entities.Users;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Users;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Users;
-using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Users;
 

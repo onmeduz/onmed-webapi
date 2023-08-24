@@ -12,7 +12,6 @@ using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Service.Common.Security;
 using OnMed.Service.Interfaces.Administrators;
 using OnMed.Service.Interfaces.Common;
-using OnMed.Service.Services.Common;
 
 namespace OnMed.Service.Services.Administrators;
 
@@ -77,7 +76,7 @@ public class AdministratorService : IAdministratorsService
             hospitalBranchAdmin.AdministratorsId = lastAdminId;
             hospitalBranchAdmin.CreatedAt = hospitalBranchAdmin.UpdatedAt = TimeHelper.GetDateTime();
             var result = await _hospitalBranchAdminRepository.CreateAsync(hospitalBranchAdmin);
-            return result>0;
+            return result > 0;
         }
         else return false;
     }
