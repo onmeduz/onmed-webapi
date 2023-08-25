@@ -47,6 +47,6 @@ public class DoctorCreateValidator : AbstractValidator<DoctorCreateDto>
 
         RuleFor(dto => dto.Degree).NotNull().NotEmpty().WithMessage("Degree field is required!");
 
-        RuleFor(dto => dto.HospitalBranchId).NotNull().NotEmpty().WithMessage("Degree field is required!");
+        RuleFor(dto => dto.HospitalBranchId).NotNull().NotEmpty().WithMessage("HospitalBranchId field is required!");
     }
 }

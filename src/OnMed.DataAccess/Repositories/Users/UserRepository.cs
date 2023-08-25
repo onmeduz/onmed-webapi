@@ -57,8 +57,8 @@ public class UserRepository : BaseRepository, IUserRepository
         try
         {
             await _connection.OpenAsync();
-            string query = $"DELETE FROM users WHERE id=@Id";
-            var result = await _connection.QuerySingleAsync<int>(query);
+            string query = $"DELETE FROM users WHERE id={id}";
+            var result = await _connection.ExecuteAsync(query);
 
             return result;
         }

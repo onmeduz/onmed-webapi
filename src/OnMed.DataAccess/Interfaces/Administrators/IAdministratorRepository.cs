@@ -8,4 +8,5 @@ public interface IAdministratorRepository : IRepository<Administrator>,
     IGetByPhoneNumber<Administrator?>, IGetAll<AdministratorViewModel>
 {
     public Task<long> CreateAndReturnIdAsync(Administrator administrartor);
+    public Task<AdministratorViewModel> GetByIdViewModelAsync(long id);
 }

@@ -3,7 +3,7 @@ using OnMed.Service.Interfaces.Heads;
 
 namespace OnMed.WebApi.Controllers.Head;
 
-[Route("api/[controller]")]
+[Route("api/head/profile")]
 [ApiController]
 public class HeadProfileController : HeadBaseController
 {

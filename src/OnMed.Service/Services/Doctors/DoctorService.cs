@@ -122,9 +122,9 @@ public class DoctorService : IDoctorService
         return res;
     }
 
-    public Task<bool> DeleteAsync(long doctorId)
+    public async Task<bool> DeleteAsync(long doctorId)
     {
-        throw new NotImplementedException();
+        return await _doctorRepository.DeleteAsync(doctorId) >0;
     }
 
     public async Task<IList<DoctorViewModel>> GetAllAsync(PaginationParams @params)
@@ -161,8 +161,41 @@ public class DoctorService : IDoctorService
         else return doctor;
     }
 
-    public Task<bool> UpdateAsync(long doctorId, DoctorUpdateDto dto)
+    public async Task<bool> UpdateAsync(long Id, DoctorUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var doctorPhone = await _doctorRepository.GetByIdAsync(Id);
+        if (doctorPhone is null) throw new DoctorNotFoundException();
+
+        string imagepath = "";
+        if (dto.Image is not null)
+        {
+            imagepath = await _fileService.UploadImageAsync(dto.Image, "doctors");
+        }
+        else
+        {
+            imagepath = doctorPhone.ImagePath;
+        }
+        Doctor doctor = new Doctor()
+        {
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            MiddleName = dto.MiddleName,
+            BirthDay = dto.BirthDay,
+            PhoneNumber = dto.PhoneNumber,
+            IsMale = dto.IsMale,
+            Region = dto.Region,
+            AppointmentMoney = dto.AppointmentMoney,
+            Degree = dto.Degree,
+            ImagePath = imagepath,
+            CreatedAt = TimeHelper.GetDateTime(),
+            UpdatedAt = TimeHelper.GetDateTime()
+        };
+
+        var hasherResult = PasswordHasher.Hash(dto.Password);
+        doctor.PasswordHash = hasherResult.Hash;
+        doctor.Salt = hasherResult.Salt;
+        var doctorId = await _doctorRepository.UpdateAsync(Id, doctor);
+
+        return doctorId > 0;
     }
 }
