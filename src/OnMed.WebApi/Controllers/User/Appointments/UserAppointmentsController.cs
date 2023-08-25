@@ -25,11 +25,5 @@ public class UserAppointmentsController : UserBaseController
         else return BadRequest(result.Errors);
     }
 
-    /* [HttpGet("{doctorId}/{bookingDate}")]
-     public async Task<IActionResult> GetByIdDateAsync(long doctorId, string bookingDate)
-     => Ok(await _bookingService.GetByIdDateAsync(doctorId, bookingDate));
-
-     [HttpGet("{doctorId}/{time}/{date}")]
-     public async Task<IActionResult> GetUserViewByDoctorIdDateTime(long doctorId, string time, string date)
-         => Ok(await _bookingService.GetUserViewByDoctorIdDateTime(doctorId, time, date));*/
+    
 }
