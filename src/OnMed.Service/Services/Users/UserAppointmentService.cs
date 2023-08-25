@@ -72,7 +72,7 @@ public class UserAppointmentService : IUserAppointmentService
                 dAppointment.CreatedAt = dAppointment.UpdatedAt = TimeHelper.GetDateTime();
                 var result = await _doctorAppointmentRepository.CreateAsync(dAppointment);
                 return result > 0;
-            }
+            }   
             else if (appointmentFreeTime > 0) throw new DoctorAlreadyAppoinmentException();
             else if (appointmentFreeTime == -1) throw new InternalServerErrorException();
             else return false;

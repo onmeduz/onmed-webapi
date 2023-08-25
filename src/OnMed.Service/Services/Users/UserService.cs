@@ -48,12 +48,16 @@ public class UserService : IUserService
 
     public async Task<bool> UpdateAsync(long userId, UserUpdateDto dto)
     {
+        var date = DateTime.Parse(dto.BirthDay);
+
+        DateOnly BirthDay = new DateOnly(date.Year, date.Month, date.Day);
+
         var user = await _userRepository.GetByIdAsync(userId);
         if (user == null) throw new UserNotFoundException();
         user.FirstName = dto.FirstName;
         user.LastName = dto.LastName;
         user.MiddleName = dto.MiddleName;
-        user.BirthDay = dto.BirthDay;
+        user.BirthDay = BirthDay;
         user.Region = dto.Region;
         user.IsMale = dto.IsMale;
         user.UpdatedAt = TimeHelper.GetDateTime();
