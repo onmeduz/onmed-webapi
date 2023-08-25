@@ -1,8 +1,11 @@
 ﻿using Dapper;
 using OnMed.DataAccess.Interfaces.Doctors;
+using OnMed.DataAccess.ViewModels.Appoinments;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
 using Serilog;
+using System.Security.Principal;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OnMed.DataAccess.Repositories.Doctors;
 
@@ -14,6 +17,26 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         {
             await _connection.OpenAsync();
             string query = $"SELECT count(*) FROM doctor_appointment ;";
+            var result = await _connection.QuerySingleAsync<long>(query);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async  Task<long> CountByHospitalIdAsync(long hospitalBranchId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT count(*) FROM doctor_appointment where hospital_branch_id = {hospitalBranchId} ;";
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
@@ -66,6 +89,102 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<AppointmentViewModel>> GetAllAppointmentAsync(long adminId)
+    {
+        try
+        {
+            
+            await _connection.OpenAsync();
+            string query = $"select * FROM appointment_view " +
+                $"where admin_id = {adminId}";
+
+            var result = (await _connection.QueryAsync<AppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<AppointmentViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<AppointmentViewModel>> GetAllByDayAsync(long adminId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM appointment_view" +
+                $" WHERE EXTRACT(day FROM register_date) = EXTRACT(day FROM now() ::DATE) and " +
+                $"admin_id = {adminId}";
+
+            var result = (await _connection.QueryAsync<AppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<AppointmentViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<AppointmentViewModel>> GetAllByMonthAsync(long adminId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM appointment_view" +
+                $" WHERE EXTRACT(month FROM register_date) = EXTRACT(month FROM now() ::DATE) and " +
+                $"admin_id = {adminId}";
+
+            var result = (await _connection.QueryAsync<AppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<AppointmentViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<AppointmentViewModel>> GetAllByWeekAsync(long adminId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM appointment_view" +
+                $" WHERE EXTRACT(week FROM register_date) = EXTRACT(week FROM now() ::DATE) and " +
+                $"admin_id = {adminId}";
+
+            var result = (await _connection.QueryAsync<AppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<AppointmentViewModel>();
         }
         finally
         {

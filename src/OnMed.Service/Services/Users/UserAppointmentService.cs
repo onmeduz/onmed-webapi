@@ -4,6 +4,7 @@ using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.ViewModels.Appoinments;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Enums;
@@ -35,6 +36,12 @@ public class UserAppointmentService : IUserAppointmentService
     public Task<long> CountAsync()
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<long> CountByHospitalIdAsync(long hospitalBranchId)
+    {
+        var result = await _doctorAppointmentRepository.CountByHospitalIdAsync(hospitalBranchId);
+        return result;
     }
 
     public async Task<bool> CreateAsync(AppointmentCreateDto dto)
@@ -88,6 +95,32 @@ public class UserAppointmentService : IUserAppointmentService
     public Task<IList<UserAppointmentViewModel>> GetAllAsync(PaginationParams @params)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IList<AppointmentViewModel>> GetAllByMomentAsync(int moment)
+    {
+        long adminId = _identityService.UserId;
+        if(moment == 1)
+        {
+            var result = await _doctorAppointmentRepository.GetAllAppointmentAsync(adminId);
+            return result;
+        }
+        else if(moment == 2)
+        {
+            var result = await _doctorAppointmentRepository.GetAllByDayAsync(adminId);
+            return result;
+        }
+        else if(moment == 3)
+        {
+            var result = await _doctorAppointmentRepository.GetAllByWeekAsync(adminId);
+            return result;  
+        }
+        else if(moment == 4)
+        {
+            var result = await _doctorAppointmentRepository.GetAllByMonthAsync(adminId);
+            return result;
+        }
+        else throw new NotFoundException();
     }
 
     public async Task<IList<UserAppointmentViewModel>> GetByDateAndDoctorIdAsync(long doctorId, DateOnly date)

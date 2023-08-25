@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\Admin\NewFolder\**" />
-    <Content Remove="Controllers\Admin\NewFolder\**" />
-    <EmbeddedResource Remove="Controllers\Admin\NewFolder\**" />
-    <None Remove="Controllers\Admin\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
     <PackageReference Include="Serilog" Version="3.0.1" />
