@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Persistance.Dtos.Doctors;
+using OnMed.Persistance.Validators.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Doctors;
 using OnMed.Service.Interfaces.Doctors;
 
@@ -25,4 +27,18 @@ public class AdminDoctorsController : AdminBaseController
         if (result.IsValid) return Ok(await _service.CreateAsync(dto));
         else return BadRequest(result.Errors);
     }
+
+    [HttpDelete("{doctorId}")]
+    public async Task<IActionResult> DeleteAsync(long doctorId)
+        => Ok(await _service.DeleteAsync(doctorId));
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateAsync(long doctorId, [FromForm] DoctorUpdateDto dto)
+    {
+        var updateValidator = new DoctodUpdateValidator();
+        var validationResult = updateValidator.Validate(dto);
+        if (validationResult.IsValid) return Ok(await _service.UpdateAsync(doctorId, dto));
+        else return BadRequest(validationResult.Errors);
+    }
+
 }

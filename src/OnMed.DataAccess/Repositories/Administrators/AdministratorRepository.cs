@@ -140,6 +140,26 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
         }
     }
 
+    public async Task<AdministratorViewModel?> GetByIdViewModelAsync(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * FROM administrator_view WHERE admin_id = @Id";
+            var result = await _connection.QuerySingleAsync<AdministratorViewModel>(query, new { Id = id });
+
+            return result;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<Administrator?> GetByPhoneNumberAsync(string phoneNumber)
     {
         try

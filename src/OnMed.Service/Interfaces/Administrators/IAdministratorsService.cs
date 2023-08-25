@@ -6,6 +6,7 @@ namespace OnMed.Service.Interfaces.Administrators;
 
 public interface IAdministratorsService
 {
+    public Task<AdministratorViewModel> GetProfileInfoAsync();
     public Task<IList<AdministratorViewModel>> GetAllAsync(PaginationParams @params);
     public Task<bool> CreateAsync(AdministratorCreateDto dto);
     public Task<bool> UpdateAsync(long adminId, AdministratorUpdateDto dto);
