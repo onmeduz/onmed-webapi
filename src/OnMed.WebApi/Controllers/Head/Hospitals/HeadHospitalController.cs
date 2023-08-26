@@ -48,4 +48,8 @@ public class HeadHospitalController : HeadBaseController
     public async Task<IActionResult> DeleteAsync(long hospitalId)
         => Ok(await _hospitalService.DeleteAsync(hospitalId));
 
+    [HttpGet("{search}")]
+    public async Task<IActionResult> SearchAsync(string search)
+        => Ok(await _hospitalService.SearchAsync(search));
+
 }

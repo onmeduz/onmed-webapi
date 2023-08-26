@@ -1,6 +1,7 @@
 ﻿using OnMed.Application.Utils;
 using OnMed.DataAccess.ViewModels.Hospitals;
 using OnMed.Persistance.Dtos.Hospitals;
+using System.Drawing.Printing;
 
 namespace OnMed.Service.Interfaces.Hospitals;
 
@@ -12,4 +13,5 @@ public interface IHospitalBranchService
     public Task<bool> UpdateAsync(long hospitalBranchId, HospitalBranchUpdateDto dto);
     public Task<bool> DeleteAsync(long hospitalBranchId);
     public Task<long> CountAsync();
+    public Task<IList<HospitalBranchViewModel>> SearchAsync(string search); 
 }

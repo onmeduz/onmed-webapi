@@ -9,4 +9,5 @@ public interface IUserService
     public Task<IList<UserViewModel>> GetAllAsync(PaginationParams @params);
     public Task<bool> UpdateAsync(long UserId, UserUpdateDto dto);
     public Task<bool> DeleteAsync(long UserId);
+    public Task<IList<UserViewModel>> SearchAsync(string search);
 }

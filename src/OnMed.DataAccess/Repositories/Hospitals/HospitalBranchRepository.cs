@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.DataAccess.ViewModels.Hospitals;
 using OnMed.Domain.Entities.Hospitals;
 using Serilog;
@@ -165,6 +166,28 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
             Log.Error(ex, ex.Message);
 
             return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<HospitalBranchViewModel>> SearchAsync(string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from hospitals_branch_view " +
+                $"where branch_name ilike '%{search}%' ";
+
+            var result = (await _connection.QueryAsync<HospitalBranchViewModel>(query)).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return new List<HospitalBranchViewModel>();
         }
         finally
         {

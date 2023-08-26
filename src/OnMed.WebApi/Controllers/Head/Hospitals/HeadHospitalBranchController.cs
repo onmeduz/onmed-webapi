@@ -43,4 +43,8 @@ public class HeadHospitalBranchController : HeadBaseController
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
         => Ok(await _hospitalBranchService.GetAllAsync(new PaginationParams(page, maxPageSize)));
+
+    [HttpGet("{search}")]
+    public async Task<IActionResult> SearchAsync(string search)
+        => Ok(await _hospitalBranchService.SearchAsync(search));
 }

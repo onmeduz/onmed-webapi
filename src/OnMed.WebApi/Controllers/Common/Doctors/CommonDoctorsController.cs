@@ -36,5 +36,7 @@ public class CommonDoctorsController : CommonBaseController
     public async Task<IActionResult> CountAsync()
         => Ok(await _doctorService.CountAsync());
 
-
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchAsync([FromQuery]string search)
+        => Ok(await _doctorService.SearchAsync(search));
 }

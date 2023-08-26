@@ -22,5 +22,8 @@ namespace OnMed.WebApi.Controllers.Common.Categories
         [HttpGet("{id}")]
         public IActionResult Get(long id) => Ok(id);
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchAsync([FromQuery] string search)
+        => Ok(await _categoryService.SearchAsync(search));
     }
 }

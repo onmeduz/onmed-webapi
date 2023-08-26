@@ -31,6 +31,10 @@ public class HeadAdministratorController : HeadBaseController
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
         => Ok(await _administratorService.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchAsync([FromQuery] string search)
+        => Ok(await _administratorService.SearchAsync(search));
+
     [HttpPut]
     public async Task<IActionResult> UpdateAsync(long administratorId, [FromForm] AdministratorUpdateDto dto)
     {

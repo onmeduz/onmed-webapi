@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Users;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Users;
 
@@ -146,6 +147,28 @@ public class UserRepository : BaseRepository, IUserRepository
         catch
         {
             return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<UserViewModel>> SearchAsync(string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from users " +
+                $"where first_name ilike '%{search}%' or last_name ilike '%{search}%' ";
+
+            var result = (await _connection.QueryAsync<UserViewModel>(query)).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return new List<UserViewModel>();
         }
         finally
         {

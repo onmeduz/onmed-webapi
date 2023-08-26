@@ -46,6 +46,12 @@ public class UserService : IUserService
         return users;
     }
 
+    public async Task<IList<UserViewModel>> SearchAsync(string search)
+    {
+        var searches = await _userRepository.SearchAsync(search);
+        return searches;
+    }
+
     public async Task<bool> UpdateAsync(long userId, UserUpdateDto dto)
     {
         var date = DateTime.Parse(dto.BirthDay);

@@ -109,6 +109,12 @@ public class AdministratorService : IAdministratorsService
     public async Task<AdministratorViewModel> GetProfileInfoAsync() =>
        await _administratorRepository.GetByIdViewModelAsync(_identity.UserId);
 
+    public async Task<IList<AdministratorViewModel>> SearchAsync(string search)
+    {
+        var searches = await _administratorRepository.SearchAsync(search);
+        return searches;
+    }
+
     public async Task<bool> UpdateAsync(long adminId, AdministratorUpdateDto dto)
     {
         var administrator = await _administratorRepository.GetByIdAsync(adminId);
