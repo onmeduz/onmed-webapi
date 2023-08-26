@@ -5,7 +5,8 @@ using OnMed.Domain.Entities.Doctors;
 
 namespace OnMed.DataAccess.Interfaces.Doctors;
 
-public interface IDoctorRepository : IRepository<Doctor>, IGetByPhoneNumber<Doctor?>, IGetAll<DoctorViewModel>
+public interface IDoctorRepository : IRepository<Doctor>, IGetByPhoneNumber<Doctor?>, IGetAll<DoctorViewModel>,
+    ISearchable<DoctorViewModel>
 {
     public Task<long> CreateReturnIdAsync(Doctor entity);
     public Task<IList<DoctorViewModel>> GetAllHospitalIdAsync(long hospitalId, PaginationParams @params);

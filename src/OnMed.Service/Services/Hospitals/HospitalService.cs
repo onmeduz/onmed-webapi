@@ -72,6 +72,12 @@ public class HospitalService : IHospitalService
         return hospitals;
     }
 
+    public async Task<IList<Hospital>> SearchAsync(string search)
+    {
+        var searches = await _hospitalRepository.SearchAsync(search);
+        return searches;
+    }
+
     public async Task<bool> UpdateAsync(long hospitalId, HospitalUpdateDto dto)
     {
         var hospital = await _hospitalRepository.GetByIdAsync(hospitalId);

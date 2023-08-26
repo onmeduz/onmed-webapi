@@ -12,4 +12,5 @@ public interface IAdministratorsService
     public Task<bool> UpdateAsync(long adminId, AdministratorUpdateDto dto);
     public Task<bool> DeleteAsync(long adminId);
     public Task<long> CountAsync();
+    public Task<IList<AdministratorViewModel>> SearchAsync(string search);  
 }

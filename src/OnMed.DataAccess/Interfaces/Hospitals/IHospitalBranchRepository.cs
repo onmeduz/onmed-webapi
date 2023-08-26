@@ -6,7 +6,7 @@ using OnMed.Domain.Entities.Hospitals;
 namespace OnMed.DataAccess.Interfaces.Hospitals;
 
 public interface IHospitalBranchRepository : IRepository<HospitalBranch>,
-    IGetAll<HospitalBranchViewModel>
+    IGetAll<HospitalBranchViewModel>, ISearchable<HospitalBranchViewModel>
 {
     public Task<IList<HospitalBranchForCommonViewModel>> GetAllForCommonAsync(PaginationParams @params);
     public Task<long> CreateAndReturnIdAsync(HospitalBranch hospitalBranch);

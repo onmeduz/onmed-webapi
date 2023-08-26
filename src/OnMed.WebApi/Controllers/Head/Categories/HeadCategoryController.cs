@@ -42,5 +42,6 @@ public class HeadCategoryController : HeadBaseController
     public async Task<IActionResult> CountAsync()
     => Ok(await _categoryService.CountAsync());
 
-    // Get All Common controllerdan olinadi.
+    // Get All Common controllerda.
+    // Search Common controllerda.
 }

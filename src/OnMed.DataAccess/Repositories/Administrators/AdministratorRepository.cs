@@ -2,6 +2,7 @@
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.ViewModels.Administrators;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Administrators;
 using static Dapper.SqlMapper;
 
@@ -173,6 +174,28 @@ public class AdministratorRepository : BaseRepository, IAdministratorRepository
         catch
         {
             return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<AdministratorViewModel>> SearchAsync(string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from administrator_view " +
+                $"where first_name ilike '%{search}%' or last_name ilike '%{search}%' ";
+
+            var result = (await _connection.QueryAsync<AdministratorViewModel>(query)).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return new List<AdministratorViewModel>();
         }
         finally
         {

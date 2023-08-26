@@ -199,5 +199,9 @@ public class DoctorService : IDoctorService
         return doctorId > 0;
     }
 
-    
+    public async Task<IList<DoctorViewModel>> SearchAsync(string search)
+    {
+        var searches = await _doctorRepository.SearchAsync(search);
+        return searches;
+    }
 }

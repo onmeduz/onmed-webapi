@@ -2,11 +2,13 @@
 using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Categories;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
+using System.Data.Common;
 
 namespace OnMed.Service.Services.Categories;
 
@@ -66,6 +68,12 @@ public class CategoryService : ICategoryService
         var count = await _categoryRepository.CountAsync();
         _paginator.Paginate(count, @params);
         return categories;
+    }
+
+    public async Task<IList<Category>> SearchAsync(string search)
+    {
+        var searches = await _categoryRepository.SearchAsync(search);
+        return searches;
     }
 
     public async Task<bool> UpdateAsync(long categoryId, CategoryUpdateDto dto)

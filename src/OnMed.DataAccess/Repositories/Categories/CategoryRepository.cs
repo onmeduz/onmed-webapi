@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 
 namespace OnMed.DataAccess.Repositories.Categories;
@@ -104,6 +105,28 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         catch
         {
             return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<Category>> SearchAsync(string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from categories " +
+                $"where professionality ilike '%{search}%' or professional ilike '%{search}%' ";
+
+            var result = (await _connection.QueryAsync<Category>(query)).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return new List<Category>();
         }
         finally
         {

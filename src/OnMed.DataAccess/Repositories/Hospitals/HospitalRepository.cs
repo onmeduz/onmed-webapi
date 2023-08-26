@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Hospitals;
 
 namespace OnMed.DataAccess.Repositories.Hospitals;
@@ -107,6 +108,28 @@ public class HospitalRepository : BaseRepository, IHospitalRepository
         catch
         {
             return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<Hospital>> SearchAsync(string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from hospitals " +
+                $"where name ilike '%{search}%' ";
+
+            var result = (await _connection.QueryAsync<Hospital>(query)).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return new List<Hospital>();
         }
         finally
         {

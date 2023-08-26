@@ -34,4 +34,8 @@ public class HeadUserController : HeadBaseController
     [HttpDelete("{userId}")]
     public async Task<IActionResult> DeleteAsync(long userId)
         => Ok(await _userService.DeleteAsync(userId));
+
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchAsync([FromQuery] string search)
+        => Ok(await _userService.SearchAsync(search));
 }

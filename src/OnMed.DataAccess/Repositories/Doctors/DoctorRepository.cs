@@ -258,4 +258,26 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
             await _connection.CloseAsync();
         }
     }
+
+    public async Task<IList<DoctorViewModel>> SearchAsync(string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from doctor_view " +
+                $"where first_name ilike '%{search}%' or last_name ilike '%{search}%' ";
+
+            var result = (await _connection.QueryAsync<DoctorViewModel>(query)).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return new List<DoctorViewModel>(); 
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
 }
