@@ -239,8 +239,8 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         try
         {
             await _connection.OpenAsync();
-            string query = $"select * FROM doctor_appointment WHERE doctor_id = {doctorId} " +
-                $"and register_date = '{registerDate}' and start_time = time '{startTime}'";
+            string query = $"SELECT* FROM doctor_appointment WHERE doctor_id = {doctorId} " +
+               $"AND register_date = CAST('{registerDate}' AS DATE) AND start_time = CAST('{startTime}' AS TIME)";
             var result = await _connection.QuerySingleAsync<int>(query);
 
             return result;
