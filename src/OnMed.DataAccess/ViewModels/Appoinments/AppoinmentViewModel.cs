@@ -11,6 +11,7 @@ public class AppointmentViewModel
     public string UserFullname { get; set; } = string.Empty;
     public string UserPhoneNumber { get; set; } = string.Empty;
     public bool UserIsMale { get; set; }
+    public string UserImagePath { get; set; } = string.Empty;
     public string DoctorFullname { get; set; } = string.Empty;
     public string doctorPhoneNumber { get; set; } = string.Empty;
     public bool DoctorIsMale { get; set; }

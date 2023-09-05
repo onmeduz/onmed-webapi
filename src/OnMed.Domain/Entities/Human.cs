@@ -1,4 +1,5 @@
-﻿namespace OnMed.Domain.Entities;
+﻿
+namespace OnMed.Domain.Entities;
 
 public abstract class Human : Auditable
 {

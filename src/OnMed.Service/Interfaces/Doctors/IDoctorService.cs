@@ -15,4 +15,5 @@ public interface IDoctorService
     public Task<DoctorViewModel> GetByIdAsync(long doctorId);
     public Task<bool> UpdateAsync(long doctorId, DoctorUpdateDto dto);
     public Task<IList<DoctorViewModel>> SearchAsync(string search);
+    public Task<IList<DoctorViewModel>> SearchAsync(long branchId, string search);
 }

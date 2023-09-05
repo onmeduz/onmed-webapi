@@ -13,5 +13,5 @@ public interface IDoctorAppointmentRepository : IRepository<DoctorAppointment>
     public Task<IList<AppointmentViewModel>> GetAllByWeekAsync(long adminId);
     public Task<IList<AppointmentViewModel>> GetAllByMonthAsync(long adminId);
     public Task<IList<AppointmentViewModel>> GetAllAppointmentAsync(long adminId);
-
+    public Task<IList<AppointmentViewModel>> SearchAsync(long branchId, string search);
 }

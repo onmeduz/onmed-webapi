@@ -4,6 +4,7 @@ using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
+using OnMed.DataAccess.Repositories.Doctors;
 using OnMed.DataAccess.ViewModels.Appoinments;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
@@ -129,5 +130,11 @@ public class UserAppointmentService : IUserAppointmentService
         var result = await _doctorAppointmentRepository.GetByDateAndDoctorIdAsync(doctorId, date);
 
         return result;
+    }
+
+    public async Task<IList<AppointmentViewModel>> SearchAsync(long branchId, string search)
+    {
+        var searches = await _doctorAppointmentRepository.SearchAsync(branchId ,search);
+        return searches;
     }
 }

@@ -4,6 +4,7 @@ using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Persistance.Validators.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Doctors;
 using OnMed.Service.Interfaces.Doctors;
+using OnMed.Service.Services.Doctors;
 
 namespace OnMed.WebApi.Controllers.Admin.AdminDoctors;
 
@@ -40,5 +41,9 @@ public class AdminDoctorsController : AdminBaseController
         if (validationResult.IsValid) return Ok(await _service.UpdateAsync(doctorId, dto));
         else return BadRequest(validationResult.Errors);
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchAsync(long branchId, [FromQuery] string search)
+        => Ok(await _service.SearchAsync(branchId, search));
 
 }

@@ -261,6 +261,28 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         }
     }
 
+    public async Task<IList<AppointmentViewModel>> SearchAsync(long branchId, string search)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * FROM appointment_view WHERE hospital_branch_id = {branchId} " +
+                $"and (user_fullname ilike '%{search}%' or doctor_fullname ilike '%{search}%') ";
+            var result = (await _connection.QueryAsync<AppointmentViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+            return new List<AppointmentViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<int> UpdateAsync(long id, DoctorAppointment entity)
     {
         try

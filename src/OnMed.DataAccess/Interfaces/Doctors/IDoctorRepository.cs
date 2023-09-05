@@ -12,6 +12,5 @@ public interface IDoctorRepository : IRepository<Doctor>, IGetByPhoneNumber<Doct
     public Task<IList<DoctorViewModel>> GetAllHospitalIdAsync(long hospitalId, PaginationParams @params);
     public Task<DoctorViewModel> GetByIdViewAsync(long doctorId);
     public Task<IList<DoctorViewModel>> GetAllHospitalIdAndCategoryIdAsync(long hospitalId, long? categoryId, PaginationParams @params);
-
-
+    public Task<IList<DoctorViewModel>> SearchAsync(long branchId, string search);
 }

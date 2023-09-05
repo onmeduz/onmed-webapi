@@ -13,5 +13,6 @@ public interface IUserAppointmentService
     public Task<long> CountAsync();
     public Task<long> CountByHospitalIdAsync(long hospitalBranchId);
     public Task<IList<AppointmentViewModel>> GetAllByMomentAsync(int moment);
+    public Task<IList<AppointmentViewModel>> SearchAsync(long branchId, string search);
 
 }
