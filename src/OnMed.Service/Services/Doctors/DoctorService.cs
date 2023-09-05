@@ -204,4 +204,10 @@ public class DoctorService : IDoctorService
         var searches = await _doctorRepository.SearchAsync(search);
         return searches;
     }
+
+    public async Task<IList<DoctorViewModel>> SearchAsync(long branchId, string search)
+    {
+        var searches = await _doctorRepository.SearchAsync(branchId ,search);
+        return searches;
+    }
 }

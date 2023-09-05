@@ -137,6 +137,11 @@ public class HospitalRepository : BaseRepository, IHospitalRepository
         }
     }
 
+    public Task<IList<Hospital>> SearchAsync(long branchId, string search)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<int> UpdateAsync(long id, Hospital entity)
     {
         try
