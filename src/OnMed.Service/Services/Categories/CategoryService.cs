@@ -1,4 +1,5 @@
-﻿using OnMed.Application.Exceptions.Categories;
+﻿using AutoMapper;
+using OnMed.Application.Exceptions.Categories;
 using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
@@ -17,14 +18,17 @@ public class CategoryService : ICategoryService
     private readonly IFileService _fileService;
     private readonly ICategoryRepository _categoryRepository;
     private readonly IPaginator _paginator;
+    private readonly IMapper _mapper;
 
     public CategoryService(ICategoryRepository categoryRepository,
         IFileService fileService,
-        IPaginator paginator)
+        IPaginator paginator,
+        IMapper mapper)
     {
         this._fileService = fileService;
         this._categoryRepository = categoryRepository;
         this._paginator = paginator;
+        this._mapper = mapper;
     }
 
     public Task<long> CountAsync()
@@ -36,12 +40,8 @@ public class CategoryService : ICategoryService
     public async Task<bool> CreateAsync(CategoryCreateDto dto)
     {
         string imagepath = await _fileService.UploadImageAsync(dto.Image, "categories");
-        Category category = new Category();
+        Category category = _mapper.Map<Category>(dto);
         category.ImagePath = imagepath;
-        category.Professionality = dto.Professionality;
-        category.ProfessionalityHint = dto.ProfessionalityHint;
-        category.Professional = dto.Professional;
-        category.ProfessionalHint = dto.ProfessionalHint;
         category.CreatedAt = TimeHelper.GetDateTime();
         category.UpdatedAt = TimeHelper.GetDateTime();
         var result = await _categoryRepository.CreateAsync(category);
@@ -81,6 +81,7 @@ public class CategoryService : ICategoryService
         var category = await _categoryRepository.GetByIdAsync(categoryId);
         if (category is null) throw new CategoryNotFoundException();
 
+        // bu joyda ham mapper yozsa bo'ladi faqat bir qatorgina code tejalishini hisobga olib yozmadim!
         category.Professionality = dto.Professionality;
         category.Professional = dto.Professional;
 

@@ -1,4 +1,5 @@
-﻿using OnMed.Application.Exceptions.Files;
+﻿using AutoMapper;
+using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Hospitals;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
@@ -15,14 +16,17 @@ public class HospitalService : IHospitalService
     private readonly IFileService _fileService;
     private readonly IHospitalRepository _hospitalRepository;
     private readonly IPaginator _paginator;
+    private readonly IMapper _mapper;
 
     public HospitalService(IHospitalRepository hospitalRepository,
         IFileService fileService,
-        IPaginator paginator)
+        IPaginator paginator,
+        IMapper mapper)
     {
         this._fileService = fileService;
         this._hospitalRepository = hospitalRepository;
         this._paginator = paginator;
+        this._mapper = mapper;
     }
 
     public async Task<long> CountAsync()
@@ -33,20 +37,10 @@ public class HospitalService : IHospitalService
 
     public async Task<bool> CreateAsync(HospitalCreateDto dto)
     {
+        // bu yerda ham ishlatdim!
         string imagePath = await _fileService.UploadImageAsync(dto.BrandImage, "hospitals");
-        var hospital = new Hospital();
+        var hospital = _mapper.Map<Hospital>(dto);
         hospital.BrandImagePath = imagePath;
-        hospital.Name = dto.Name;
-        hospital.LegalName = dto.LegalName;
-        hospital.AdministratorPhoneNumber = dto.AdministratorPhoneNumber;
-        hospital.FaxPhoneNumber = dto.FaxPhoneNumber;
-        hospital.Description = dto.Description;
-        hospital.Email = dto.Email;
-        hospital.Website = dto.Website;
-        hospital.LicenseNumber = dto.LicenseNumber;
-        hospital.LicenseGivenDate = dto.LicenseGivenDate;
-        hospital.LegalRegisterNumber = dto.LegalRegisterNumber;
-        hospital.LegalRegisterNumberGivenDate = dto.LegalRegisterNumberGivenDate;
         hospital.CreatedAt = hospital.UpdatedAt = TimeHelper.GetDateTime();
         var result = await _hospitalRepository.CreateAsync(hospital);
         return result > 0;
