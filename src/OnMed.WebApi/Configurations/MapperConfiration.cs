@@ -13,4 +13,5 @@ public class MapperConfiration : Profile
         CreateMap<CategoryCreateDto, Category>().ReverseMap();
         CreateMap<HospitalCreateDto, Hospital>().ReverseMap();
     }
+
 }
