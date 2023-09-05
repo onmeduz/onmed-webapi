@@ -1,8 +1,8 @@
 /.github/*                 @sodiqjonovich
 /test/*                    @ahadulla
-/src/OnMed.Application/*   @rustamkulov
-/src/OnMed.DataAccess/*    @rustamkulov
-/src/OnMed.Domain/*        @rustamkulov
-/src/OnMed.Persistance/*   @rustamkulov
-/src/OnMed.Service/*       @rustamkulov
-/src/OnMed.WebApi/*        @ahadulla
+/src/OnMed.Application/*   @rustamkulov,@Erqoziyev
+/src/OnMed.DataAccess/*    @rustamkulov,@Erqoziyev
+/src/OnMed.Domain/*        @rustamkulov,@Erqoziyev
+/src/OnMed.Persistance/*   @rustamkulov,@Erqoziyev
+/src/OnMed.Service/*       @rustamkulov,@Erqoziyev
+/src/OnMed.WebApi/*        @ahadulla,@Erqoziyev
