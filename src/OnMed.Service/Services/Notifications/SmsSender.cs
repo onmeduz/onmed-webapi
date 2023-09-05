@@ -76,6 +76,7 @@ public class SmsSender : ISmsSender
         }
     }
 
+
     public class EskizToken
     {
         public string Token { get; set; } = String.Empty;
