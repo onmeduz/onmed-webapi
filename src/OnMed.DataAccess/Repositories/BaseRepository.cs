@@ -12,7 +12,6 @@ namespace OnMed.DataAccess.Repositories;
 
 public class BaseRepository
 {
-
     protected readonly NpgsqlConnection _connection;
     public BaseRepository()
     {
