@@ -1,4 +1,6 @@
-﻿namespace OnMed.Persistance.Dtos.Administrators;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace OnMed.Persistance.Dtos.Administrators;
 
 public class AdministratorUpdateDto
 {
