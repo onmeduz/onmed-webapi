@@ -26,6 +26,8 @@ public class AdminDoctorsController : AdminBaseController
         else return BadRequest(result.Errors);
     }
 
+    
+
     [HttpDelete("{doctorId}")]
     public async Task<IActionResult> DeleteAsync(long doctorId)
         => Ok(await _service.DeleteAsync(doctorId));
