@@ -107,7 +107,7 @@ CREATE TABLE hospital_branches
 (
     id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
 	name character varying(50) NOT NULL,
-	hospital_id bigint REFERENCES hospitals(id) ON DELETE CASCADE,
+	hospital_id bigint REFERENCES hospitals(id) NOT NULL,
 	image_path text NOT NULL,
 	region text NOT NULL,
 	district text NOT NULL,
@@ -123,8 +123,8 @@ CREATE TABLE hospital_branches
 CREATE TABLE hospital_branch_categories
 (
 	id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
-	hospital_branch_id bigint REFERENCES hospital_branches(id) ON DELETE CASCADE,
-	category_id bigint REFERENCES categories(id) ON DELETE CASCADE,
+	hospital_branch_id bigint REFERENCES hospital_branches(id) NOT NULL,
+	category_id bigint REFERENCES categories(id) NOT NULL,
 	created_at timestamp without time zone NOT NULL,
 	updated_at timestamp without time zone NOT NULL
 );
@@ -132,8 +132,8 @@ CREATE TABLE hospital_branch_categories
 CREATE TABLE doctor_categories
 (
 	id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
-	doctor_id bigint REFERENCES doctors(id) ON DELETE CASCADE,
-	category_id bigint REFERENCES categories(id) ON DELETE CASCADE,
+	doctor_id bigint REFERENCES doctors(id) NOT NULL,
+	category_id bigint REFERENCES categories(id) NOT NULL,
 	created_at timestamp without time zone NOT NULL,
 	updated_at timestamp without time zone NOT NULL
 );
@@ -141,8 +141,8 @@ CREATE TABLE doctor_categories
 CREATE TABLE hospital_branch_admins
 (
 	id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
-	hospital_branch_id bigint REFERENCES hospital_branches(id) ON DELETE CASCADE,
-	administrators_id bigint REFERENCES administrators(id) ON DELETE CASCADE,
+	hospital_branch_id bigint REFERENCES hospital_branches(id) NOT NULL,
+	administrator_id bigint REFERENCES administrators(id) NOT NULL,
 	created_at timestamp without time zone NOT NULL,
 	updated_at timestamp without time zone NOT NULL
 );
@@ -151,8 +151,8 @@ CREATE TABLE hospital_branch_admins
 CREATE TABLE hospital_branch_doctors
 (
 	id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
-	hospital_branch_id bigint REFERENCES hospital_branches(id) ON DELETE CASCADE,
-	doctor_id bigint REFERENCES doctors(id) ON DELETE CASCADE,
+	hospital_branch_id bigint REFERENCES hospital_branches(id) NOT NULL,
+	doctor_id bigint REFERENCES doctors(id) NOT NULL,
 	is_active boolean NOT NULL,
 	registered_at timestamp without time zone NOT NULL,
 	stopped_at timestamp without time zone NOT NULL,
@@ -163,9 +163,9 @@ CREATE TABLE hospital_branch_doctors
 CREATE TABLE hospital_schedule
 (
 	id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
-	hospital_branch_id bigint REFERENCES hospital_branches(id) ON DELETE CASCADE,
-	doctor_id bigint REFERENCES doctors(id) ON DELETE CASCADE,
-	weekday text[] NOT NULL,
+	hospital_branch_id bigint REFERENCES hospital_branches(id) NOT NULL,
+	doctor_id bigint REFERENCES doctors(id) NOT NULL,
+	weekday text NOT NULL,
 	start_time time without time zone NOT NULL,
 	end_time time without time zone NOT NULL,
 	description text NOT NULL,
@@ -176,10 +176,10 @@ CREATE TABLE hospital_schedule
 CREATE TABLE doctor_appointment
 (
 	id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
-	user_id bigint REFERENCES users(id) ON DELETE CASCADE,
-	doctor_id bigint REFERENCES doctors(id) ON DELETE CASCADE,
+	user_id bigint REFERENCES users(id) NOT NULL,
+	doctor_id bigint REFERENCES doctors(id) NOT NULL,
 	status text NOT NULL,
-	hospital_branch_id bigint REFERENCES hospital_branches(id) ON DELETE CASCADE,
+	hospital_branch_id bigint REFERENCES hospital_branches(id) NOT NULL,
 	register_date date NOT NULL,
 	start_time time without time zone NOT NULL,
 	duration_minutes integer NOT NULL,
