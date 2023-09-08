@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OnMed.WebApi\OnMed.WebApi.csproj" />
+  </ItemGroup>
+
 </Project>

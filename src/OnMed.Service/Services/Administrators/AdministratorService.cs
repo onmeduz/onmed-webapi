@@ -1,4 +1,5 @@
 ﻿using OnMed.Application.Exceptions.Administrators;
+using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Hospitals;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
@@ -11,10 +12,12 @@ using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Hospitals;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Administrators;
+using OnMed.Persistance.Dtos.Users;
 using OnMed.Service.Common.Security;
 using OnMed.Service.Interfaces.Administrators;
 using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Common;
+using System.Runtime.CompilerServices;
 
 namespace OnMed.Service.Services.Administrators;
 
@@ -127,5 +130,24 @@ public class AdministratorService : IAdministratorsService
         var dbResult = await _administratorRepository.UpdateAsync(adminId, administrator);
 
         return dbResult > 0;
+    }
+
+    public async Task<bool> UpdateImageAsync(UploadImageDto dto)
+    {
+        var admin = await _administratorRepository.GetByIdAsync(_identity.UserId);
+        if (admin is null) throw new AdminNotFoundException();
+
+        if (dto.Image is not null && admin.ImagePath != "")
+        {
+            var deleteResult = await _fileService.DeleteImageAsync(admin.ImagePath);
+            if (deleteResult is false) throw new ImageNotFoundException();
+        }
+
+        var fileResult = await _fileService.UploadImageAsync(dto.Image!, "administrators");
+        if (fileResult is not null) admin.ImagePath = fileResult;
+        admin.UpdatedAt = TimeHelper.GetDateTime();
+        var result = await _administratorRepository.UpdateAsync(admin.Id, admin);
+
+        return result > 0;
     }
 }

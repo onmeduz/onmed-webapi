@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
 
+
 builder.ConfigureWeb();
 builder.ConfigureServiceLayer();
 builder.ConfigureDataAccess();
