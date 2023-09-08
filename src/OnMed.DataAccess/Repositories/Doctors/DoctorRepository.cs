@@ -102,7 +102,7 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
             string query = "SELECT doctors.id, doctors.first_name, doctors.last_name, doctors.middle_name, " +
                 "doctors.birth_day, doctors.phone_number, doctors.degree, doctors.is_male, doctors.image_path, " +
                     "doctors.region, doctors.appointment_money, (SELECT AVG(doctor_appointment.stars) AS star_count " +
-                        "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id),	" +
+                        "FROM doctor_appointment WHERE doctor_appointment.doctor_id = doctors.id), " +
                             "hospital_schedule.weekday, hospital_schedule.start_time, hospital_schedule.end_time, " +
                                 "hospital_schedule.hospital_branch_id " +
                                     "FROM doctors " +
