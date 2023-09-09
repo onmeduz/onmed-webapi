@@ -17,9 +17,9 @@ public class AdminHospitalScheduleController : ControllerBase
         this._hospitalScheduleService = hospitalSchedule;
     }
 
-    [HttpPost]
+    /*[HttpPost]
     public async Task<IActionResult> HospitalScheduleCreateAsync([FromForm] HospitalScheduleCreateDto dto)
     {
         return Ok(await _hospitalScheduleService.CreateAsync(dto));
-    }
+    }*/
 }
