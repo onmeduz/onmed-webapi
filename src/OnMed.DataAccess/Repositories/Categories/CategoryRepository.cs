@@ -134,6 +134,11 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         }
     }
 
+    public Task<IList<Category>> SearchAsync(long branchId, string search)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<int> UpdateAsync(long id, Category entity)
     {
         try

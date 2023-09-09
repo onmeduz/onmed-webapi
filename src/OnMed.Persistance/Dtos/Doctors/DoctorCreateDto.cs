@@ -17,6 +17,9 @@ public class DoctorCreateDto
     public double AppointmentMoney { get; set; }
     public string Degree { get; set; } = string.Empty;
     public long HospitalBranchId { get; set; }
+    public IList<WeekDay> WeekDay { get; set; } = new List<WeekDay>();
+    public TimeOnly StartTime { get; set; }
+    public TimeOnly EndTime { get; set; }
     public List<long> CategoryIds { get; set; } = new List<long>();
 
 }
