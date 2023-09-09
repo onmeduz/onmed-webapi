@@ -18,4 +18,5 @@ public class DoctorCreateDto
     public string Degree { get; set; } = string.Empty;
     public long HospitalBranchId { get; set; }
     public List<long> CategoryIds { get; set; } = new List<long>();
+
 }
