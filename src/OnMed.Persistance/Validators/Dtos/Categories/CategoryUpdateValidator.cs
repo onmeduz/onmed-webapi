@@ -18,7 +18,7 @@ namespace OnMed.Persistance.Validators.Dtos.Categories
             When(dto => dto.Image is not null, () =>
             {
                 int maxImageSizeMB = 5;
-                RuleFor(dto => dto.Image!.Length).LessThan(maxImageSizeMB * 1024 * 1024+ 1).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
+                RuleFor(dto => dto.Image!.Length).LessThan(maxImageSizeMB * 1024 * 1024 + 1).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
                 RuleFor(dto => dto.Image!.FileName).Must(predicate =>
                 {
                     FileInfo fileInfo = new FileInfo(predicate);

@@ -4,8 +4,6 @@ using OnMed.DataAccess.ViewModels.Appoinments;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
 using Serilog;
-using System.Security.Principal;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OnMed.DataAccess.Repositories.Doctors;
 
@@ -31,7 +29,7 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
         }
     }
 
-    public async  Task<long> CountByHospitalIdAsync(long hospitalBranchId)
+    public async Task<long> CountByHospitalIdAsync(long hospitalBranchId)
     {
         try
         {
@@ -100,7 +98,7 @@ public class DoctorAppointmentRepository : BaseRepository, IDoctorAppointmentRep
     {
         try
         {
-            
+
             await _connection.OpenAsync();
             string query = $"select * FROM appointment_view " +
                 $"where admin_id = {adminId}";

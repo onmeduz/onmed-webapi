@@ -3,13 +3,11 @@ using OnMed.Application.Exceptions.Categories;
 using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
-using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Categories;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
-using System.Data.Common;
 
 namespace OnMed.Service.Services.Categories;
 

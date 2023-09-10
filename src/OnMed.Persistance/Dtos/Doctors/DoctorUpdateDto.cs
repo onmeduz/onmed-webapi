@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using OnMed.Domain.Entities;
 
 namespace OnMed.Persistance.Dtos.Doctors;
 

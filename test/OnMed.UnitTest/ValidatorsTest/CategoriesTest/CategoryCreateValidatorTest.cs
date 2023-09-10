@@ -9,11 +9,11 @@ namespace OnMed.UnitTest.ValidatorsTest.CategoriesTest;
 public class CategoryCreateValidatorTest
 {
     [Theory]
-    [InlineData("djfkdkdlkdd","sdjkfkdlodd","djdkdkdd","ajsjdjd")]
-    [InlineData("dkdkckdkskd","sdjkfkdlodd","djdkdkdd","ajsjdjd")]
-    [InlineData("djfkdkdlkdd","sdjkfkdlodd","slkdlfkdklfk","ajsjdjd")]
-    [InlineData("mdkdkdkdkldkdkd","sdjkfkdlodd","skkdksmc","ajsjdjd")]
-    [InlineData("smskskskss","s,xdskslsls","sjdjjdjsajs","ajsjdjd")]
+    [InlineData("djfkdkdlkdd", "sdjkfkdlodd", "djdkdkdd", "ajsjdjd")]
+    [InlineData("dkdkckdkskd", "sdjkfkdlodd", "djdkdkdd", "ajsjdjd")]
+    [InlineData("djfkdkdlkdd", "sdjkfkdlodd", "slkdlfkdklfk", "ajsjdjd")]
+    [InlineData("mdkdkdkdkldkdkd", "sdjkfkdlodd", "skkdksmc", "ajsjdjd")]
+    [InlineData("smskskskss", "s,xdskslsls", "sjdjjdjsajs", "ajsjdjd")]
 
 
     public void ValidCategoryCreateDto_ReturnsNoValidationErrors(

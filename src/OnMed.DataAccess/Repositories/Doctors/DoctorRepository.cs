@@ -273,7 +273,7 @@ public class DoctorRepository : BaseRepository, IDoctorRepository
         catch (Exception)
         {
 
-            return new List<DoctorViewModel>(); 
+            return new List<DoctorViewModel>();
         }
         finally
         {
