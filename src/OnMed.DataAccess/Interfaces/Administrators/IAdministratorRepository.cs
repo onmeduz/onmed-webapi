@@ -9,5 +9,5 @@ public interface IAdministratorRepository : IRepository<Administrator>,
     ISearchable<AdministratorViewModel> 
 {
     public Task<long> CreateAndReturnIdAsync(Administrator administrartor);
-    public Task<AdministratorViewModel> GetByIdViewModelAsync(long id);
+    public Task<AdministratorViewModel?> GetByIdViewModelAsync(long id);
 }
