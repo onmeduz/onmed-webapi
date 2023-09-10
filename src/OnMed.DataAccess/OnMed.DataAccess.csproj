@@ -10,12 +10,7 @@
     <ProjectReference Include="..\OnMed.Application\OnMed.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Administrators\" />
-    <Folder Include="Interfaces\Categories\" />
-    <Folder Include="Interfaces\Users\" />
-    <Folder Include="Interfaces\Heads\" />
-  </ItemGroup>
+  
 
   <ItemGroup>
     <PackageReference Include="Aspose.PDF" Version="23.8.0" />
