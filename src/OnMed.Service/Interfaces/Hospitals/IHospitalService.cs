@@ -11,5 +11,5 @@ public interface IHospitalService
     public Task<bool> UpdateAsync(long hospitalId, HospitalUpdateDto dto);
     public Task<bool> DeleteAsync(long hospitalId);
     public Task<long> CountAsync();
-    public Task<IList<Hospital>> SearchAsync(string  search);
+    public Task<IList<Hospital>> SearchAsync(string search);
 }

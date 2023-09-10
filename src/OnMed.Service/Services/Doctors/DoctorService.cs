@@ -1,5 +1,4 @@
-﻿using AutoMapper.Execution;
-using Onmed.Domain.Entities.Doctors;
+﻿using Onmed.Domain.Entities.Doctors;
 using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
@@ -8,13 +7,11 @@ using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
-using OnMed.Domain.Enums;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
 using OnMed.Service.Interfaces.Common;
 using OnMed.Service.Interfaces.Doctors;
-using System.Security.Cryptography;
 
 namespace OnMed.Service.Services.Doctors;
 
@@ -91,17 +88,19 @@ public class DoctorService : IDoctorService
             res = dbResult > 0;
             if (res)
             {
-                var hospitalSchedule = new HospitalSchedule();
-                hospitalSchedule.DoctorId = doctorId;
-                hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
-                for (int i = 0; i < dto.WeekDay.Count; i++)
+                // create doctor_schedule!
+
+                /*for (int i = 0; i < 7; i++)
                 {
-                    hospitalSchedule.Weekday[i] = dto.WeekDay[i].ToString();
+                    var hospitalSchedule = new HospitalSchedule();
+                    hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
+                    hospitalSchedule.DoctorId = doctorId;
+                    hospitalSchedule.Weekday = WeekDay.Yakshanba.ToString();
+                    hospitalSchedule.StartTime = null;
+                    hospitalSchedule.EndTime = null;
+                    var result = await _hospitalSchedule.CreateAsync(hospitalSchedule);
                 }
-                hospitalSchedule.StartTime = dto.StartTime;
-                hospitalSchedule.EndTime = dto.EndTime;
-                hospitalSchedule.CreatedAt = hospitalSchedule.UpdatedAt = TimeHelper.GetDateTime();
-                res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
+*/
                 if (res)
                 {
                     int count = 0;
@@ -127,7 +126,7 @@ public class DoctorService : IDoctorService
 
     public async Task<bool> DeleteAsync(long doctorId)
     {
-        return await _doctorRepository.DeleteAsync(doctorId) >0;
+        return await _doctorRepository.DeleteAsync(doctorId) > 0;
     }
 
     public async Task<IList<DoctorViewModel>> GetAllAsync(PaginationParams @params)

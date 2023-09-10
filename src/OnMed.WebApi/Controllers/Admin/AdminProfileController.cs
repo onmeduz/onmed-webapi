@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Persistance.Dtos.Users;
-using OnMed.Persistance.Validators.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Users;
 using OnMed.Service.Interfaces.Administrators;
-using OnMed.Service.Services.Administrators;
 
 namespace OnMed.WebApi.Controllers.Admin;
 

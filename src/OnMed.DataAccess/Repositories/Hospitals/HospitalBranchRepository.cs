@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.DataAccess.ViewModels.Hospitals;
 using OnMed.Domain.Entities.Hospitals;
 using Serilog;

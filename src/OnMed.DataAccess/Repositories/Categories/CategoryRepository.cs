@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
-using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 
 namespace OnMed.DataAccess.Repositories.Categories;
@@ -132,11 +131,6 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         {
             await _connection.CloseAsync();
         }
-    }
-
-    public Task<IList<Category>> SearchAsync(long branchId, string search)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<int> UpdateAsync(long id, Category entity)

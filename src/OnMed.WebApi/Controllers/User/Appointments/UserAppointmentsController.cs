@@ -25,5 +25,5 @@ public class UserAppointmentsController : UserBaseController
         else return BadRequest(result.Errors);
     }
 
-    
+
 }

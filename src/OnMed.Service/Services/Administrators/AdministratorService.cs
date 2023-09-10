@@ -3,11 +3,9 @@ using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Exceptions.Hospitals;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
-using OnMed.DataAccess.Interfaces;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Administrators;
-using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Administrators;
 using OnMed.Domain.Entities.Hospitals;
 using OnMed.Persistance.Common.Helpers;
@@ -17,7 +15,6 @@ using OnMed.Service.Common.Security;
 using OnMed.Service.Interfaces.Administrators;
 using OnMed.Service.Interfaces.Auth;
 using OnMed.Service.Interfaces.Common;
-using System.Runtime.CompilerServices;
 
 namespace OnMed.Service.Services.Administrators;
 

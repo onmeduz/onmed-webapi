@@ -14,5 +14,5 @@ public interface IAdministratorsService
     public Task<bool> UpdateImageAsync(UploadImageDto dto);
     public Task<bool> DeleteAsync(long adminId);
     public Task<long> CountAsync();
-    public Task<IList<AdministratorViewModel>> SearchAsync(string search);  
+    public Task<IList<AdministratorViewModel>> SearchAsync(string search);
 }
