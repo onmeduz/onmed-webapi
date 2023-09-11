@@ -84,7 +84,6 @@ public class UserAppointmentService : IUserAppointmentService
             else if (appointmentFreeTime == -1) throw new InternalServerErrorException();
             else return false;
 
-
         }
         else if (hospitalSchedule == 0) throw new NotWorkingTimeException();
         else if (hospitalSchedule == -1) throw new InternalServerErrorException();
