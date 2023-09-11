@@ -12,5 +12,5 @@ public interface ICategoryService
     public Task<bool> DeleteAsync(long categoryId);
     public Task<long> CountAsync();
     public Task<IList<Category>> SearchAsync(string search);
-
+    public Task<Category?> GetByIdAsync(long id);
 }
