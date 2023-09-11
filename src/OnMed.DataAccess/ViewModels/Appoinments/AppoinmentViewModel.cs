@@ -1,4 +1,4 @@
-﻿using Onmed.Domain.Enums;
+﻿using OnMed.Domain.Enums;
 
 namespace OnMed.DataAccess.ViewModels.Appoinments;
 
