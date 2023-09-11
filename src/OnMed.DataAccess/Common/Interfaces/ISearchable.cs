@@ -1,5 +1,4 @@
-﻿
-namespace OnMed.DataAccess.Common.Interfaces;
+﻿namespace OnMed.DataAccess.Common.Interfaces;
 
 public interface ISearchable<TViewModel>
 {

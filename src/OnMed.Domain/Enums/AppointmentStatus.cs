@@ -1,4 +1,4 @@
-﻿namespace Onmed.Domain.Enums;
+﻿namespace OnMed.Domain.Enums;
 
 public enum AppointmentStatus
 {

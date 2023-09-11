@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8BCB36C9-5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.UnitTest", "test\OnMed.UnitTest\OnMed.UnitTest.csproj", "{F59DCF57-445F-4DC9-86E1-C9F501771485}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onmed.Domain", "src\OnMed.Domain\Onmed.Domain.csproj", "{42246903-C239-4793-94E4-41306BF25E74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMed.Domain", "src\OnMed.Domain\OnMed.Domain.csproj", "{42246903-C239-4793-94E4-41306BF25E74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

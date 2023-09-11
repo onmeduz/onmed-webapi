@@ -5,6 +5,7 @@ using OnMed.Service.Interfaces.Common;
 
 namespace OnMed.Service.Services.Common;
 
+#pragma warning disable
 public class FileService : IFileService
 {
     private readonly string MEDIA = "media";

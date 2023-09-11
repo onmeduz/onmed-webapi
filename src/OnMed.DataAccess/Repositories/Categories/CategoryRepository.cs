@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
-using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 
 namespace OnMed.DataAccess.Repositories.Categories;

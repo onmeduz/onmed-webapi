@@ -1,10 +1,8 @@
-﻿using Onmed.Domain.Enums;
-using OnMed.Application.Exceptions;
+﻿using OnMed.Application.Exceptions;
 using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Doctors;
 using OnMed.DataAccess.Interfaces.Hospitals;
-using OnMed.DataAccess.Repositories.Doctors;
 using OnMed.DataAccess.ViewModels.Appoinments;
 using OnMed.DataAccess.ViewModels.Users;
 using OnMed.Domain.Entities.Doctors;
@@ -52,7 +50,8 @@ public class UserAppointmentService : IUserAppointmentService
         DateOnly registerDate = new DateOnly(date.Year, date.Month, date.Day);
 
         WeekDay dayOfWeek = (WeekDay)((int)registerDate.DayOfWeek);
-        string dayOfWeekString = Enum.GetName(typeof(WeekDay), dayOfWeek);
+        var enumResult = Enum.GetName(typeof(WeekDay), dayOfWeek);
+        string dayOfWeekString = enumResult is null ? "": enumResult;
 
         var dateTime = DateTime.Parse(dto.StartTime);
         var startTime = TimeOnly.FromDateTime(dateTime);
@@ -126,7 +125,6 @@ public class UserAppointmentService : IUserAppointmentService
 
     public async Task<IList<UserAppointmentViewModel>> GetByDateAndDoctorIdAsync(long doctorId, DateOnly date)
     {
-        if (date == null) date = DateOnly.FromDateTime(DateTime.Now);
         var result = await _doctorAppointmentRepository.GetByDateAndDoctorIdAsync(doctorId, date);
 
         return result;

@@ -10,7 +10,6 @@ namespace OnMed.WebApi.Controllers.Admin.AdminDoctors;
 public class AdminDoctorsController : AdminBaseController
 {
     private readonly IDoctorService _service;
-    private readonly int maxPageSize = 20;
 
     public AdminDoctorsController(IDoctorService doctorService)
     {
