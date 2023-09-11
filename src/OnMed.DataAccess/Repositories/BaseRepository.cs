@@ -15,4 +15,3 @@ public class BaseRepository
         this._connection = new NpgsqlConnection("Host=localhost; Port=5432; Database=on-med-db; User Id=postgres; Password=root;");
     }
 }
-    

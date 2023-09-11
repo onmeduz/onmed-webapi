@@ -9,11 +9,11 @@ namespace OnMed.UnitTest.ValidatorsTest.UsersTest;
 public class UploadImageValidatorTest
 {
     [Theory]
-    [InlineData(2.5,"file.jpg")]
-    [InlineData(1.5,"file.png")]
-    [InlineData(4.5,"file.svg")]
-    [InlineData(3.5,"file.jpeg")]
-    [InlineData(5,"file.bmp")]
+    [InlineData(2.5, "file.jpg")]
+    [InlineData(1.5, "file.png")]
+    [InlineData(4.5, "file.svg")]
+    [InlineData(3.5, "file.jpeg")]
+    [InlineData(5, "file.bmp")]
 
 
     public void ValidUploadImageDto_ReturnsValidationErrors(float MaxImageSizeMB, string fileName)

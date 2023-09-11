@@ -2,7 +2,6 @@
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Administrators;
 using OnMed.DataAccess.ViewModels.Administrators;
-using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Administrators;
 using static Dapper.SqlMapper;
 

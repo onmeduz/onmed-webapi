@@ -3,4 +3,5 @@
 public interface ISearchable<TViewModel>
 {
     public Task<IList<TViewModel>> SearchAsync(string search);
+
 }

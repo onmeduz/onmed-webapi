@@ -7,9 +7,9 @@ namespace OnMed.UnitTest.ValidatorsTest.UsersTest;
 public class UserUpdateValidatorTest
 {
     [Theory]
-    [InlineData("Ahadulla", "Rahmonov","Sherqobol o'g'li","15/03/2001", true, "Surxondaryo")]
+    [InlineData("Ahadulla", "Rahmonov", "Sherqobol o'g'li", "15/03/2001", true, "Surxondaryo")]
     [InlineData("Aziz", "Rahimov", "Karimovich", "28/03/2000", true, "Denov")]
-    [InlineData("Bobur", "Qodirov", "alievich", "15/03/2001", true,"Namangan")]
+    [InlineData("Bobur", "Qodirov", "alievich", "15/03/2001", true, "Namangan")]
     [InlineData("Muhammadali", "Karimov", "Nishonovich", "/15/04/4545", true, "Andijon")]
     [InlineData("Akmal", "Sobirov", "Abdullaevich", "14/04/4004", true, "Xorazm")]
     [InlineData("Qahramon", "Anvarov", "Aziz o'g'li", "/03/03/2001", true, "Qo'qon")]

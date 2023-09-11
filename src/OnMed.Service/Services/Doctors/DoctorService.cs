@@ -1,5 +1,4 @@
-﻿using AutoMapper.Execution;
-using Onmed.Domain.Entities.Doctors;
+﻿using Onmed.Domain.Entities.Doctors;
 using OnMed.Application.Exceptions.Doctors;
 using OnMed.Application.Exceptions.Users;
 using OnMed.Application.Utils;
@@ -8,7 +7,6 @@ using OnMed.DataAccess.Interfaces.Hospitals;
 using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Doctors;
 using OnMed.Domain.Entities.Hospitals;
-using OnMed.Domain.Enums;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Doctors;
 using OnMed.Service.Common.Security;
@@ -128,7 +126,7 @@ public class DoctorService : IDoctorService
 
     public async Task<bool> DeleteAsync(long doctorId)
     {
-        return await _doctorRepository.DeleteAsync(doctorId) >0;
+        return await _doctorRepository.DeleteAsync(doctorId) > 0;
     }
 
     public async Task<IList<DoctorViewModel>> GetAllAsync(PaginationParams @params)
@@ -211,7 +209,7 @@ public class DoctorService : IDoctorService
 
     public async Task<IList<DoctorViewModel>> SearchAsync(long branchId, string search)
     {
-        var searches = await _doctorRepository.SearchAsync(branchId ,search);
+        var searches = await _doctorRepository.SearchAsync(branchId, search);
         return searches;
     }
 }

@@ -79,11 +79,10 @@ public class UserAppointmentService : IUserAppointmentService
                 dAppointment.CreatedAt = dAppointment.UpdatedAt = TimeHelper.GetDateTime();
                 var result = await _doctorAppointmentRepository.CreateAsync(dAppointment);
                 return result > 0;
-            }   
+            }
             else if (appointmentFreeTime > 0) throw new DoctorAlreadyAppoinmentException();
             else if (appointmentFreeTime == -1) throw new InternalServerErrorException();
             else return false;
-
 
         }
         else if (hospitalSchedule == 0) throw new NotWorkingTimeException();
@@ -100,22 +99,22 @@ public class UserAppointmentService : IUserAppointmentService
     public async Task<IList<AppointmentViewModel>> GetAllByMomentAsync(int moment)
     {
         long adminId = _identityService.UserId;
-        if(moment == 1)
+        if (moment == 1)
         {
             var result = await _doctorAppointmentRepository.GetAllAppointmentAsync(adminId);
             return result;
         }
-        else if(moment == 2)
+        else if (moment == 2)
         {
             var result = await _doctorAppointmentRepository.GetAllByDayAsync(adminId);
             return result;
         }
-        else if(moment == 3)
+        else if (moment == 3)
         {
             var result = await _doctorAppointmentRepository.GetAllByWeekAsync(adminId);
-            return result;  
+            return result;
         }
-        else if(moment == 4)
+        else if (moment == 4)
         {
             var result = await _doctorAppointmentRepository.GetAllByMonthAsync(adminId);
             return result;
@@ -132,7 +131,7 @@ public class UserAppointmentService : IUserAppointmentService
 
     public async Task<IList<AppointmentViewModel>> SearchAsync(long branchId, string search)
     {
-        var searches = await _doctorAppointmentRepository.SearchAsync(branchId ,search);
+        var searches = await _doctorAppointmentRepository.SearchAsync(branchId, search);
         return searches;
     }
 }
