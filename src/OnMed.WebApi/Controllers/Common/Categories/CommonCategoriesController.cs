@@ -20,10 +20,11 @@ namespace OnMed.WebApi.Controllers.Common.Categories
         => Ok(await _categoryService.GetAllAsync(new PaginationParams(page, PerPage)));
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id) => Ok(id);
+        public async Task<IActionResult> GetByIdAsync(long id)
+            => Ok(await _categoryService.GetByIdAsync(id));
 
         [HttpGet("search")]
         public async Task<IActionResult> SearchAsync([FromQuery] string search)
-        => Ok(await _categoryService.SearchAsync(search));
+            => Ok(await _categoryService.SearchAsync(search));
     }
 }

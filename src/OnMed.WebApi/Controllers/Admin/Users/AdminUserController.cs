@@ -14,7 +14,7 @@ public class AdminUserController : AdminBaseController
         this._userAppointmentService = userAppointmentService;
     }
 
-    [HttpGet("patient/{hospitalBranchId}")]
+    [HttpGet("patient/count/{hospitalBranchId}")]
     public async Task<IActionResult> CountByHospitalIdAsync(long hospitalBranchId)
     => Ok(await _userAppointmentService.CountByHospitalIdAsync(hospitalBranchId));
 }

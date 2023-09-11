@@ -3,13 +3,11 @@ using OnMed.Application.Exceptions.Categories;
 using OnMed.Application.Exceptions.Files;
 using OnMed.Application.Utils;
 using OnMed.DataAccess.Interfaces.Categories;
-using OnMed.DataAccess.ViewModels.Doctors;
 using OnMed.Domain.Entities.Categories;
 using OnMed.Persistance.Common.Helpers;
 using OnMed.Persistance.Dtos.Categories;
 using OnMed.Service.Interfaces.Categories;
 using OnMed.Service.Interfaces.Common;
-using System.Data.Common;
 
 namespace OnMed.Service.Services.Categories;
 
@@ -70,6 +68,14 @@ public class CategoryService : ICategoryService
         return categories;
     }
 
+    public async Task<Category?> GetByIdAsync(long id)
+    {
+        var category =  await _categoryRepository.GetByIdAsync(id);
+        if(category is null) throw new CategoryNotFoundException();
+
+        return category;
+    }
+
     public async Task<IList<Category>> SearchAsync(string search)
     {
         var searches = await _categoryRepository.SearchAsync(search);
@@ -81,9 +87,10 @@ public class CategoryService : ICategoryService
         var category = await _categoryRepository.GetByIdAsync(categoryId);
         if (category is null) throw new CategoryNotFoundException();
 
-        // bu joyda ham mapper yozsa bo'ladi faqat bir qatorgina code tejalishini hisobga olib yozmadim!
         category.Professionality = dto.Professionality;
         category.Professional = dto.Professional;
+        category.ProfessionalityHint = dto.ProfessionalityHint;
+        category.ProfessionalHint = dto.ProfessionalHint;
 
         if (dto.Image is not null)
         {
