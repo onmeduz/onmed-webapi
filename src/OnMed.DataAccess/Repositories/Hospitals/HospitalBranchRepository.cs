@@ -150,6 +150,28 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
         }
     }
 
+    public async Task<IList<HospitalBranchViewModel>> GetByHospitalIdAsync(long hospitalId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"select * from hospital_branches where hospital_id = {hospitalId}";
+            var result = (await _connection.QueryAsync<HospitalBranchViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+
+            return new List<HospitalBranchViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<HospitalBranch?> GetByIdAsync(long id)
     {
         try
