@@ -111,6 +111,7 @@ public class HospitalBranchService : IHospitalBranchService
         return result;
     }
 
+
     public async Task<IList<HospitalBranchViewModel>> SearchAsync(string search)
     {
         var searches = await _hospitalBranchRepository.SearchAsync(search);
