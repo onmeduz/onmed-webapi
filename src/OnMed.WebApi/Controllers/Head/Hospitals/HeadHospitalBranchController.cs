@@ -47,4 +47,11 @@ public class HeadHospitalBranchController : HeadBaseController
     [HttpGet("{search}")]
     public async Task<IActionResult> SearchAsync(string search)
         => Ok(await _hospitalBranchService.SearchAsync(search));
+
+    [HttpGet("hospital-branch")]
+    public async Task<IActionResult> GetByHospitalIdAsync(long hospitalId)
+    {
+        return Ok(await _hospitalBranchService.GetByHospitalIdAsync(hospitalId));
+    }
 }
+  

@@ -13,4 +13,5 @@ public interface IHospitalBranchService
     public Task<bool> DeleteAsync(long hospitalBranchId);
     public Task<long> CountAsync();
     public Task<IList<HospitalBranchViewModel>> SearchAsync(string search);
+    public Task<IList<HospitalBranchViewModel>> GetByHospitalIdAsync(long hospitalId);
 }
