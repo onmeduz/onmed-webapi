@@ -155,7 +155,7 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
         try
         {
             await _connection.OpenAsync();
-            string query = $"select * from hospital_branches where hospital_id = {hospitalId}";
+            string query = $"select * from hospitals_branch_view where hospital_id = {hospitalId}";
             var result = (await _connection.QueryAsync<HospitalBranchViewModel>(query)).ToList();
 
             return result;

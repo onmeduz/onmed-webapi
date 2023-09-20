@@ -51,7 +51,7 @@ public class UserAppointmentService : IUserAppointmentService
 
         WeekDay dayOfWeek = (WeekDay)((int)registerDate.DayOfWeek);
         var enumResult = Enum.GetName(typeof(WeekDay), dayOfWeek);
-        string dayOfWeekString = enumResult is null ? "": enumResult;
+        string dayOfWeekString = enumResult is null ? "" : enumResult;
 
         var dateTime = DateTime.Parse(dto.StartTime);
         var startTime = TimeOnly.FromDateTime(dateTime);
