@@ -54,4 +54,3 @@ public class HeadHospitalBranchController : HeadBaseController
         return Ok(await _hospitalBranchService.GetByHospitalIdAsync(hospitalId));
     }
 }
-  

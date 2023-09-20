@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnMed.Persistance.Dtos.Administrators;
 using OnMed.Persistance.Dtos.Users;
+using OnMed.Persistance.Validators.Dtos.Administrators;
 using OnMed.Persistance.Validators.Dtos.Users;
 using OnMed.Service.Interfaces.Administrators;
 
@@ -28,5 +30,15 @@ public class AdminProfileController : AdminBaseController
         if (valResult.IsValid == false) return BadRequest(valResult.Errors);
 
         return Ok(await _adminService.UpdateImageAsync(file));
+    }
+
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateAsync(long adminId, [FromForm] AdministratorUpdateDto dto)
+    {
+        var updateValidator = new AdministratorUpdateValidator();
+        var validationResult = updateValidator.Validate(dto);
+        if (validationResult.IsValid) return Ok(await _adminService.UpdateAsync(adminId, dto));
+        else return BadRequest(validationResult.Errors);
     }
 }
