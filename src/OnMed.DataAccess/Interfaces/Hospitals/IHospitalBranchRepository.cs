@@ -10,4 +10,5 @@ public interface IHospitalBranchRepository : IRepository<HospitalBranch>,
 {
     public Task<IList<HospitalBranchForCommonViewModel>> GetAllForCommonAsync(PaginationParams @params);
     public Task<long> CreateAndReturnIdAsync(HospitalBranch hospitalBranch);
+    public Task<IList<HospitalBranchViewModel>> GetByHospitalIdAsync(long hospitalId);
 }

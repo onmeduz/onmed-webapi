@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnMed.Persistance.Dtos.Hospitals;
 using OnMed.Service.Interfaces.Hospitals;
 
 namespace OnMed.WebApi.Controllers.Admin.AdminHospitals;

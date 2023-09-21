@@ -70,8 +70,8 @@ public class CategoryService : ICategoryService
 
     public async Task<Category?> GetByIdAsync(long id)
     {
-        var category =  await _categoryRepository.GetByIdAsync(id);
-        if(category is null) throw new CategoryNotFoundException();
+        var category = await _categoryRepository.GetByIdAsync(id);
+        if (category is null) throw new CategoryNotFoundException();
 
         return category;
     }
