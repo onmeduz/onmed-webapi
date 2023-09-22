@@ -90,17 +90,18 @@ public class DoctorService : IDoctorService
             {
                 // create doctor_schedule!
 
-                /*for (int i = 0; i < 7; i++)
+                var hospitalSchedule = new HospitalSchedule();
+                hospitalSchedule.DoctorId = doctorId;
+                hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
+                for (int i = 0; i < dto.WeekDay.Count; i++)
                 {
-                    var hospitalSchedule = new HospitalSchedule();
-                    hospitalSchedule.HospitalBranchId = dto.HospitalBranchId;
-                    hospitalSchedule.DoctorId = doctorId;
-                    hospitalSchedule.Weekday = WeekDay.Yakshanba.ToString();
-                    hospitalSchedule.StartTime = null;
-                    hospitalSchedule.EndTime = null;
-                    var result = await _hospitalSchedule.CreateAsync(hospitalSchedule);
+                    hospitalSchedule.Weekday[i] = dto.WeekDay[i].ToString();
                 }
-*/
+                hospitalSchedule.StartTime = dto.StartTime;
+                hospitalSchedule.EndTime = dto.EndTime;
+                hospitalSchedule.CreatedAt = hospitalSchedule.UpdatedAt = TimeHelper.GetDateTime();
+                res = await _hospitalSchedule.CreateAsync(hospitalSchedule) > 0;
+
                 if (res)
                 {
                     int count = 0;
