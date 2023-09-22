@@ -14,4 +14,5 @@ public interface IHospitalBranchService
     public Task<long> CountAsync();
     public Task<IList<HospitalBranchViewModel>> SearchAsync(string search);
     public Task<IList<HospitalBranchViewModel>> GetByHospitalIdAsync(long hospitalId);
+    public Task<IList<HospitalBranchLastWeekInfo>> GetLastWeekAppointmentCount(long id);
 }
