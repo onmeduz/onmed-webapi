@@ -36,16 +36,16 @@ public class RegidterValidatorTest
     }
 
     [Theory]
-    [InlineData("Ahadulla", "Rahmonov", "+998335103545545", "AAaa@@11")]
-    [InlineData("Aziz", "Rahimov", "+99833510347474546", "@@#@$%$^")]
-    [InlineData("", "Qodirov", "+998335107545", "1111111")]
-    [InlineData("Muhammadali", "", "+998338103545", "AAAAAAAAA")]
+    [InlineData("Ahadulla", "Rahmonov", "+998335103545545", "AA11")]
+    [InlineData("Aziz", "Rahimov", "+99833510347474546", "@@#%$^")]
+    [InlineData("", "Qodirov", "+998335107545", "1111")]
+    [InlineData("Muhammadali", "", "+998338103545", "AAAAA")]
     [InlineData("Akmal", "Sobirov", "+998335103544", "      ")]
     [InlineData("Qahramon", "Anvarov", "-998335108545", "AA")]
     [InlineData("I", "Adhamov", "+9978335106545", "AAAA11")]
-    [InlineData("Nozim", "a", "+998335103543", "hhaa@@11")]
-    [InlineData("Ali", "Abdullaev", "+99845335103547", "AAaa@@ii")]
-    [InlineData("Jahongir", "Qubonaliyev", "+998905103545", "AAaaaa11")]
+    [InlineData("Nozim", "a", "+998335103543", "hha@11")]
+    [InlineData("Ali", "Abdullaev", "+99845335103547", "AAa@ii")]
+    [InlineData("Jahongir", "Qubonaliyev", "+998905103545", "AA1")]
 
     public void InvalidRegisterDto_ReturnsValidationErrors(
         string firstName, string lastName, string phoneNumber, string password)

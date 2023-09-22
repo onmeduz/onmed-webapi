@@ -3,7 +3,7 @@ using OnMed.Service.Interfaces.Users;
 
 namespace OnMed.WebApi.Controllers.Admin.Users;
 
-[Route("api/admin/user")]
+[Route("api/admin/users")]
 [ApiController]
 public class AdminUserAppointmentController : ControllerBase
 {
@@ -14,7 +14,7 @@ public class AdminUserAppointmentController : ControllerBase
         this._userAppointmentService = userAppointmentService;
     }
 
-    [HttpGet("patient")]
+    [HttpGet("patients")]
     public async Task<IActionResult> GetAllByMomentAsync(int moment)
         => Ok(await _userAppointmentService.GetAllByMomentAsync(moment));
 
