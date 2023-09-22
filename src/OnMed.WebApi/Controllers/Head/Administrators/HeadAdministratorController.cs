@@ -6,7 +6,7 @@ using OnMed.Service.Interfaces.Administrators;
 
 namespace OnMed.WebApi.Controllers.Head.Administrators;
 
-[Route("api/head/administrator")]
+[Route("api/head/administrators")]
 [ApiController]
 public class HeadAdministratorController : HeadBaseController
 {

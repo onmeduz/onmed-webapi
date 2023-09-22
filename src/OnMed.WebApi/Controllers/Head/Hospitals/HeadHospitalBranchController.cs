@@ -6,7 +6,7 @@ using OnMed.Service.Interfaces.Hospitals;
 
 namespace OnMed.WebApi.Controllers.Head.Hospitals;
 
-[Route("api/head/hospital-branch")]
+[Route("api/head/hospital-branches")]
 [ApiController]
 public class HeadHospitalBranchController : HeadBaseController
 {
@@ -48,7 +48,7 @@ public class HeadHospitalBranchController : HeadBaseController
     public async Task<IActionResult> SearchAsync(string search)
         => Ok(await _hospitalBranchService.SearchAsync(search));
 
-    [HttpGet("hospital-branch")]
+    [HttpGet("{hospitalId}")]
     public async Task<IActionResult> GetByHospitalIdAsync(long hospitalId)
     {
         return Ok(await _hospitalBranchService.GetByHospitalIdAsync(hospitalId));

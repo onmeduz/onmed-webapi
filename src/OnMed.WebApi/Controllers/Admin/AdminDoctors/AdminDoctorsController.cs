@@ -5,7 +5,7 @@ using OnMed.Service.Interfaces.Doctors;
 
 namespace OnMed.WebApi.Controllers.Admin.AdminDoctors;
 
-[Route("api/admin/doctor")]
+[Route("api/admin/doctors")]
 [ApiController]
 public class AdminDoctorsController : AdminBaseController
 {

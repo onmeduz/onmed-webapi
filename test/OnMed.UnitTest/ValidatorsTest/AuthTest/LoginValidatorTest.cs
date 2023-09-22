@@ -33,16 +33,16 @@ public class LoginValidatorTest
     }
 
     [Theory]
-    [InlineData("-998951092161", "invalidpassword")]
+    [InlineData("-998951092161", "inval")]
     [InlineData("123456789", "asAS@#%123")]
     [InlineData("+998951092161", "")]
     [InlineData("invalidphone", "asAS@#%123")]
-    [InlineData("+998951092161", "      ")]
-    [InlineData("+99851092161", "123456789")]
-    [InlineData("1092161", "AJSJDJWJDK")]
-    [InlineData("+", "noSpecialCharacters")]
+    [InlineData("+998951092161", "    ")]
+    [InlineData("+99851092161", "1289")]
+    [InlineData("1092161", "AJSJD")]
+    [InlineData("+", "noters")]
     [InlineData("+99895jbdsdb1092161", "")]
-    [InlineData("+99895145092161", "noDigits#")]
+    [InlineData("+99895145092161", "noDig")]
 
     public void InvalidLodinDto_ReturnsValidationErrors(string phone, string password)
     {

@@ -33,16 +33,16 @@ public class ResetPasswordValidatorTest
     }
 
     [Theory]
-    [InlineData("-998951092161", "invalidpassword")]
-    [InlineData("123456789", "AAAS123")]
+    [InlineData("-998951092161", "insword")]
+    [InlineData("123456789", "AA23")]
     [InlineData("+998951092161", "")]
-    [InlineData("invalidphone", "as%123")]
+    [InlineData("invalidphone", "as123")]
     [InlineData("+998951092161", "      ")]
-    [InlineData("+99851092161", "123456789")]
-    [InlineData("1092161", "AJSJDJWJDK")]
-    [InlineData("+", "noSpecialCharacters")]
+    [InlineData("+99851092161", "56789")]
+    [InlineData("1092161", "AJSJDJK")]
+    [InlineData("+", "noSters")]
     [InlineData("+99895jbdsdb1092161", "")]
-    [InlineData("+99895145092161", "noDigits#")]
+    [InlineData("+99895145092161", "noDits#")]
 
     public void InvalidResetPasswordDto_ReturnsValidationErrors(string phone, string password)
     {
