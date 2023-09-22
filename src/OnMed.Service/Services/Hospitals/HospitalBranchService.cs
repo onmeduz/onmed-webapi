@@ -144,4 +144,7 @@ public class HospitalBranchService : IHospitalBranchService
 
         return dbResult > 0;
     }
+
+    public async Task<IList<HospitalBranchLastWeekInfo>> GetLastWeekAppointmentCount(long id)
+        => await _hospitalBranchRepository.GetHospitalAppointmentCountLastDays(id);
 }

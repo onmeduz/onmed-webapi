@@ -242,4 +242,30 @@ public class HospitalBranchRepository : BaseRepository, IHospitalBranchRepositor
             await _connection.CloseAsync();
         }
     }
+
+    public async Task<IList<HospitalBranchLastWeekInfo>> GetHospitalAppointmentCountLastDays(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT dates.date as day, COALESCE(daily_count, 0) AS count FROM " +
+                "(SELECT current_date - generate_series(0, 6) AS date ) AS dates LEFT JOIN " +
+                    "( SELECT created_at::date AS date, COUNT(*) AS daily_count FROM public.doctor_appointment" +
+                        $" WHERE created_at >= current_date - interval '7 days' and hospital_branch_id={id} " +
+                            $"GROUP BY created_at::date ) AS counts ON dates.date = counts.date ORDER BY dates.date;";
+            
+            var result = (await _connection.QueryAsync<HospitalBranchLastWeekInfo>(query)).ToList();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, ex.Message);
+
+            return new List<HospitalBranchLastWeekInfo>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
 }
