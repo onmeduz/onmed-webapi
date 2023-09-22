@@ -6,7 +6,7 @@ using OnMed.Service.Interfaces.Hospitals;
 
 namespace OnMed.WebApi.Controllers.Head.Hospitals;
 
-[Route("api/head/hospital-branches")]
+[Route("api/head/hospital/branches")]
 [ApiController]
 public class HeadHospitalBranchController : HeadBaseController
 {
