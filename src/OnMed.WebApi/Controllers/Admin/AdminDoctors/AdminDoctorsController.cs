@@ -41,7 +41,7 @@ public class AdminDoctorsController : AdminBaseController
     }
 
     [HttpGet("search")]
-    public async Task<IActionResult> SearchAsync(long branchId, [FromQuery] string search)
+    public async Task<IActionResult> SearchAsync(long branchId, string search)
         => Ok(await _service.SearchAsync(branchId, search));
 
 }
