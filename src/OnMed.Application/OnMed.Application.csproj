@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\Appointments\" />
+    <Folder Include="MainLogics\" />
   </ItemGroup>
 
 </Project>
