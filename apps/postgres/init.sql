@@ -193,3 +193,15 @@ CREATE TABLE doctor_appointment
 	created_at timestamp without time zone NOT NULL,
 	updated_at timestamp without time zone NOT NULL
 );
+
+INSERT INTO public.heads(
+	 first_name, last_name, middle_name,
+	birth_day, phone_number, phone_number_confirmed,
+	is_male, image_path, region,
+	password_hash, salt,
+	created_at, updated_at)
+	VALUES ('Muhammadali', 'Rustamkulov', 'Xayrulloyevich',
+			'09-11-1996', '+998943689609', 'true',
+			'true', '', 'Angren',
+			'$2a$11$uYKMWu8skaoS22uRv8Qbb.YPLuc/J/Rc.7SwqjuDtaN.KI3tMtJUq', 'bcfd983d-135b-40cc-82b3-15a0329bea1d',
+			now(), now());
